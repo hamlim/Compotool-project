@@ -1,0 +1,24 @@
+{
+  "name": "Compotool Project",
+  "authors": [
+    "hamlim <hamlim@rpi.edu>"
+  ],
+  "description": "A Compotool Calculator Website",
+  "main": "index.html",
+  "moduleType": [
+    "es6"
+  ],
+  "keywords": [
+    "website"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

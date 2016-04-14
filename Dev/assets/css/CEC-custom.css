@@ -1,0 +1,26 @@
+/*
+    Table of Contents:
+
+    `blah (#location) - description`
+
+    Colors (#colors) - CSS class definitions of colors
+
+
+*/
+
+/*
+    Colors #colors
+*/
+
+.bg--black {
+    background-color: #000000;
+}
+/*
+    Compotool specific colors
+*/
+.bg--orange {
+    background-color: #FC6719;
+}
+.bg--blue {
+    background-color: #60D0E4;
+}
