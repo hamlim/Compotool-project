@@ -18,6 +18,13 @@
 .bg--white {
     background-color: #ffffff;
 }
+.color--black {
+    color: black;
+}
+.color--white {
+    color: white;
+}
+
 /*
     Compotool specific colors
 */
@@ -26,4 +33,12 @@
 }
 .bg--blue {
     background-color: #60D0E4;
+}
+
+
+/*
+    Unique classes
+*/
+.blue-drop-shadow {
+    
 }
