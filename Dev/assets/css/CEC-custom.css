@@ -40,5 +40,7 @@
     Unique classes
 */
 .blue-drop-shadow {
-    
+    -moz-box-shadow:    0px 3px 5px 6px #60D0E4;
+    -webkit-box-shadow: 0px 3px 5px 6px #60D0E4;
+    box-shadow:         0px 3px 5px 6px #60D0E4;
 }
