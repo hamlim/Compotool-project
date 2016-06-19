@@ -15,11 +15,17 @@ module.exports = function(grunt) {
         sass: {
             dist: {
                 options: {
-                    style: 'compressed' //expanded for dev
+                    style: 'expanded' //expanded for dev
                 },
                 files: {
                     'assets/css/prod/main.css': 'assets/css/src/main.scss'
                 }
+            }
+        },
+        watch: {
+            src: {
+                files: ['assets/js/src/*.js', 'assets/css/src/*.scss'],
+                tasks: ['default'],
             }
         }
     });
@@ -27,6 +33,7 @@ module.exports = function(grunt) {
     // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
     grunt.registerTask('default', ['uglify', 'sass']);

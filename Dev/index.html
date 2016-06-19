@@ -10,7 +10,7 @@
 
         <!-- Bootstrap -->
         <link href="./bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="./assets/css/CEC-custom.css" rel="stylesheet">
+        <link href="./assets/css/prod/main.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,20 +20,88 @@
         <![endif]-->
     </head>
 
-    <body>
+    <body class="page">
         <header class="header color--white">
-            <nav class="header--nav-top">
-
+            <nav class="nav--bar-top">
+                <ul class="nav--ul">
+                    <li>
+                        <a href="" class="nav--link font--slab">Home</a>
+                    </li>
+                    <li>
+                        <a href="" class="nav--link font--slab">About</a>
+                    </li>
+                    <li>
+                        <a href="" class="nav--link font--slab">Media</a>
+                    </li>
+                    <li>
+                        <a href="" class="nav--link font--slab">Datasheets</a>
+                    </li>
+                    <li>
+                        <a href="" class="nav--link font--slab">Test Reports</a>
+                    </li>
+                    <li>
+                        <a href="" class="nav--link font--slab nav--link-active">Calculator</a>
+                    </li>
+                    <li>
+                        <a href="" class="nav--link font--slab">Contact</a>
+                    </li>
+                </ul>
             </nav>
-            <a href="./index.html">
-                <img src="./assets/img/logo-header.png" alt="Compotool: Advanced Composite Tooling Solutions"  />
-            </a>
-            <nav class="header--nav-bottom">
-
+            <div class="nav--image">
+                <a href="./index.html">
+                    <img src="./assets/img/logo-header.png" alt="Compotool: Advanced Composite Tooling Solutions"  />
+                </a>
+            </div>
+            <nav class="nav--bar-bottom">
+                <ul class="nav--ul">
+                    <li>
+                        <a href="" class="nav--link font--thin">Tooling Boards</a>
+                    </li>
+                    <li>
+                        <a href="" class="nav--link font--thin">Sealer / Release</a>
+                    </li>
+                    <li>
+                        <a href="" class="nav--link font--thin">Adhesive</a>
+                    </li>
+                    <li>
+                        <a href="" class="nav--link font--thin">Repair Paste</a>
+                    </li>
+                    <li>
+                        <a href="" class="nav--link font--thin">Boxpreg</a>
+                    </li>
+                    <li>
+                        <a href="" class="nav--link font--thin">Toolface</a>
+                    </li>
+                </ul>
             </nav>
         </header>
-        <main class="page bg--white blue-drop-shadow">
+        <main class="bg--white blue-drop-shadow">
+            <h1 class="title font--center color--orange">Compotool Estimate Calculator</h1>
+            <div class="alert alert-info alert--info is--hidden" role="alert">
+                We have filled out the form with the most recent data you have entered. You can <a href="" class="font--link-danger">clear your data</a> or continue to edit!
+            </div>
+            <article class="form">
+                <section class="units">
+                    <h2 class="section--title">Units:</h2>
+                    <p class="section--text">
+                        I would like to use:
+                    </p>
+                    <form class="units--form">
+                        <input class="input--inline units--metric-input" name="units" value="metric" id="input--units-1" type="radio" />
+                        <label class="label--inline units--metric-label" for="input--units-1">Metric (Meters, Litres, Kgs)</label>
+                        <input class="input--inline units--imperial-input" name="units" value="imperial" id="input--units-2" type="radio" />
+                        <label class="label--inline units--imperial-label" for="input--units-2">Imperial (Feet, Lbs)</label>
+                    </form>
+                </section>
+                <section class="buw_nob">
+                    <h2 class="section--title">Blockup-Weight and Number of Boards:</h2>
+                    <form class="buw_nob--form">
+                        <div class="form--group">
 
+                        </div>
+                    </form>
+                </section>
+            </form>
         </main>
         <footer class="footer color--white">
 
@@ -43,7 +111,7 @@
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="js/bootstrap.min.js"></script>
+        <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     </body>
 
 </html>
