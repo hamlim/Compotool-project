@@ -9,6 +9,7 @@
         <title>Compotool Estimate Calclator</title>
 
         <!-- Bootstrap -->
+        <link href="./bower_components/bootstrap/dist/css/bootstrap.min.css" />
         <link href="./assets/css/prod/main.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -83,7 +84,7 @@
                 <article class="form">
                     <section class="units">
                         <h2 class="section--title">Units:</h2>
-                        <p class="section--text">
+                        <p class="section--text padding--right-2em">
                             I would like to use:
                         </p>
                         <form class="units--form form--inline">
@@ -95,15 +96,21 @@
                     </section>
                     <section class="buw_nob">
                         <h2 class="section--title">Blockup-Weight and Number of Boards:</h2>
-                        <form class="buw_nob--form">
-                            <div class="form--group">
-                                <input id="input--buw_nob-1" class="one--fourth " placeholder="Cubic Volume" />
-                                <label for="input--buw_nob-1" class="label--small-above">CT300 - 4</label>
-                                <input id="input--buw_nob-1" class="one--fourth " placeholder="Cubic Volume" />
-                                <label for="input--buw_nob-1" class="label--small-above">CT300 - 4</label>
-                                <input id="input--buw_nob-1" class="one--fourth " placeholder="Cubic Volume" />
-                                <label for="input--buw_nob-1" class="label--small-above">CT300 - 4</label>
-                                <button class="btn bg--orange js--buw_nob-submit">Calculate</button> 
+                        <form class="buw_nob--form ">
+                            <div class="form--group flex--one-fourth">
+                                <div class="one--fourth inline--block form--toplabel">
+                                    <input id="input--buw_nob-1" class="input--with-above-label form--control one--fourth " type="number" placeholder="Cubic Volume" />
+                                    <label for="input--buw_nob-1" class="label--small-above">CT300 - 4</label>
+                                </div>
+                                <div class="one--fourth inline--block form--toplabel">
+                                    <input id="input--buw_nob-1" class="input--with-above-label form--control one--fourth " type="number" placeholder="Cubic Volume" />
+                                    <label for="input--buw_nob-1" class="label--small-above">CT850 - 4</label>
+                                </div>
+                                <div class="one--fourth inline--block form--toplabel">
+                                    <input id="input--buw_nob-1" class="input--with-above-label form--control one--fourth " type="number" placeholder="Cubic Volume" />
+                                    <label for="input--buw_nob-1" class="label--small-above">CT850 - 2</label>
+                                </div>
+                                <button class="one--fourth btn color--white bg--orange js--buw_nob-submit">Calculate</button>
                             </div>
                         </form>
                     </section>
@@ -116,9 +123,9 @@
 
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <!-- <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
+        <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     </body>
 
 </html>

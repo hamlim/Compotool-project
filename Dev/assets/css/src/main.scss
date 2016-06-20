@@ -59,14 +59,27 @@
 
 
 // Forms classes
-.section--text {
+@import "_forms";
+
+.inline--block {
     display: inline-block;
+    position: relative;
+    // Clearfix
+    // &:after {
+    //     content: ".";
+    //     visibility: hidden;
+    //     display: block;
+    //     height: 0;
+    //     clear: both;
+    // }
 }
-.form--inline {
-    display: inline-block;
-}
-input + label {
-    padding-right: 1em;
+.btn {
+    margin-top: 15px;
+    font-size: 17px;
+    min-height: 24px;
+    padding: 6px 12px;
+    border-radius: 5px;
+    border: solid 3px $ct_orange;
 }
 
 
