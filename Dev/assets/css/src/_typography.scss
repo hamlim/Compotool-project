@@ -18,7 +18,8 @@ h3 {
 	font-weight: 500;
 	line-height: 15.4px;
 }
-p {
+p,
+label {
 	font-family: "Lucida Sans Unicode";
 	font-size: 14px;
 	font-style: normal;
@@ -41,4 +42,36 @@ pre {
 	font-variant: normal;
 	font-weight: 400;
 	line-height: 19.305px;
+}
+
+.nav--link {
+    color: #BFBFBF;
+    text-decoration: none;
+    &:hover,
+    &:active,
+    &:focus {
+        color: white;
+        cursor: pointer;
+    }
+}
+a:hover {
+    cursor: pointer;
+}
+.nav--link-active {
+    color: white;
+}
+.font--slab {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.font--thin {
+    font-weight: 100;
+    text-transform: uppercase;
+}
+
+.font--link-danger {
+    color: #E11616;
+}
+.font--center {
+    text-align: center;
 }
