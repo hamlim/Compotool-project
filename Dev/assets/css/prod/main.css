@@ -83,6 +83,22 @@ a:hover {
   text-align: center;
 }
 
+.address {
+  text-transform: uppercase;
+  text-decoration: none;
+  font-style: normal;
+  font-size: 14px;
+  color: #BFBFBF;
+}
+
+.nolink {
+  color: white;
+  text-decoration: none;
+}
+.nolink:hover {
+  color: #BFBFBF;
+}
+
 .page {
   width: 960px;
   margin-left: auto;
@@ -276,6 +292,40 @@ input + label {
   border: solid 3px #FC6719;
 }
 
+.clearfix:after {
+  content: ".";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+.one-of-three {
+  width: 33.33%;
+  float: left;
+}
+
+.two-of-three {
+  width: 66.66%;
+  float: right;
+}
+
+.full-btn {
+  width: 95%;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.right > a {
+  margin-top: 1.5em;
+}
+
 .alert {
   font-size: 15px;
   padding: 15px;
@@ -288,6 +338,10 @@ input + label {
   background-color: #d9edf7;
   border-color: #bce8f1;
   color: #31708f;
+}
+
+img {
+  color: white;
 }
 
 /*# sourceMappingURL=main.css.map */

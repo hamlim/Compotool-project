@@ -82,6 +82,35 @@
     border: solid 3px $ct_orange;
 }
 
+.clearfix:after {
+    content: ".";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+}
+.one-of-three {
+    width: 33.33%;
+    float: left;
+}
+.two-of-three {
+    width: 66.66%;
+    float: right;
+}
+.full-btn {
+    width: 95%;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+.right > a {
+    margin-top: 1.5em;
+}
 
 // Utility Classes
 
@@ -96,4 +125,8 @@
     background-color: #d9edf7;
     border-color: #bce8f1;
     color: #31708f;
+}
+
+img {
+    color: white;
 }
