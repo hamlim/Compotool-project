@@ -98,66 +98,149 @@
                         <h2 class="section--title">Blockup-Weight and Number of Boards:</h2>
                         <form class="buw_nob--form ">
                             <div class="form--group flex">
-                                <div class="one--fourth inline--block form--toplabel">
+                                <div class="inline--block form--toplabel">
                                     <input id="input--buw_nob-1" class="input--with-above-label form--control one--fourth " type="number" placeholder="Cubic Volume" />
                                     <label for="input--buw_nob-1" class="label--small-above">CT300 - 4</label>
                                 </div>
-                                <div class="one--fourth inline--block form--toplabel">
+                                <div class="inline--block form--toplabel">
                                     <input id="input--buw_nob-2" class="input--with-above-label form--control one--fourth " type="number" placeholder="Cubic Volume" />
                                     <label for="input--buw_nob-2" class="label--small-above">CT850 - 4</label>
                                 </div>
-                                <div class="one--fourth inline--block form--toplabel">
+                                <div class="inline--block form--toplabel">
                                     <input id="input--buw_nob-3" class="input--with-above-label form--control one--fourth " type="number" placeholder="Cubic Volume" />
                                     <label for="input--buw_nob-3" class="label--small-above">CT850 - 2</label>
                                 </div>
                                 <button class="one--fourth btn color--white bg--orange js--buw_nob-submit">Calculate</button>
                             </div>
                             <div class="form--group flex ptop2em">
-                                <div class="one--third inline--block form--toplabel">
+                                <div class="inline--block form--toplabel">
                                     <input id="input--buw_nob-4" class="input--with-above-label form--control one--third" type="number" placeholder="Amount" />
-                                    <span class="input-group-addon addon-right">kgs</span>
+                                    <span class="input-group-addon addon-right js--hook-units">Kgs</span>
                                     <label for="input--buw_nob-4" class="label--small-above">Weight of CT300 Boards</label>
                                 </div>
-                                <div class="one--third inline--block form--toplabel">
+                                <div class=" inline--block form--toplabel">
                                     <input id="input--buw_nob-5" class="input--with-above-label form--control one--third" type="number" placeholder="Amount" />
-                                    <span class="input-group-addon addon-right">kgs</span>
+                                    <span class="input-group-addon addon-right js--hook-units">Kgs</span>
                                     <label for="input--buw_nob-5" class="label--small-above">Weight of CT850 Boards</label>
                                 </div>
-                                <div class="one--third inline--block form--toplabel">
+                                <div class=" inline--block form--toplabel">
                                     <input id="input--buw_nob-6" class="input--with-above-label form--control one--third" type="number" placeholder="Amount" />
-                                    <span class="input-group-addon addon-right">kgs</span>
+                                    <span class="input-group-addon addon-right js--hook-units">Kgs</span>
                                     <label for="input--buw_nob-6" class="label--small-above">Total Weight</label>
                                 </div>
                             </div>
                             <div class="form--group flex ptop2em">
-                                <div class="one--third inline--block form--toplabel">
+                                <div class=" inline--block form--toplabel">
                                     <input id="input--buw_nob-7" class="input--with-above-label form--control one--third" type="number" placeholder="Amount" />
                                     <span class="input-group-addon addon-right">Board(s)</span>
                                     <label for="input--buw_nob-7" class="label--small-above">Number of CT300 Boards</label>
                                 </div>
-                                <div class="one--third inline--block form--toplabel">
-                                    <input id="input--buw_nob-8" class="input--with-above-label form--control one--third" type="number" placeholder="Amount" />
+                                <div class="inline--block form--toplabel">
+                                    <input id="input--buw_nob-8" class="input--with-above-label form--control  one--third" type="number" placeholder="Amount" />
                                     <span class="input-group-addon addon-right">Board(s)</span>
                                     <label for="input--buw_nob-8" class="label--small-above">Number of CT850-4 Boards</label>
                                 </div>
-                                <div class="one--third inline--block form--toplabel">
-                                    <input id="input--buw_nob-9" class="input--with-above-label form--control one--third" type="number" placeholder="Amount" />
+                                <div class=" inline--block form--toplabel">
+                                    <input id="input--buw_nob-9" class="input--with-above-label form--control  one--third" type="number" placeholder="Amount" />
                                     <span class="input-group-addon addon-right">Board(s)</span>
                                     <label for="input--buw_nob-9" class="label--small-above">Number of CT850-2 Boards</label>
                                 </div>
                             </div>
                         </form>
                     </section>
-                    <section class="adhesive">
+                    <section class="adhesive ptop2em">
                         <h2 class="section--title">Adhesive:</h2>
                         <form class="adhesive--form ">
-
+                            <div class="form--group flex">
+                                <div class=" inline--block form--toplabel">
+                                    <input id="input--adhesive-1" class="input--with-above-label form--control one--third" type="number" placeholder="Surface Area" />
+                                    <label for="input--adhesive-1" class="label--small-above">Bonded Surface</label>
+                                </div>
+                                <div class="inline--block">
+                                    <button class="btn color--white bg--orange one--fourth js--adhesive-submit">Calculate</button>
+                                </div>
+                                <div class=" inline--block form--toplabel">
+                                    <input id="input--adhesive-2" disabled class="input--with-above-label form--control one--third" type="number" placeholder="Amount" />
+                                    <span class="input-group-addon addon-right">Liter(s)</span>
+                                    <label for="input--adhesive-2" class="label--small-above">Volume of Adhesive</label>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                    <section class="sealer ptop2em">
+                        <h2 class="section--title">Sealer:</h2>
+                        <form class="sealer--form ">
+                            <div class="form--group flex">
+                                <div class=" inline--block form--toplabel">
+                                    <input id="input--sealer-1" class="input--with-above-label form--control one--fourth" type="number" placeholder="Surface Area" />
+                                    <label for="input--sealer-1" class="label--small-above">Tool Surface</label>
+                                </div>
+                                <div class=" inline--block">
+                                    <button class="btn color--white bg--orange one--fourth js--adhesive-submit">Calculate</button>
+                                </div>
+                                <div class=" inline--block form--toplabel">
+                                    <input id="input--sealer-2" disabled class="input--with-above-label form--control one--fourth" type="number" placeholder="Amount" />
+                                    <span class="input-group-addon addon-right">Liter(s)</span>
+                                    <label for="input--sealer-2" class="label--small-above">Volume of Sealer Stage 1</label>
+                                </div>
+                                <div class=" inline--block form--toplabel">
+                                    <input id="input--sealer-3" disabled class="input--with-above-label form--control one--fourth" type="number" placeholder="Amount" />
+                                    <span class="input-group-addon addon-right">Liter(s)</span>
+                                    <label for="input--sealer-3" class="label--small-above">Volume of Sealer Stage 2</label>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                    <section class="shipping_weight ptop2em">
+                        <h2 class="section--title">Shipping Weight:</h2>
+                        <form class="shipping_weight--form ">
+                            <div class="form--group flex">
+                                <div class=" inline--block form--toplabel">
+                                    <input id="input--shipping_weight-1" disabled class="input--with-above-label form--control one--third" type="number" placeholder="Amount" />
+                                    <span class="input-group-addon addon-right js--hook-units">Kgs</span>
+                                    <label for="input--shipping_weight-1" class="label--small-above">CT300</label>
+                                </div>
+                                <div class=" inline--block form--toplabel">
+                                    <input id="input--shipping_weight-2" disabled class="input--with-above-label form--control one--third" type="number" placeholder="Amount" />
+                                    <span class="input-group-addon addon-right js--hook-units">Kgs</span>
+                                    <label for="input--shipping_weight-2" class="label--small-above">CT850</label>
+                                </div>
+                                <div class=" inline--block form--toplabel">
+                                    <input id="input--shipping_weight-3" disabled class="input--with-above-label form--control one--third" type="number" placeholder="Amount" />
+                                    <span class="input-group-addon addon-right js--hook-units">Kgs</span>
+                                    <label for="input--shipping_weight-3" class="label--small-above">Adhesive</label>
+                                </div>
+                            </div>
+                            <div class="form--group flex">
+                                <div class=" inline--block form--toplabel">
+                                    <input id="input--shipping_weight-4" disabled class="input--with-above-label form--control one--third" type="number" placeholder="Amount" />
+                                    <span class="input-group-addon addon-right js--hook-units">Kgs</span>
+                                    <label for="input--shipping_weight-4" class="label--small-above">Sealer Stage 1</label>
+                                </div>
+                                <div class=" inline--block form--toplabel">
+                                    <input id="input--shipping_weight-5" disabled class="input--with-above-label form--control one--third" type="number" placeholder="Amount" />
+                                    <span class="input-group-addon addon-right js--hook-units">Kgs</span>
+                                    <label for="input--shipping_weight-5" class="label--small-above">Sealer Stage 2</label>
+                                </div>
+                                <div class=" inline--block form--toplabel">
+                                    <input id="input--shipping_weight-6" disabled class="input--with-above-label form--control one--third" type="number" placeholder="Amount" />
+                                    <span class="input-group-addon addon-right js--hook-units">Kgs</span>
+                                    <label for="input--shipping_weight-6" class="label--small-above">Other</label>
+                                </div>
+                            </div>
+                            <div class="form--group flex">
+                                <div class="inline--block form--toplabel">
+                                    <input id="input--shipping_weight-7" disabled class="input--with-above-label form--control full--width" type="number" placeholder="Amount" />
+                                    <span class="input-group-addon addon-right js--hook-units">Kgs</span>
+                                    <label for="input-shipping_weight-7" class="label--small-above">Total Weight</label>
+                                </div>
+                            </div>
                         </form>
                     </section>
                 </form>
             </div>
         </main>
-        <footer class="footer color--white">
+        <footer class="ptop2em footer color--white">
 
         </footer>
 
