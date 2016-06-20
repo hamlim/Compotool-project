@@ -101,6 +101,17 @@
     width: 95%;
 }
 
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+.right > a {
+    margin-top: 1.5em;
+}
+
 // Utility Classes
 
 .alert {
@@ -114,4 +125,8 @@
     background-color: #d9edf7;
     border-color: #bce8f1;
     color: #31708f;
+}
+
+img {
+    color: white;
 }
