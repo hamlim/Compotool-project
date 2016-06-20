@@ -1,8 +1,11 @@
 .section--text {
     display: inline-block;
 }
-.padding--right-2em {
+.pright2em {
     padding-right: 2em;
+}
+.ptop2em {
+    padding-top: 2em;
 }
 .form--inline {
     display: inline-block;
@@ -27,9 +30,14 @@ input + label {
     -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
           transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
+    &:active,
+    &:focus {
+        outline: 0px;
+    }
 }
 
-.input--with-above-label + .label--small-above {
+.label--small-above {
     font-size: 10px;
     color: #ccc;
     position: absolute;
@@ -41,4 +49,42 @@ input + label {
 }
 .one--fourth {
     width: 200px;
+}
+
+.input-group-addon {
+    padding-top: 8px;
+    padding-bottom: 7px;
+    padding-left: 12px;
+    padding-right: 12px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1;
+    color: #555;
+    text-align: center;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+    &:first-child {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right: 0;
+    }
+
+    &:last-child {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left: 0;
+    }
+}
+.addon-right {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+    margin-left: -12px;
+}
+.addon-left {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0;
 }
