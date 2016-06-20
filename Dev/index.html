@@ -92,6 +92,7 @@
                             <label class="label--inline units--metric-label" for="input--units-1">Metric (Meters, Litres, Kgs)</label>
                             <input class="input--inline units--imperial-input" name="units" value="imperial" id="input--units-2" type="radio" />
                             <label class="label--inline units--imperial-label" for="input--units-2">Imperial (Feet, Lbs)</label>
+                            <button class="btn color--white bg--orange js--setUnits">Update Units</button>
                         </form>
                     </section>
                     <section class="buw_nob">
@@ -194,7 +195,7 @@
                     <section class="shipping_weight ptop2em">
                         <h2 class="section--title">Shipping Weight:</h2>
                         <form class="shipping_weight--form ">
-                            <div class="form--group flex">
+                            <div class="form--group flex ptop2em">
                                 <div class=" inline--block form--toplabel">
                                     <input id="input--shipping_weight-1" disabled class="input--with-above-label form--control one--third" type="number" placeholder="Amount" />
                                     <span class="input-group-addon addon-right js--hook-units">Kgs</span>
@@ -211,7 +212,7 @@
                                     <label for="input--shipping_weight-3" class="label--small-above">Adhesive</label>
                                 </div>
                             </div>
-                            <div class="form--group flex">
+                            <div class="form--group flex ptop2em">
                                 <div class=" inline--block form--toplabel">
                                     <input id="input--shipping_weight-4" disabled class="input--with-above-label form--control one--third" type="number" placeholder="Amount" />
                                     <span class="input-group-addon addon-right js--hook-units">Kgs</span>
@@ -228,7 +229,7 @@
                                     <label for="input--shipping_weight-6" class="label--small-above">Other</label>
                                 </div>
                             </div>
-                            <div class="form--group flex">
+                            <div class="form--group flex ptop2em">
                                 <div class="inline--block form--toplabel">
                                     <input id="input--shipping_weight-7" disabled class="input--with-above-label form--control full--width" type="number" placeholder="Amount" />
                                     <span class="input-group-addon addon-right js--hook-units">Kgs</span>
@@ -277,6 +278,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="./assets/js/prod/main.min.js"></script>
     </body>
 
 </html>

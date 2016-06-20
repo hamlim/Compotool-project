@@ -8,7 +8,7 @@ module.exports = function(grunt) {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             build: {
-                src: 'assets/src/*.js',
+                src: ['bower_components/jquery/dist/jquery.js', 'bower_components/bootstrap/dist/js/bootstrap.min.js', 'assets/js/prod/*.js'],
                 dest: 'assets/prod/main.min.js'
             }
         },
@@ -27,6 +27,13 @@ module.exports = function(grunt) {
                 files: ['assets/js/src/*.js', 'assets/css/src/*.scss'],
                 tasks: ['default'],
             }
+        },
+        es6transpiler: {
+            dist: {
+                files: {
+                    'assets/js/prod/main.js': 'assets/js/src/main.js'
+                }
+            }
         }
     });
 
@@ -34,8 +41,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-es6-transpiler');
 
     // Default task(s).
-    grunt.registerTask('default', ['uglify', 'sass']);
+    grunt.registerTask('default', ['es6transpiler', 'sass', 'uglify']);
+    grunt.registerTask('es6', 'es6transpiler');
 
 };
