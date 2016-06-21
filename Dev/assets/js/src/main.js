@@ -1,3 +1,20 @@
+function updateState(newState){
+    let oldState = JSON.parse(localStorage.getItem('CTstate'));
+    if(oldState.timestamp <= newState.timestamp){
+        localStorage.setItem('CTstate', JSON.stringify(newState));
+        return true;
+    } else {
+        return false;
+    }
+}
+function fetchVars(vars) {
+
+    $.ajax({
+
+    }).done(function (data){
+
+    });
+}
 document.addEventListener("DOMContentLoaded", function(event) {
     // variables
 
@@ -57,7 +74,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     // Lets handle state
     let state = JSON.parse(localStorage.getItem('CTstate')) || {};
-    state.lastedittime = Math.floor(new Date().getTime() / 1000);
-    let form = {};
+    if (state.timestamp != null){
+        // Ok we have data from last time
+
+    } else {
+        // we don't have any saved state
+        state.timestamp = Math.floor(new Date().getTime() / 1000);
+        let form = {}
+
+    }
+
 
 });
