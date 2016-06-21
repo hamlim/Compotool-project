@@ -53,5 +53,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let btn_export_elem = document.getElementsByClassName("js--export")[0];
     let btn_quote_elem = document.getElementsByClassName("js--quote")[0];
 
+    // Logic
+
+    // Lets handle state
+    let state = JSON.parse(localStorage.getItem('CTstate')) || {};
+    state.lastedittime = Math.floor(new Date().getTime() / 1000);
+    let form = {};
 
 });
