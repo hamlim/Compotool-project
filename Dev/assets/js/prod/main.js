@@ -1,12 +1,16 @@
 function updateState(newState){
-    var oldState = JSON.parse(localStorage.getItem('CTstate'));
-    if(oldState.timestamp <= newState.timestamp){
-        localStorage.setItem('CTstate', JSON.stringify(newState));
-        return true;
+    var oldState = localStorage.getItem('CTstate');
+    if(oldState){
+        if(JSON.parse(oldState).timestamp <= newState.timestamp){
+            localStorage.setItem('CTstate', JSON.stringify(newState));
+            return true;
+        } else {
+            return false;
+        }
     } else {
-        return false;
+
     }
-}
+};
 function fetchVars(vars) {
 
     // $.ajax({
@@ -15,7 +19,7 @@ function fetchVars(vars) {
     // }).done(function (data){
     //
     // });
-}
+};
 document.addEventListener("DOMContentLoaded", function(event) {
     // Lets get the vars
     var variables;
@@ -76,8 +80,65 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     // Logic
 
+    function initializeInputs(){
+        buw_ct300_volume_elem.value = 0;
+        buw_ct8504_volume_elem.value = 0;
+        buw_ct8502_volume_elem.value = 0;
+        output_buw_ct300_weight_elem.value = 0;
+        output_buw_ct850_weight_elem.value = 0;
+        output_buw_total_weight_elem.value = 0;
+        output_nob_ct300_elem.value = 0;
+        output_nob_ct8502_elem.value = 0;
+        output_nob_ct8504_elem.value = 0;
+        adhesive_bondedSurface_elem.value = 0;
+        output_adhesive_volumeAdhesive_elem.value = 0;
+        sealer_toolSurface_elem.value = 0;
+        output_sealer_stage1_elem.value = 0;
+        output_sealer_stage2_elem.value = 0;
+        output_ship_ct300_elem.value = 0;
+        output_ship_ct850_elem.value = 0;
+        output_ship_adhesive_elem.value = 0;
+        output_ship_sealerStage1_elem.value = 0;
+        output_ship_sealerStage2_elem.value = 0;
+        output_ship_other_elem.value = 0;
+        output_ship_total_elem.value = 0;
+    };
+
     // Lets handle state
     var state = JSON.parse(localStorage.getItem('CTstate')) || {};
+
+    function getFormState(){
+        var form = {};
+        if(unit_metric_elem.checked === true){
+            form.units = "metric";
+        } else {
+            form.units = "imperial";
+        }
+        form.buw.ct300.volume = buw_ct300_volume_elem.value;
+        form.buw.ct8502.volume = buw_ct8502_volume_elem.value;
+        form.buw.ct8504.volume = buw_ct8504_volume_elem.value;
+        form.buw.ct300.weight = output_buw_ct300_weight_elem.value;
+        form.buw.ct850.weight = output_buw_ct850_weight_elem.value;
+        form.buw.total.weight = output_buw_total_weight_elem.value;
+        form.nob.ct300.amount = output_nob_ct300_elem.value;
+        form.nob.ct8502.amount = output_nob_ct8502_elem.value;
+        form.nob.ct8504.amount = output_nob_ct8504_elem.value;
+        form.adhesive.surfaceArea = adhesive_bondedSurface_elem.value;
+        form.adhesive.volume = output_adhesive_volumeAdhesive_elem.value;
+        form.sealer.toolSurface = sealer_toolSurface_elem.value;
+        form.sealer.stageOne = output_sealer_stage1_elem.value;
+        form.sealer.stageTwo = output_sealer_stage2_elem.value;
+        form.shipping.ct300 = output_ship_ct300_elem.value;
+        form.shipping.ct850 = output_ship_ct850_elem.value;
+        form.shipping.adhesive = output_ship_adhesive_elem.value;
+        form.shipping.sealer.stageOne = output_ship_sealerStage1_elem.value;
+        form.shipping.sealer.stageTwo = output_ship_sealerStage2_elem.value;
+        form.shipping.other = output_ship_other_elem.value;
+        form.shipping.total = output_ship_total_elem.value;
+
+        return form;
+    };
+
     if (state.timestamp != null){
         // Ok we have data from last time
         var formData = state.form;
@@ -181,13 +242,59 @@ document.addEventListener("DOMContentLoaded", function(event) {
         if(formData.shipping.ct300 != null){
             output_ship_ct300_elem.value = formData.shipping.ct300;
         } else {
-            
+            // TODO calc
+
+        }
+        if(formData.shipping.ct850 != null){
+            output_ship_ct850_elem.value = formData.shipping.ct850;
+        } else {
+            // TODO calc
+
+        }
+        if(formData.shipping.adhesive != null){
+            output_ship_adhesive_elem.value = formData.shipping.adhesive;
+        } else {
+            // TODO calc
+
+        }
+        if(formData.shipping.sealer.stageOne != null){
+            output_ship_sealerStage1_elem.value = formData.shipping.sealer.stageOne;
+        } else {
+            // TODO calc
+
+        }
+        if(formData.shipping.sealer.stageTwo != null){
+            output_ship_sealerStage2_elem.value = formData.shipping.sealer.stageTwo;
+        } else {
+            // TODO calc
+
+        }
+        if(formData.shipping.other != null){
+            output_ship_other_elem.value = formData.shipping.other;
+        } else {
+            // TODO Determine what to do here
+
+        }
+        if(formData.shipping.total != null){
+            output_ship_total_elem.value = formData.shipping.total;
+        } else {
+            // This one is easy
+            output_ship_total_elem.value = formData.shipping.ct300 + formData.shipping.ct850 + formData.shipping.adhesive + formData.shipping.sealer.stageOne + formData.shipping.sealer.stageTwo + formData.shipping.other;
         }
 
     } else {
         // we don't have any saved state
         state.timestamp = Math.floor(new Date().getTime() / 1000);
-        var form = {}
+        // initialize everything to zero
+        initializeInputs();
+        var form = getFormState();
+        state.form = form;
+
+
+    }
+
+    // Onclick events
+    btn_units_elem.onclick = function(state){
 
     }
 
