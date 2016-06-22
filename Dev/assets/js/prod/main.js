@@ -196,29 +196,36 @@ document.addEventListener("DOMContentLoaded", function(event) {
         if(formData.buw.ct300.weight != null){
             output_buw_ct300_weight_elem.value = formData.buw.ct300.weight;
         } else {
-            // TODO calculate the weight given the variables var
             if(formData.units === "metric"){
-                output_buw_ct300_weight_elem.value = variables.metric.weight.ct300 * buw_ct300_volume_elem.value;
+                output_buw_ct300_weight_elem.value = variables.metric.volume.weight.ct300 * buw_ct300_volume_elem.value;
+            } else {
+                output_buw_ct300_weight_elem.value = variables.imperial.volume.weight.ct300 * buw_ct300_volume_elem.value;
             }
         }
         if(formData.buw.ct850.weight != null){
             output_buw_ct850_weight_elem.value = formData.buw.ct850.weight;
         } else {
-            // TODO calculate the weight of CT850 from the variables var
-
+            if(formData.units === "metric"){
+                output_buw_ct850_weight_elem.value = (variables.metric.volume.weight.ct850 * buw_ct8502_volume_elem.value + variables.metric.volume.weight.ct850 * buw_ct8504_volume_elem.value);
+            } else {
+                output_buw_ct850_weight_elem.value = (variables.imperial.volume.weight.ct850 * buw_ct8502_volume_elem.value + variables.imperial.volume.weight.ct850 * buw_ct8504_volume_elem.value);
+            }
         }
         if (formData.buw.total.weight != null){
             output_buw_total_weight_elem.value = formData.buw.total.weight;
         } else {
-            // TODO calculat the total weight from the variables var
-
+            output_buw_total_weight_elem.value = output_buw_ct850_weight_elem.value + output_buw_ct300_weight_elem.value;
         }
         // Number of Boards
         if(formData.nob.ct300.amount != null){
             output_nob_ct300_elem.value = formData.nob.ct300.amount;
         } else {
             // TODO calculate the number of ct300 boards given the variables var
+            if(formData.units === "metric"){
 
+            } else {
+                
+            }
         }
         if(formData.nob.ct8504.amount != null){
             output_nob_ct8504_elem.value = formData.nob.ct8504.amount;
