@@ -9,13 +9,17 @@ function updateState(newState){
 }
 function fetchVars(vars) {
 
-    $.ajax({
-
-    }).done(function (data){
-
-    });
+    // $.ajax({
+    //     url: "";
+    //
+    // }).done(function (data){
+    //
+    // });
 }
 document.addEventListener("DOMContentLoaded", function(event) {
+    // Lets get the vars
+    let variables;
+    fetchVars(variables);
     // variables
 
 
@@ -76,6 +80,109 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let state = JSON.parse(localStorage.getItem('CTstate')) || {};
     if (state.timestamp != null){
         // Ok we have data from last time
+        let formData = state.form;
+        // units
+        if(formData.units === "metric"){
+            unit_imperial_elem.checked = false;
+            unit_metric_elem.checked = true;
+        } else {
+            unit_metric_elem.checked = false;
+            unit_imperial_elem.checked = true;
+        }
+        // Block Up weight
+        if (formData.buw.ct300.volume != null){
+            buw_ct300_volume_elem.value = formData.buw.ct300.volume;
+        } else {
+            buw_ct300_volume_elem.value = 0;
+        }
+        if (formData.buw.ct8504.volume != null){
+            buw_ct8504_volume_elem.value = formData.buw.ct8504.volume;
+        } else {
+            buw_ct8504_volume_elem.value = 0;
+        }
+        if (formData.buw.ct8502.volume != null){
+            buw_ct8502_volume_elem.value = formData.buw.ct8502.volume;
+        } else {
+            buw_ct8502_volume_elem.value = 0;
+        }
+
+        if(formData.buw.ct300.weight != null){
+            output_buw_ct300_weight_elem.value = formData.buw.ct300.weight;
+        } else {
+            // TODO calculate the weight given the variables var
+
+        }
+        if(formData.buw.ct850.weight != null){
+            output_buw_ct850_weight_elem.value = formData.buw.ct850.weight;
+        } else {
+            // TODO calculate the weight of CT850 from the variables var
+
+        }
+        if (formData.buw.total.weight != null){
+            output_buw_total_weight_elem.value = formData.buw.total.weight;
+        } else {
+            // TODO calculat the total weight from the variables var
+
+        }
+        // Number of Boards
+        if(formData.nob.ct300.amount != null){
+            output_nob_ct300_elem.value = formData.nob.ct300.amount;
+        } else {
+            // TODO calculate the number of ct300 boards given the variables var
+
+        }
+        if(formData.nob.ct8504.amount != null){
+            output_nob_ct8504_elem.value = formData.nob.ct8504.amount;
+        } else {
+            // TODO calculate the number of ct8504 boards given the variables var
+
+        }
+        if(formData.nob.ct8502.amount != null){
+            output_nob_ct8502_elem.value = formData.nob.ct8502.amount;
+        } else {
+            // TODO calc the number of ct8502 boards
+        }
+
+        // Adhesive
+        if(formData.adhesive.surfaceArea != null){
+            adhesive_bondedSurface_elem.value = formData.adhesive.surfaceArea;
+        } else {
+            // TODO calc this
+
+        }
+        if(formData.adhesive.volume != null){
+            output_adhesive_volumeAdhesive_elem.value = formData.adhesive.volume;
+        } else {
+            // TODO calc
+
+        }
+
+        // Sealer
+        if(formData.sealer.toolSurface != null){
+            sealer_toolSurface_elem.value = formData.sealer.toolSurface;
+        } else {
+            // TODO calc
+
+        }
+        if(formData.sealer.stageOne != null){
+            output_sealer_stage1_elem.value = formData.sealer.stageOne;
+        } else {
+            // TODO calc
+
+        }
+        if(formData.sealer.stageTwo != null){
+            output_sealer_stage2_elem.value = formData.sealer.stageTwo;
+        } else {
+            // TODO calc
+
+        }
+
+        // Shipping weight
+        if(formData.shipping.ct300 != null){
+            output_ship_ct300_elem.value = formData.shipping.ct300;
+        } else {
+            
+        }
 
     } else {
         // we don't have any saved state
