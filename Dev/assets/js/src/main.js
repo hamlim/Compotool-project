@@ -181,6 +181,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
         if(formData.shipping.ct300 != null){
             output_ship_ct300_elem.value = formData.shipping.ct300;
         } else {
+            // TODO calc
+
+        }
+        if(formData.shipping.ct850 != null){
+            output_ship_ct850_elem.value = formData.shipping.ct850;
+        } else {
+            // TODO calc
+
+        }
+        if(formData.shipping.adhesive != null){
+            output_ship_adhesive_elem.value = formData.shipping.adhesive;
+        } else {
+            // TODO calc
+
+        }
+        if(formData.shipping.sealer.stageOne != null){
             
         }
 
