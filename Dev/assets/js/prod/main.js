@@ -12,13 +12,21 @@ function updateState(newState){
     }
 };
 function fetchVars(vars) {
+    var data = null;
 
-    // $.ajax({
-    //     url: "";
-    //
-    // }).done(function (data){
-    //
-    // });
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function () {
+      if (this.readyState === 4) {
+        console.log(this.responseText);
+      }
+    });
+
+    xhr.open("GET", "https://sheetsu.com/apis/v1.0/755fe98f1e9c");
+    xhr.setRequestHeader("authorization", "Basic cGRBek5zM3hxMjRNbTZiUGJ5ZjE6ZjlibzVBVjEyOTNoZUh4c3lIYml0cUc0RXlXWXhqenF4MndITmh0cQ==");
+
+    xhr.send(data);
 };
 document.addEventListener("DOMContentLoaded", function(event) {
     // Lets get the vars
@@ -57,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var sealer_toolSurface_elem = document.getElementById('input--sealer-1');
     // output
     var output_sealer_stage1_elem = document.getElementById('input--sealer-2');
-    var output_sealer_stage2_elem = document.getElementById('input--selaer-3');
+    var output_sealer_stage2_elem = document.getElementById('input--sealer-3');
 
     // Shipping weight
     var output_ship_ct300_elem = document.getElementById('input--shipping_weight-1');
@@ -114,6 +122,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
         } else {
             form.units = "imperial";
         }
+        form.buw = {};
+        form.buw.ct300 = {};
+        form.buw.ct8502 = {};
+        form.buw.ct8504 = {};
+        form.buw.ct850 = {};
+        form.sealer = {};
+        form.nob = {};
+        form.nob.ct300 = {};
+        form.nob.ct8502 = {};
+        form.nob.ct8504 = {};
+        form.adhesive = {};
+        form.shipping = {};
+        form.shipping.sealer = {};
+
         form.buw.ct300.volume = buw_ct300_volume_elem.value;
         form.buw.ct8502.volume = buw_ct8502_volume_elem.value;
         form.buw.ct8504.volume = buw_ct8504_volume_elem.value;
