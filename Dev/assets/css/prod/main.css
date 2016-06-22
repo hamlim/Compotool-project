@@ -347,4 +347,14 @@ img {
   color: white;
 }
 
+.show {
+  visibility: visible;
+  display: block;
+}
+
+.hide {
+  visibility: hidden;
+  display: none;
+}
+
 /*# sourceMappingURL=main.css.map */

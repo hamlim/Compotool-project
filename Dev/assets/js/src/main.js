@@ -166,6 +166,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     };
 
     if (state.timestamp != null){
+        document.getElementsByClassName('hide')[0].className = "alert alert-info alert--info show";
         // Ok we have data from last time
         let formData = state.form;
         // units
@@ -224,41 +225,52 @@ document.addEventListener("DOMContentLoaded", function(event) {
             if(formData.units === "metric"){
 
             } else {
-                
+
             }
         }
         if(formData.nob.ct8504.amount != null){
             output_nob_ct8504_elem.value = formData.nob.ct8504.amount;
         } else {
             // TODO calculate the number of ct8504 boards given the variables var
+            if(formData.units === "metric"){
 
+            } else {
+
+            }
         }
         if(formData.nob.ct8502.amount != null){
             output_nob_ct8502_elem.value = formData.nob.ct8502.amount;
         } else {
             // TODO calc the number of ct8502 boards
+            if(formData.units === "metric"){
+
+            } else {
+
+            }
         }
 
         // Adhesive
         if(formData.adhesive.surfaceArea != null){
             adhesive_bondedSurface_elem.value = formData.adhesive.surfaceArea;
         } else {
-            // TODO calc this
-
+            adhesive_bondedSurface_elem.value = 0;
         }
         if(formData.adhesive.volume != null){
             output_adhesive_volumeAdhesive_elem.value = formData.adhesive.volume;
         } else {
             // TODO calc
+            if(formData.units === "metric"){
 
+            } else {
+
+            }
         }
 
         // Sealer
         if(formData.sealer.toolSurface != null){
             sealer_toolSurface_elem.value = formData.sealer.toolSurface;
         } else {
-            // TODO calc
-
+            sealer_toolSurface_elem.value = 0;
         }
         if(formData.sealer.stageOne != null){
             output_sealer_stage1_elem.value = formData.sealer.stageOne;
