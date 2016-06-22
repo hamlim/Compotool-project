@@ -197,8 +197,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         }
         if(formData.shipping.sealer.stageOne != null){
-            
+            output_ship_sealerStage1_elem.value = formData.shipping.sealer.stageOne;
+        } else {
+            // TODO calc
+
         }
+        if(formData.shipping.sealer.stageTwo != null){
+            output_ship_sealerStage2_elem.value = formData.shipping.sealer.stageTwo;
+        } else {
+            // TODO calc
+
+        }
+        
 
     } else {
         // we don't have any saved state
