@@ -20,7 +20,69 @@ function fetchVars(vars) {
         if (this.readyState === 4) {
             console.log(this.responseText);
             var data = JSON.parse(this.responseText);
-
+            vars.metric = {};
+            vars.imperial = {};
+            vars.metric.sealer = {};
+            vars.imperial.sealer = {};
+            vars.metric.buw = {};
+            vars.imperials.buw = {};
+            vars.metric.nob = {};
+            vars.imperial.nob = {};
+            for(var i=0; i<data.length; i++){
+                if(data[i].Order === "1"){
+                    // Imperial adhesive
+                    vars.imperial.adhesive = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "2") {
+                    // Metric adhesive
+                    vars.metric.adhesive = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "3") {
+                    // Imperial stage one sealer
+                    vars.imperial.sealer.stageOne = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "4") {
+                    vars.metric.sealer.stageOne = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "5") {
+                    vars.imperial.sealer.stageTwo = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "6") {
+                    vars.metric.sealer.stageTwo = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "7") {
+                    // releaser
+                } else if (data[i].Order === "8") {
+                    // releaser
+                } else if (data[i].Order === "9") {
+                    // buw
+                    vars.imperial.buw.ct300 = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "10") {
+                    vars.metric.buw.ct300 = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "11") {
+                    vars.imperial.buw.ct850 = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "12") {
+                    vars.metric.buw.ct850 = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "13") {
+                    vars.imperial.nob.ct300 = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "14") {
+                    vars.metric.nob.ct300 = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "15") {
+                    vars.imperial.nob.ct8504 = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "16") {
+                    vars.metric.nob.ct8504 = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "17") {
+                    vars.imperial.nob.ct8502 = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "18") {
+                    vars.metric.nob.ct8502 = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "19") {
+                    vars.imperial.shipping.ct300 = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "20") {
+                    vars.metric.shipping.ct300 = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "21") {
+                    vars.imperial.shipping.ct8502 = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "22") {
+                    vars.metric.shipping.ct8502 = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "23") {
+                    vars.imperial.shipping.ct8504 = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "24") {
+                    vars.metric.shipping.ct8504 = parseFloat(data[i].Coverage);
+                }
+            }
 
         }
     });
@@ -31,9 +93,11 @@ function fetchVars(vars) {
     xhr.send();
 
 };
+
+
 document.addEventListener("DOMContentLoaded", function(event) {
     // Lets get the vars
-    var variables;
+    var variables = {};
     fetchVars(variables);
     // variables
 
@@ -114,6 +178,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
         output_ship_other_elem.value = 0;
         output_ship_total_elem.value = 0;
     };
+
+    function getQueryVariable(variable) {
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+    }
+
+    function pageInit(){
+        var query = getQueryVariable("clear");
+        if(query){
+            initializeInputs();
+        } else {
+            // Don't do anything
+        }
+    }
+    pageInit();
 
     // Lets handle state
     var state = JSON.parse(localStorage.getItem('CTstate')) || {};
@@ -223,7 +307,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         } else {
             // TODO calculate the number of ct300 boards given the variables var
             if(formData.units === "metric"){
-
+                // output_nob_ct300_elem.value = variables.metric.
             } else {
 
             }
