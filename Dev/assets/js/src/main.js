@@ -31,6 +31,8 @@ function fetchVars(vars) {
     xhr.send();
 
 };
+
+
 document.addEventListener("DOMContentLoaded", function(event) {
     // Lets get the vars
     let variables;
@@ -114,6 +116,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
         output_ship_other_elem.value = 0;
         output_ship_total_elem.value = 0;
     };
+
+    function getQueryVariable(variable) {
+       let query = window.location.search.substring(1);
+       let vars = query.split("&");
+       for (let i=0;i<vars.length;i++) {
+               let pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+    }
+
+    function pageInit(){
+        let query = getQueryVariable(clear);
+        if(query){
+            initializeInputs();
+        } else {
+            // Don't do anything
+        }
+    }
+    pageInit();
 
     // Lets handle state
     let state = JSON.parse(localStorage.getItem('CTstate')) || {};
