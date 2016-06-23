@@ -78,7 +78,7 @@
         <main class="bg--white blue-drop-shadow">
             <div class="main">
                 <h1 class="title font--center color--orange">Compotool Estimate Calculator</h1>
-                <div class="alert alert-info alert--info is--hidden" role="alert">
+                <div class="alert alert-info alert--info hide" role="alert">
                     We have filled out the form with the most recent data you have entered. You can <a href="./index.html?clear=1" class="font--link-danger">clear your data</a> or continue to edit!
                 </div>
                 <article class="form">
@@ -88,11 +88,11 @@
                             I would like to use:
                         </p>
                         <form class="units--form form--inline">
-                            <input class="input--inline units--metric-input" name="units" value="metric" id="input--units-1" type="radio" />
+                            <input checked class="input--inline units--metric-input" name="units" value="metric" id="input--units-1" type="radio" />
                             <label class="label--inline units--metric-label" for="input--units-1">Metric (Meters, Litres, Kgs)</label>
                             <input class="input--inline units--imperial-input" name="units" value="imperial" id="input--units-2" type="radio" />
                             <label class="label--inline units--imperial-label" for="input--units-2">Imperial (Feet, Lbs)</label>
-                            <button class="btn color--white bg--orange js--setUnits">Update Units</button>
+                            <button type="button" class="btn color--white bg--orange js--setUnits">Update Units</button>
                         </form>
                     </section>
                     <section class="buw_nob">
@@ -111,7 +111,7 @@
                                     <input id="input--buw_nob-3" class="input--with-above-label form--control one--fourth " type="number" placeholder="Cubic Volume" />
                                     <label for="input--buw_nob-3" class="label--small-above">CT850 - 2</label>
                                 </div>
-                                <button class="one--fourth btn color--white bg--orange js--buw_nob-submit">Calculate</button>
+                                <button type="button" class="one--fourth btn color--white bg--orange js--buw_nob">Calculate</button>
                             </div>
                             <div class="form--group flex ptop2em">
                                 <div class="inline--block form--toplabel">
@@ -158,7 +158,7 @@
                                     <label for="input--adhesive-1" class="label--small-above">Bonded Surface</label>
                                 </div>
                                 <div class="inline--block">
-                                    <button class="btn color--white bg--orange one--fourth js--adhesive-submit">Calculate</button>
+                                    <button type="button" class="btn color--white bg--orange one--fourth js--adhesive">Calculate</button>
                                 </div>
                                 <div class=" inline--block form--toplabel">
                                     <input id="input--adhesive-2" disabled class="input--with-above-label form--control one--third" type="number" placeholder="Amount" />
@@ -177,7 +177,7 @@
                                     <label for="input--sealer-1" class="label--small-above">Tool Surface</label>
                                 </div>
                                 <div class=" inline--block">
-                                    <button class="btn color--white bg--orange one--fourth js--adhesive-submit">Calculate</button>
+                                    <button type="button" class="btn color--white bg--orange one--fourth js--sealer">Calculate</button>
                                 </div>
                                 <div class=" inline--block form--toplabel">
                                     <input id="input--sealer-2" disabled class="input--with-above-label form--control one--fourth" type="number" placeholder="Amount" />
@@ -245,14 +245,14 @@
                         <p class="section--text-feature">
                             You can then import this CSV file into your favorite spreadsheet program.
                         </p>
-                        <button class="btn full-btn color--white bg--orange js--export">Export Data</button>
+                        <button type="button" class="btn full-btn color--white bg--orange js--export">Export Data</button>
                     </div>
                     <div class="two-of-three">
                         <h2 class="section--title">Request Quote:</h2>
                         <p class="section--text-feature">
                             If you’d like, you can send the above data and contact information straight to Compotool for a quote.
                         </p>
-                        <button class="btn full-btn color--white bg--orange js--quote">Request Quote</button>
+                        <button type="button" class="btn full-btn color--white bg--orange js--quote">Request Quote</button>
                     </div>
                 </footer>
             </div>
@@ -278,7 +278,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="./assets/js/prod/main.min.js"></script>
+        <script src="./assets/js/prod/main.js"></script>
     </body>
 
 </html>
