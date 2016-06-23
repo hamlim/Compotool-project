@@ -104,6 +104,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let unit_metric_elem = document.getElementById('input--units-1');
     let unit_imperial_elem = document.getElementById('input--units-2');
 
+    let unit_spans_elemCollection = document.getElementsByClassName('js--hook-units');
+
     // Block up weight + number of boards -> buw
     let buw_ct300_volume_elem = document.getElementById('input--buw_nob-1');
     let buw_ct8504_volume_elem = document.getElementById('input--buw_nob-2');
@@ -194,6 +196,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
     }
     pageInit();
+
+    function calculateBUW(state){
+
+    }
 
     // Lets handle state
     let state = JSON.parse(localStorage.getItem('CTstate')) || {};
@@ -313,7 +319,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         } else {
             // TODO calculate the number of ct8504 boards given the variables var
             if(formData.units === "metric"){
-
+                output_nob_ct8504_elem.value = variables.metric.nob.ct8504 * 
             } else {
 
             }
@@ -418,13 +424,52 @@ document.addEventListener("DOMContentLoaded", function(event) {
         state.form = form;
         console.log(state);
         updateState(state);
-
-
     }
 
     // Onclick events
-    btn_units_elem.onclick = function(state){
+    btn_units_elem.onclick = function(){
+        if(state.form.units === "metric"){
+            if(unit_metric_elem.checked === true){
+                // Do nothing because the units haven't changed
+            } else {
+                // Imperial is selected, previous units were metric, change all unit_spans_elemCollection to Lbs
+                for(let i=0; i<unit_spans_elemCollection.length; i++){
+                    unit_spans_elemCollection[i].innerText = "Lbs";
+                }
+                state.form.units = "imperial";
+                updateState(state);
+                calculateBUW(state);
+                calculateNOB(state);
+                calculateShippingWeight(state);
+            }
+        } else {
+            if(unit_imperial_elem.checked === true){
+                // do nothing, they are both imperial
+            } else {
+                // it is imperial but they are changing it to metric
+                for(let i=0; i<unit_spans_elemCollection.length; i++){
+                    unit_spans_elemCollection[i].innerText = "Kgs";
+                }
+                state.form.units = "metric";
+                updateState(state);
+                calculateBUW(state);
+                calculateNOB(state);
+                calculateShippingWeight(state);
+            }
+        }
+    }
 
+    btn_buw_elem.onclick = function() {
+        // first update the state var, and sync with localStorage
+
+
+
+
+        // Now call updatebuw(), update nob(), update Shipping()
+        updateState(state);
+        calculateBUW(state);
+        calculateNOB(state);
+        calculateShippingWeight(state);
     }
 
 
