@@ -3,13 +3,11 @@ function updateState(newState){
     if(oldState){
         if(JSON.parse(oldState).timestamp <= newState.timestamp){
             localStorage.setItem('CTstate', JSON.stringify(newState));
-            return true;
         } else {
-            return false;
+
         }
     } else {
         localStorage.setItem('CTstate', JSON.stringify(newState));
-        return true;
     }
 };
 function fetchVars(vars) {
@@ -28,6 +26,16 @@ function fetchVars(vars) {
             vars.imperials.buw = {};
             vars.metric.nob = {};
             vars.imperial.nob = {};
+            vars.metric.shipping = {};
+            vars.imperial.shipping = {};
+            vars.metric.shipping.adhesive = {};
+            vars.imperial.shipping.adhesive = {};
+            vars.metric.shipping.sealer = {};
+            vars.imperial.shipping.sealer = {};
+            vars.metric.shipping.sealer.stageOne = {};
+            vars.imperial.shipping.sealer.stageOne = {};
+            vars.metric.shipping.sealer.stageTwo = {};
+            vars.imperial.shipping.sealer.stageTwo = {};
             for(let i=0; i<data.length; i++){
                 if(data[i].Order === "1"){
                     vars.imperial.adhesive = parseFloat(data[i].Coverage);
@@ -77,6 +85,30 @@ function fetchVars(vars) {
                     vars.imperial.shipping.ct8504 = parseFloat(data[i].Coverage);
                 } else if (data[i].Order === "24") {
                     vars.metric.shipping.ct8504 = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "25") {
+                    vars.imperial.shipping.adhesive.liters = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "26") {
+                    vars.metric.shipping.adhesive.liters = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "27") {
+                    vars.imperial.shipping.adhesive.weight = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "28") {
+                    vars.metric.shipping.adhesive.weight = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "29") {
+                    vars.imperial.shipping.sealer.stageOne.liters = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "30") {
+                    vars.metric.shipping.sealer.stageOne.liters = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "31") {
+                    vars.imperial.shipping.sealer.stageOne.weight = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "32") {
+                    vars.metric.shipping.sealer.stageOne.weight = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "33") {
+                    vars.imperial.shipping.sealer.stageTwo.liters = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "34") {
+                    vars.metric.shipping.sealer.stageTwo.liters = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "35") {
+                    vars.imperial.shipping.sealer.stageTwo.weight = parseFloat(data[i].Coverage);
+                } else if (data[i].Order === "36") {
+                    vars.metric.shipping.sealer.stageTwo.weight = parseFloat(data[i].Coverage);
                 }
             }
 
@@ -198,8 +230,71 @@ document.addEventListener("DOMContentLoaded", function(event) {
     pageInit();
 
     function calculateBUW(state){
+        // Ok we need to calculate any changes to buw inputs
+        /*
+            output_buw_ct300_weight_elem
+            output_buw_ct850_weight_elem
+            output_buw_total_weight_elem
+        */
+        if(state.form.units === "metric"){
+            // Element
+            output_buw_ct300_weight_elem.value = variables.metric.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
+            // State
+            state.form.buw.ct300.weight = variables.metric.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
+            // Element
+            output_buw_ct850_weight_elem.value = variables.metric.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value));
+            // State
+            state.form.buw.ct850.weight = variables.metric.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value));
+            // Element
+            output_buw_total_weight_elem.value = (parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value));
+            // State
+            state.form.buw.total.weight = (parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value));
+        } else {
+            // Element
+            output_buw_ct300_weight_elem.value = variables.imperial.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
+            // State
+            state.form.buw.ct300.weight = variables.imperial.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
+            // Element
+            output_buw_ct850_weight_elem.value = variables.imperial.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value));
+            // State
+            state.form.buw.ct850.weight = variables.imperial.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value));
+            // Element
+            output_buw_total_weight_elem.value = (parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value));
+            // State
+            state.form.buw.total.weight = (parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value));
+        }
+        updateState(state);
+    }
+
+    function calculateNOB(state){
+        // Ok we need to calculate any changes to nob inputs
+        /*
+            output_nob_ct300_elem
+            output_nob_ct8502_elem
+            output_nob_ct8504_elem
+        */
+        if(state.form.units === "metric"){
+            output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / variables.metric.nob.ct300);
+            state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+            output_nob_ct8502_elem.value = Math.ceil(parseFloat(output_nob_ct8502_elem.value) / variables.metric.nob.ct8502);
+            state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+            output_nob_ct8504_elem.value = Math.ceil(parseFloat(output_nob_ct8504_elem.value) / variables.metric.nob.ct8504);
+            state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+        } else {
+            output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / variables.imperial.nob.ct300);
+            state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+            output_nob_ct8502_elem.value = Math.ceil(parseFloat(output_nob_ct8502_elem.value) / variables.imperial.nob.ct8502);
+            state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+            output_nob_ct8504_elem.value = Math.ceil(parseFloat(output_nob_ct8504_elem.value) / variables.imperial.nob.ct8504);
+            state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+        }
+        updateState(state);
+    }
+
+    function calculateShippingWeight(sstate){
 
     }
+
 
     // Lets handle state
     let state = JSON.parse(localStorage.getItem('CTstate')) || {};
@@ -284,54 +379,62 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_buw_ct300_weight_elem.value = formData.buw.ct300.weight;
         } else {
             if(formData.units === "metric"){
-                output_buw_ct300_weight_elem.value = variables.metric.volume.weight.ct300 * buw_ct300_volume_elem.value;
+                output_buw_ct300_weight_elem.value = variables.metric.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
+                formData.buw.ct300.weight = parseFloat(output_buw_ct300_weight_elem.value);
             } else {
-                output_buw_ct300_weight_elem.value = variables.imperial.volume.weight.ct300 * buw_ct300_volume_elem.value;
+                output_buw_ct300_weight_elem.value = variables.imperial.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
+                formData.buw.ct300.weight = parseFloat(output_buw_ct300_weight_elem.value);
             }
         }
         if(formData.buw.ct850.weight != null){
             output_buw_ct850_weight_elem.value = formData.buw.ct850.weight;
         } else {
             if(formData.units === "metric"){
-                output_buw_ct850_weight_elem.value = (variables.metric.volume.weight.ct850 * buw_ct8502_volume_elem.value + variables.metric.volume.weight.ct850 * buw_ct8504_volume_elem.value);
+                output_buw_ct850_weight_elem.value = (variables.metric.buw.ct850 * parseFloat(buw_ct8502_volume_elem.value) + variables.metric.buw.ct850 * parseFloat(buw_ct8504_volume_elem.value));
+                formData.buw.ct850.weight = parseFloat(output_buw_ct850_weight_elem.value);
             } else {
-                output_buw_ct850_weight_elem.value = (variables.imperial.volume.weight.ct850 * buw_ct8502_volume_elem.value + variables.imperial.volume.weight.ct850 * buw_ct8504_volume_elem.value);
+                output_buw_ct850_weight_elem.value = (variables.imperial.buw.ct850 * parseFloat(buw_ct8502_volume_elem.value) + variables.imperial.buw.ct850 * parseFloat(buw_ct8504_volume_elem.value));
+                formData.buw.ct850.weight = parseFloat(output_buw_ct850_weight_elem.value);
             }
         }
         if (formData.buw.total.weight != null){
             output_buw_total_weight_elem.value = formData.buw.total.weight;
         } else {
-            output_buw_total_weight_elem.value = output_buw_ct850_weight_elem.value + output_buw_ct300_weight_elem.value;
+            output_buw_total_weight_elem.value = parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value);
+            formData.buw.total.weight = parseFloat(output_buw_total_weight_elem.value);
         }
         // Number of Boards
         if(formData.nob.ct300.amount != null){
             output_nob_ct300_elem.value = formData.nob.ct300.amount;
         } else {
-            // TODO calculate the number of ct300 boards given the variables var
             if(formData.units === "metric"){
-                // output_nob_ct300_elem.value = variables.metric.
+                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / variables.metric.nob.ct300);
+                formData.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
             } else {
-
+                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / variables.imperial.nob.ct300);
+                formData.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
             }
         }
         if(formData.nob.ct8504.amount != null){
             output_nob_ct8504_elem.value = formData.nob.ct8504.amount;
         } else {
-            // TODO calculate the number of ct8504 boards given the variables var
             if(formData.units === "metric"){
-                output_nob_ct8504_elem.value = variables.metric.nob.ct8504 * 
+                output_nob_ct8504_elem.value = Math.ceil(parseFloat(output_nob_ct8504_elem.value) / variables.metric.nob.ct8504);
+                formData.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
             } else {
-
+                output_nob_ct8504_elem.value = Math.ceil(parseFloat(output_nob_ct8504_elem.value) / variables.imperial.nob.ct8504);
+                formData.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
             }
         }
         if(formData.nob.ct8502.amount != null){
             output_nob_ct8502_elem.value = formData.nob.ct8502.amount;
         } else {
-            // TODO calc the number of ct8502 boards
             if(formData.units === "metric"){
-
+                output_nob_ct8502_elem.value = Math.ceil(parseFloat(output_nob_ct8502_elem.value) / variables.metric.nob.ct8502);
+                formData.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
             } else {
-
+                output_nob_ct8502_elem.value = Math.ceil(parseFloat(output_nob_ct8502_elem.value) / variables.imperial.nob.ct8502);
+                formData.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
             }
         }
 
@@ -340,15 +443,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
             adhesive_bondedSurface_elem.value = formData.adhesive.surfaceArea;
         } else {
             adhesive_bondedSurface_elem.value = 0;
+            formData.adhesive.surfaceArea = parseFloat(output_adhesive_volumeAdhesive_elem.value);
         }
         if(formData.adhesive.volume != null){
             output_adhesive_volumeAdhesive_elem.value = formData.adhesive.volume;
         } else {
-            // TODO calc
             if(formData.units === "metric"){
-
+                output_adhesive_volumeAdhesive_elem.value = parseFloat(adhesive_bondedSurface_elem.value) * variables.metric.adhesive;
+                formData.adhesive.amount = parseFloat(output_adhesive_volumeAdhesive_elem.value);
             } else {
-
+                output_adhesive_volumeAdhesive_elem.value = parseFloat(adhesive_bondedSurface_elem.value) * variables.imperial.adhesive;
+                formData.adhesive.amount = parseFloat(output_adhesive_volumeAdhesive_elem.value);
             }
         }
 
@@ -357,64 +462,101 @@ document.addEventListener("DOMContentLoaded", function(event) {
             sealer_toolSurface_elem.value = formData.sealer.toolSurface;
         } else {
             sealer_toolSurface_elem.value = 0;
+            formData.sealer.toolSurface = parseFloat(sealer_toolSurface_elem.value);
         }
         if(formData.sealer.stageOne != null){
             output_sealer_stage1_elem.value = formData.sealer.stageOne;
         } else {
-            // TODO calc
-
+            if(formData.units === "metric"){
+                output_sealer_stage1_elem.value = parseFloat(sealer_toolSurface_elem.value) * variables.metric.sealer.stageOne;
+                formData.sealer.stageOne = parseFloat(output_sealer_stage1_elem.value);
+            } else {
+                output_sealer_stage1_elem.value = parseFloat(sealer_toolSurface_elem.value) * variables.imperial.sealer.stageOne;
+                formData.sealer.stageOne = parseFloat(output_sealer_stage1_elem.value);
+            }
         }
         if(formData.sealer.stageTwo != null){
             output_sealer_stage2_elem.value = formData.sealer.stageTwo;
         } else {
-            // TODO calc
-
+            if(formData.units === "metric"){
+                output_sealer_stage2_elem.value = parseFloat(sealer_toolSurface_elem.value) * variables.metric.sealer.stageTwo;
+                formData.sealer.stageTwo = parseFloat(output_sealer_stage2_elem.value);
+            } else {
+                output_sealer_stage2_elem.value = parseFloat(sealer_toolSurface_elem.value) * variables.imperial.sealer.stageTwo;
+                formData.sealer.stageTwo = parseFloat(output_sealer_stage2_elem.value);
+            }
         }
 
         // Shipping weight
         if(formData.shipping.ct300 != null){
             output_ship_ct300_elem.value = formData.shipping.ct300;
         } else {
-            // TODO calc
-
+            if(formData.units === "metric"){
+                output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * variables.metric.shipping.ct300;
+                formData.shipping.ct300 = parseFloat(output_ship_ct300_elem.value);
+            } else {
+                output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * variables.imperial.shipping.ct300;
+                formData.shipping.ct300 = parseFloat(output_ship_ct300_elem.value);
+            }
         }
         if(formData.shipping.ct850 != null){
             output_ship_ct850_elem.value = formData.shipping.ct850;
         } else {
-            // TODO calc
+            if(formData.units === "metric"){
+                output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) + parseFloat(output_nob_ct8504_elem.value)) * variables.metric.shipping.ct850;
+                formData.shipping.ct850 = parseFloat(output_ship_ct850_elem.value);
+            } else {
+                output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) + parseFloat(output_nob_ct8504_elem.value)) * variables.metric.shipping.ct850;
+                formData.shipping.ct850 = parseFloat(output_ship_ct850_elem.value);
+            }
 
         }
         if(formData.shipping.adhesive != null){
             output_ship_adhesive_elem.value = formData.shipping.adhesive;
         } else {
-            // TODO calc
+            if(formData.units === "metric"){
+                output_ship_adhesive_elem.value = (Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / variables.metric.shipping.adhesive.liters)) * variables.metric.shipping.adhesive.weight;
+                formData.shipping.adhesive = parseFloat(output_ship_adhesive_elem.value);
+            } else {
+                output_ship_adhesive_elem.value = (Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / variables.imperial.shipping.adhesive.liters)) * variables.imperial.shipping.adhesive.weight;
+                formData.shipping.adhesive = parseFloat(output_ship_adhesive_elem.value);
+            }
 
         }
         if(formData.shipping.sealer.stageOne != null){
             output_ship_sealerStage1_elem.value = formData.shipping.sealer.stageOne;
         } else {
-            // TODO calc
-
+            if(formData.units === "metric"){
+                output_ship_sealerStage1_elem.value = (Math.ceil(parseFloat(output_sealer_stage1_elem.value) / variables.metric.shipping.sealer.stageOne.liters)) * variables.metric.shipping.sealer.stageOne.weight;
+                formData.shipping.sealer.stageOne = parseFloat(output_ship_sealerStage1_elem.value);
+            } else {
+                output_ship_sealerStage1_elem.value = (Math.ceil(parseFloat(output_sealer_stage1_elem.value) / variables.imperial.shipping.sealer.stageOne.liters)) * variables.imperial.shipping.sealer.stageOne.weight;
+                formData.shipping.sealer.stageOne = parseFloat(output_ship_sealerStage1_elem.value);
+            }
         }
         if(formData.shipping.sealer.stageTwo != null){
             output_ship_sealerStage2_elem.value = formData.shipping.sealer.stageTwo;
         } else {
-            // TODO calc
-
+            if(formData.units === "metric"){
+                output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_ship_sealerStage2_elem.value) / variables.metric.shipping.sealer.stageTwo.liters)) * variables.metric.shipping.sealer.stageTwo.weight;
+                formData.shipping.sealer.stageTwo = parseFloat(output_ship_sealerStage2_elem.value);
+            } else {
+                output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_ship_sealerStage2_elem.value) / variables.imperial.shipping.sealer.stageTwo.liters)) * variables.imperial.shipping.sealer.stageTwo.weight;
+                formData.shipping.sealer.stageTwo = parseFloat(output_ship_sealerStage2_elem.value);
+            }
         }
         if(formData.shipping.other != null){
             output_ship_other_elem.value = formData.shipping.other;
         } else {
-            // TODO Determine what to do here
-
+            output_ship_other_elem.value = 0;
+            formData.shipping.other = parseFloat(output_ship_other_elem.value);
         }
         if(formData.shipping.total != null){
             output_ship_total_elem.value = formData.shipping.total;
         } else {
-            // This one is easy
-            output_ship_total_elem.value = formData.shipping.ct300 + formData.shipping.ct850 + formData.shipping.adhesive + formData.shipping.sealer.stageOne + formData.shipping.sealer.stageTwo + formData.shipping.other;
+            output_ship_total_elem.value = parseFloat(output_ship_ct300_elem.value) + parseFloat(output_ship_adhesive_elem.value) + parseFloat(output_ship_sealerStage2_elem.value) + parseFloat(output_ship_sealerStage1_elem.value) + parseFloat(output_ship_ct850_elem.value) + parseFloat(output_ship_other_elem.value);
+            formData.shipping.total = parseFloat(output_ship_total_elem.value);
         }
-
     } else {
         // we don't have any saved state
         state.timestamp = Math.floor(new Date().getTime() / 1000);
