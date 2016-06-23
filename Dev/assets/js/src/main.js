@@ -23,7 +23,7 @@ function fetchVars(vars) {
             vars.metric.sealer = {};
             vars.imperial.sealer = {};
             vars.metric.buw = {};
-            vars.imperials.buw = {};
+            vars.imperial.buw = {};
             vars.metric.nob = {};
             vars.imperial.nob = {};
             vars.metric.shipping = {};
