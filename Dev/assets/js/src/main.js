@@ -292,9 +292,83 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     function calculateShippingWeight(sstate){
-
+        // Ok we need to calculate any changes to nob inputs
+        /*
+            output_ship_ct300_elem
+            output_ship_ct850_elem
+            output_ship_adhesive_elem
+            output_ship_sealerStage1_elem
+            output_ship_sealerStage2_elem
+            output_ship_total_elem
+            output_ship_other_elem
+        */
+        if(state.form.units === "metric"){
+            output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * variables.metric.shipping.ct300;
+            state.form.shipping.ct300 = parseFloat(output_ship_ct300_elem.value);
+            output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) + parseFloat(output_nob_ct8504_elem.value)) * variables.metric.shipping.ct850;
+            state.form.shipping.ct850 = parseFloat(output_ship_ct850_elem.value);
+            output_ship_adhesive_elem.value = (Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / variables.metric.shipping.adhesive.liters)) * variables.metric.shipping.adhesive.weight;
+            state.form.shipping.adhesive = parseFloat(output_ship_adhesive_elem.value);
+            output_ship_sealerStage1_elem.value = (Math.ceil(parseFloat(output_sealer_stage1_elem.value) / variables.metric.shipping.sealer.stageOne.liters)) * variables.metric.shipping.sealer.stageOne.weight;
+            state.form.shipping.sealer.stageOne = parseFloat(output_ship_sealerStage1_elem.value);
+            output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_ship_sealerStage2_elem.value) / variables.metric.shipping.sealer.stageTwo.liters)) * variables.metric.shipping.sealer.stageTwo.weight;
+            state.form.shipping.sealer.stageTwo = parseFloat(output_ship_sealerStage2_elem.value);
+            output_ship_total_elem.value = parseFloat(output_ship_ct300_elem.value) + parseFloat(output_ship_adhesive_elem.value) + parseFloat(output_ship_sealerStage2_elem.value) + parseFloat(output_ship_sealerStage1_elem.value) + parseFloat(output_ship_ct850_elem.value) + parseFloat(output_ship_other_elem.value);
+            state.form.shipping.total = parseFloat(output_ship_total_elem.value);
+            output_ship_other_elem.value = 0;
+            state.form.shipping.other = parseFloat(output_ship_other_elem.value);
+        } else {
+            output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * variables.imperial.shipping.ct300;
+            state.form.shipping.ct300 = parseFloat(output_ship_ct300_elem.value);
+            output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) + parseFloat(output_nob_ct8504_elem.value)) * variables.metric.shipping.ct850;
+            state.form.shipping.ct850 = parseFloat(output_ship_ct850_elem.value);
+            output_ship_adhesive_elem.value = (Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / variables.imperial.shipping.adhesive.liters)) * variables.imperial.shipping.adhesive.weight;
+            state.form.shipping.adhesive = parseFloat(output_ship_adhesive_elem.value);
+            output_ship_sealerStage1_elem.value = (Math.ceil(parseFloat(output_sealer_stage1_elem.value) / variables.imperial.shipping.sealer.stageOne.liters)) * variables.imperial.shipping.sealer.stageOne.weight;
+            state.form.shipping.sealer.stageOne = parseFloat(output_ship_sealerStage1_elem.value);
+            output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_ship_sealerStage2_elem.value) / variables.imperial.shipping.sealer.stageTwo.liters)) * variables.imperial.shipping.sealer.stageTwo.weight;
+            state.form.shipping.sealer.stageTwo = parseFloat(output_ship_sealerStage2_elem.value);
+            output_ship_total_elem.value = parseFloat(output_ship_ct300_elem.value) + parseFloat(output_ship_adhesive_elem.value) + parseFloat(output_ship_sealerStage2_elem.value) + parseFloat(output_ship_sealerStage1_elem.value) + parseFloat(output_ship_ct850_elem.value) + parseFloat(output_ship_other_elem.value);
+            state.form.shipping.total = parseFloat(output_ship_total_elem.value);
+            output_ship_other_elem.value = 0;
+            state.form.shipping.other = parseFloat(output_ship_other_elem.value);
+        }
+        updateState(state);
     }
 
+    function calculateAdhesive(state){
+        // Ok we need to calculate any changes to adhesive inputs
+        /*
+            output_adhesive_volumeAdhesive_elem
+        */
+        if(state.form.units === "metric"){
+            output_adhesive_volumeAdhesive_elem.value = parseFloat(adhesive_bondedSurface_elem.value) * variables.metric.adhesive;
+            state.form.adhesive.amount = parseFloat(output_adhesive_volumeAdhesive_elem.value);
+        } else {
+            output_adhesive_volumeAdhesive_elem.value = parseFloat(adhesive_bondedSurface_elem.value) * variables.imperial.adhesive;
+            state.form.adhesive.amount = parseFloat(output_adhesive_volumeAdhesive_elem.value);
+        }
+        updateState(state);
+    }
+    function calculateSealers(state){
+        // Ok we need to calculate any changes to sealer inputs
+        /*
+            output_sealer_stage1_elem
+            output_sealer_stage2_elem
+        */
+        if(state.form.units === "metric"){
+            output_sealer_stage1_elem.value = parseFloat(sealer_toolSurface_elem.value) * variables.metric.sealer.stageOne;
+            state.form.sealer.stageOne = parseFloat(output_sealer_stage1_elem.value);
+            output_sealer_stage2_elem.value = parseFloat(sealer_toolSurface_elem.value) * variables.metric.sealer.stageTwo;
+            state.form.sealer.stageTwo = parseFloat(output_sealer_stage2_elem.value);
+        } else {
+            output_sealer_stage1_elem.value = parseFloat(sealer_toolSurface_elem.value) * variables.imperial.sealer.stageOne;
+            state.form.sealer.stageOne = parseFloat(output_sealer_stage1_elem.value);
+            output_sealer_stage2_elem.value = parseFloat(sealer_toolSurface_elem.value) * variables.imperial.sealer.stageTwo;
+            state.form.sealer.stageTwo = parseFloat(output_sealer_stage2_elem.value);
+        }
+        updateState(state);
+    }
 
     // Lets handle state
     let state = JSON.parse(localStorage.getItem('CTstate')) || {};
