@@ -30,13 +30,10 @@ function fetchVars(vars) {
             vars.imperial.nob = {};
             for(var i=0; i<data.length; i++){
                 if(data[i].Order === "1"){
-                    // Imperial adhesive
                     vars.imperial.adhesive = parseFloat(data[i].Coverage);
                 } else if (data[i].Order === "2") {
-                    // Metric adhesive
                     vars.metric.adhesive = parseFloat(data[i].Coverage);
                 } else if (data[i].Order === "3") {
-                    // Imperial stage one sealer
                     vars.imperial.sealer.stageOne = parseFloat(data[i].Coverage);
                 } else if (data[i].Order === "4") {
                     vars.metric.sealer.stageOne = parseFloat(data[i].Coverage);
@@ -49,7 +46,6 @@ function fetchVars(vars) {
                 } else if (data[i].Order === "8") {
                     // releaser
                 } else if (data[i].Order === "9") {
-                    // buw
                     vars.imperial.buw.ct300 = parseFloat(data[i].Coverage);
                 } else if (data[i].Order === "10") {
                     vars.metric.buw.ct300 = parseFloat(data[i].Coverage);
