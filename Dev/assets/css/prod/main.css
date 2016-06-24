@@ -105,28 +105,12 @@ a:hover {
   margin-right: auto;
 }
 
-.flex {
-  display: -webkit-box;
-  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-  display: -ms-flexbox;
-  /* TWEENER - IE 10 */
-  display: -webkit-flex;
-  /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  display: flex;
-  justify-content: space-around;
-  -ms-flex-pack: justify;
-  flex-direction: row;
-  -ms-flex-direction: row;
-  align-items: center;
-  -ms-flex-pack: center;
-}
-
 .bg--black {
   background-color: #000000;
 }
 
 .bg--white {
-  background: white;
+  background: #ffffff;
   background-color: #ffffff;
 }
 
