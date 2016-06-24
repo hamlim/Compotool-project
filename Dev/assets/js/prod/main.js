@@ -235,11 +235,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
        }
        return(false);
     }
-
+    var clear = false;
     function pageInit(){
         var query = getQueryVariable("clear");
         if(query){
             initializeInputs();
+            clear = true;
         } else {
             // Don't do anything
         }
@@ -291,19 +292,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_nob_ct8504_elem
         */
         if(state.form.units === "metric"){
-            output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.metric.nob.ct300);
+            output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) || Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.metric.nob.ct300);
             state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-            output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.metric.nob.ct8502);
+            output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value) || Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.metric.nob.ct8502);
             state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-            output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.metric.nob.ct8504);
-            console.log(parseFloat(output_nob_ct8504_elem.value));
+            output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value) || Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.metric.nob.ct8504);
             state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
         } else {
-            output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
+            output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) || Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
             state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-            output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
+            output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value) || Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
             state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-            output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.imperial.nob.ct8504);
+            output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value) || Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.imperial.nob.ct8504);
             state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
         }
         updateState(state);
@@ -674,6 +674,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
         state.form = form;
         console.log(state);
         updateState(state);
+    }
+    
+    if(clear){
+        initializeInputs();
     }
 
     // Onclick events
