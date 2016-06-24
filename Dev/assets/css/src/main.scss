@@ -3,6 +3,12 @@
 @import "_grid";
 
 
+// *,
+// *::before,
+// *::after {
+//    box-sizing:border-box 
+// }
+
 .bg--black {
     background-color: $ct_black;
 }

@@ -350,7 +350,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             state.form.shipping.adhesive = parseFloat(output_ship_adhesive_elem.value);
             output_ship_sealerStage1_elem.value = (Math.ceil(parseFloat(output_sealer_stage1_elem.value) / constants.imperial.shipping.sealer.stageOne.liters)) * constants.imperial.shipping.sealer.stageOne.weight;
             state.form.shipping.sealer.stageOne = parseFloat(output_ship_sealerStage1_elem.value);
-            output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_ship_sealerStage2_elem.value) / constants.imperial.shipping.sealer.stageTwo.liters)) * constants.imperial.shipping.sealer.stageTwo.weight;
+            output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_sealer_stage2_elem.value) / constants.imperial.shipping.sealer.stageTwo.liters)) * constants.imperial.shipping.sealer.stageTwo.weight;
             state.form.shipping.sealer.stageTwo = parseFloat(output_ship_sealerStage2_elem.value);
             output_ship_total_elem.value = parseFloat(output_ship_ct300_elem.value) + parseFloat(output_ship_adhesive_elem.value) + parseFloat(output_ship_sealerStage2_elem.value) + parseFloat(output_ship_sealerStage1_elem.value) + parseFloat(output_ship_ct850_elem.value) + parseFloat(output_ship_other_elem.value);
             state.form.shipping.total = parseFloat(output_ship_total_elem.value);
