@@ -36,6 +36,18 @@ function fetchVars(vars) {
             vars.imperial.shipping.sealer.stageOne = {};
             vars.metric.shipping.sealer.stageTwo = {};
             vars.imperial.shipping.sealer.stageTwo = {};
+            vars.metric.shipping.ct8502 = 0;
+            vars.imperial.shipping.ct8502 = 0;
+            vars.metric.shipping.ct8504 = 0;
+            vars.imperial.shipping.ct8504 = 0;
+            vars.ct8502 = {};
+            vars.ct8504 = {};
+            vars.ct8502.shipping = {};
+            vars.ct8504.shipping = {};
+            vars.ct8502.shipping.metric = 0;
+            vars.ct8504.shipping.metric = 0;
+            vars.ct8502.shipping.imperial = 0;
+            vars.ct8504.shipping.imperial = 0;
             for(let i=0; i<data.length; i++){
                 if(data[i].Order === "1"){
                     vars.imperial.adhesive = parseFloat(data[i].Coverage);
@@ -79,12 +91,16 @@ function fetchVars(vars) {
                     vars.metric.shipping.ct300 = parseFloat(data[i].Coverage);
                 } else if (data[i].Order === "21") {
                     vars.imperial.shipping.ct8502 = parseFloat(data[i].Coverage);
+                    vars.ct8502.shipping.imperial = parseFloat(data[i].Coverage);
                 } else if (data[i].Order === "22") {
                     vars.metric.shipping.ct8502 = parseFloat(data[i].Coverage);
+                    vars.ct8502.shipping.metric = parseFloat(data[i].Coverage);
                 } else if (data[i].Order === "23") {
                     vars.imperial.shipping.ct8504 = parseFloat(data[i].Coverage);
+                    vars.ct8504.shipping.imperial = parseFloat(data[i].Coverage);
                 } else if (data[i].Order === "24") {
                     vars.metric.shipping.ct8504 = parseFloat(data[i].Coverage);
+                    vars.ct8504.shipping.metric = parseFloat(data[i].Coverage);
                 } else if (data[i].Order === "25") {
                     vars.imperial.shipping.adhesive.liters = parseFloat(data[i].Coverage);
                 } else if (data[i].Order === "26") {
@@ -123,9 +139,9 @@ function fetchVars(vars) {
 };
 
 // Lets get the vars
-let variables = {};
-fetchVars(variables);
-console.log(variables);
+let constants = {};
+fetchVars(constants);
+// console.log(constants);
 
 document.addEventListener("DOMContentLoaded", function(event) {
     // variables
@@ -239,26 +255,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
         */
         if(state.form.units === "metric"){
             // Element
-            output_buw_ct300_weight_elem.value = variables.metric.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
+            output_buw_ct300_weight_elem.value = constants.metric.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
             // State
-            state.form.buw.ct300.weight = variables.metric.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
+            state.form.buw.ct300.weight = constants.metric.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
             // Element
-            output_buw_ct850_weight_elem.value = variables.metric.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value));
+            output_buw_ct850_weight_elem.value = constants.metric.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value));
             // State
-            state.form.buw.ct850.weight = variables.metric.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value));
+            state.form.buw.ct850.weight = constants.metric.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value));
             // Element
             output_buw_total_weight_elem.value = (parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value));
             // State
             state.form.buw.total.weight = (parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value));
         } else {
             // Element
-            output_buw_ct300_weight_elem.value = variables.imperial.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
+            output_buw_ct300_weight_elem.value = constants.imperial.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
             // State
-            state.form.buw.ct300.weight = variables.imperial.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
+            state.form.buw.ct300.weight = constants.imperial.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
             // Element
-            output_buw_ct850_weight_elem.value = variables.imperial.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value));
+            output_buw_ct850_weight_elem.value = constants.imperial.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value));
             // State
-            state.form.buw.ct850.weight = variables.imperial.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value));
+            state.form.buw.ct850.weight = constants.imperial.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value));
             // Element
             output_buw_total_weight_elem.value = (parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value));
             // State
@@ -275,24 +291,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_nob_ct8504_elem
         */
         if(state.form.units === "metric"){
-            output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / variables.metric.nob.ct300);
+            output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.metric.nob.ct300);
             state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-            output_nob_ct8502_elem.value = Math.ceil(parseFloat(output_nob_ct8502_elem.value) / variables.metric.nob.ct8502);
+            output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.metric.nob.ct8502);
             state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-            output_nob_ct8504_elem.value = Math.ceil(parseFloat(output_nob_ct8504_elem.value) / variables.metric.nob.ct8504);
+            output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.metric.nob.ct8504);
+            console.log(parseFloat(output_nob_ct8504_elem.value));
             state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
         } else {
-            output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / variables.imperial.nob.ct300);
+            output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
             state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-            output_nob_ct8502_elem.value = Math.ceil(parseFloat(output_nob_ct8502_elem.value) / variables.imperial.nob.ct8502);
+            output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
             state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-            output_nob_ct8504_elem.value = Math.ceil(parseFloat(output_nob_ct8504_elem.value) / variables.imperial.nob.ct8504);
+            output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.imperial.nob.ct8504);
             state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
         }
         updateState(state);
     }
 
-    function calculateShippingWeight(sstate){
+    function calculateShippingWeight(state){
         // Ok we need to calculate any changes to nob inputs
         /*
             output_ship_ct300_elem
@@ -304,30 +321,30 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_ship_other_elem
         */
         if(state.form.units === "metric"){
-            output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * variables.metric.shipping.ct300;
+            output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * constants.metric.shipping.ct300;
             state.form.shipping.ct300 = parseFloat(output_ship_ct300_elem.value);
-            output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) + parseFloat(output_nob_ct8504_elem.value)) * variables.metric.shipping.ct850;
+            output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) * constants.ct8502.shipping.metric) + (parseFloat(output_nob_ct8504_elem.value) * constants.ct8504.shipping.metric); // (parseFloat(output_nob_ct8502_elem.value) + parseFloat(output_nob_ct8504_elem.value)) * constants.metric.shipping.ct850;
             state.form.shipping.ct850 = parseFloat(output_ship_ct850_elem.value);
-            output_ship_adhesive_elem.value = (Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / variables.metric.shipping.adhesive.liters)) * variables.metric.shipping.adhesive.weight;
+            output_ship_adhesive_elem.value = (Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / constants.metric.shipping.adhesive.liters)) * constants.metric.shipping.adhesive.weight;
             state.form.shipping.adhesive = parseFloat(output_ship_adhesive_elem.value);
-            output_ship_sealerStage1_elem.value = (Math.ceil(parseFloat(output_sealer_stage1_elem.value) / variables.metric.shipping.sealer.stageOne.liters)) * variables.metric.shipping.sealer.stageOne.weight;
+            output_ship_sealerStage1_elem.value = (Math.ceil(parseFloat(output_sealer_stage1_elem.value) / constants.metric.shipping.sealer.stageOne.liters)) * constants.metric.shipping.sealer.stageOne.weight;
             state.form.shipping.sealer.stageOne = parseFloat(output_ship_sealerStage1_elem.value);
-            output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_ship_sealerStage2_elem.value) / variables.metric.shipping.sealer.stageTwo.liters)) * variables.metric.shipping.sealer.stageTwo.weight;
+            output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_ship_sealerStage2_elem.value) / constants.metric.shipping.sealer.stageTwo.liters)) * constants.metric.shipping.sealer.stageTwo.weight;
             state.form.shipping.sealer.stageTwo = parseFloat(output_ship_sealerStage2_elem.value);
             output_ship_total_elem.value = parseFloat(output_ship_ct300_elem.value) + parseFloat(output_ship_adhesive_elem.value) + parseFloat(output_ship_sealerStage2_elem.value) + parseFloat(output_ship_sealerStage1_elem.value) + parseFloat(output_ship_ct850_elem.value) + parseFloat(output_ship_other_elem.value);
             state.form.shipping.total = parseFloat(output_ship_total_elem.value);
             output_ship_other_elem.value = 0;
             state.form.shipping.other = parseFloat(output_ship_other_elem.value);
         } else {
-            output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * variables.imperial.shipping.ct300;
+            output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * constants.imperial.shipping.ct300;
             state.form.shipping.ct300 = parseFloat(output_ship_ct300_elem.value);
-            output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) + parseFloat(output_nob_ct8504_elem.value)) * variables.metric.shipping.ct850;
+            output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) * constants.ct8502.shipping.imperial) + (parseFloat(output_nob_ct8504_elem.value) * constants.ct8504.shipping.imperial); // (parseFloat(output_nob_ct8502_elem.value) * constants.imperial.shipping.ct8502) + (parseFloat(output_nob_ct8504_elem.value) * constants.imperial.shipping.ct8504);
             state.form.shipping.ct850 = parseFloat(output_ship_ct850_elem.value);
-            output_ship_adhesive_elem.value = (Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / variables.imperial.shipping.adhesive.liters)) * variables.imperial.shipping.adhesive.weight;
+            output_ship_adhesive_elem.value = (Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / constants.imperial.shipping.adhesive.liters)) * constants.imperial.shipping.adhesive.weight;
             state.form.shipping.adhesive = parseFloat(output_ship_adhesive_elem.value);
-            output_ship_sealerStage1_elem.value = (Math.ceil(parseFloat(output_sealer_stage1_elem.value) / variables.imperial.shipping.sealer.stageOne.liters)) * variables.imperial.shipping.sealer.stageOne.weight;
+            output_ship_sealerStage1_elem.value = (Math.ceil(parseFloat(output_sealer_stage1_elem.value) / constants.imperial.shipping.sealer.stageOne.liters)) * constants.imperial.shipping.sealer.stageOne.weight;
             state.form.shipping.sealer.stageOne = parseFloat(output_ship_sealerStage1_elem.value);
-            output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_ship_sealerStage2_elem.value) / variables.imperial.shipping.sealer.stageTwo.liters)) * variables.imperial.shipping.sealer.stageTwo.weight;
+            output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_ship_sealerStage2_elem.value) / constants.imperial.shipping.sealer.stageTwo.liters)) * constants.imperial.shipping.sealer.stageTwo.weight;
             state.form.shipping.sealer.stageTwo = parseFloat(output_ship_sealerStage2_elem.value);
             output_ship_total_elem.value = parseFloat(output_ship_ct300_elem.value) + parseFloat(output_ship_adhesive_elem.value) + parseFloat(output_ship_sealerStage2_elem.value) + parseFloat(output_ship_sealerStage1_elem.value) + parseFloat(output_ship_ct850_elem.value) + parseFloat(output_ship_other_elem.value);
             state.form.shipping.total = parseFloat(output_ship_total_elem.value);
@@ -343,10 +360,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_adhesive_volumeAdhesive_elem
         */
         if(state.form.units === "metric"){
-            output_adhesive_volumeAdhesive_elem.value = parseFloat(adhesive_bondedSurface_elem.value) * variables.metric.adhesive;
+            output_adhesive_volumeAdhesive_elem.value = parseFloat(adhesive_bondedSurface_elem.value) * constants.metric.adhesive;
             state.form.adhesive.amount = parseFloat(output_adhesive_volumeAdhesive_elem.value);
         } else {
-            output_adhesive_volumeAdhesive_elem.value = parseFloat(adhesive_bondedSurface_elem.value) * variables.imperial.adhesive;
+            output_adhesive_volumeAdhesive_elem.value = parseFloat(adhesive_bondedSurface_elem.value) * constants.imperial.adhesive;
             state.form.adhesive.amount = parseFloat(output_adhesive_volumeAdhesive_elem.value);
         }
         updateState(state);
@@ -358,21 +375,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_sealer_stage2_elem
         */
         if(state.form.units === "metric"){
-            output_sealer_stage1_elem.value = parseFloat(sealer_toolSurface_elem.value) * variables.metric.sealer.stageOne;
+            output_sealer_stage1_elem.value = parseFloat(sealer_toolSurface_elem.value) * constants.metric.sealer.stageOne;
             state.form.sealer.stageOne = parseFloat(output_sealer_stage1_elem.value);
-            output_sealer_stage2_elem.value = parseFloat(sealer_toolSurface_elem.value) * variables.metric.sealer.stageTwo;
+            output_sealer_stage2_elem.value = parseFloat(sealer_toolSurface_elem.value) * constants.metric.sealer.stageTwo;
             state.form.sealer.stageTwo = parseFloat(output_sealer_stage2_elem.value);
         } else {
-            output_sealer_stage1_elem.value = parseFloat(sealer_toolSurface_elem.value) * variables.imperial.sealer.stageOne;
+            output_sealer_stage1_elem.value = parseFloat(sealer_toolSurface_elem.value) * constants.imperial.sealer.stageOne;
             state.form.sealer.stageOne = parseFloat(output_sealer_stage1_elem.value);
-            output_sealer_stage2_elem.value = parseFloat(sealer_toolSurface_elem.value) * variables.imperial.sealer.stageTwo;
+            output_sealer_stage2_elem.value = parseFloat(sealer_toolSurface_elem.value) * constants.imperial.sealer.stageTwo;
             state.form.sealer.stageTwo = parseFloat(output_sealer_stage2_elem.value);
         }
         updateState(state);
     }
 
     // Lets handle state
-    let state = JSON.parse(localStorage.getItem('CTstate')) || {};
+    let state = {};
+    if(localStorage.getItem('CTstate')){
+        state = JSON.parse(localStorage.getItem('CTstate'));
+    } else {
+        state = {};
+    }
+    // let state = JSON.parse(localStorage.getItem('CTstate')) || {};
 
     function getFormState(){
         let form = {};
@@ -429,9 +452,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
         if(formData.units === "metric"){
             unit_imperial_elem.checked = false;
             unit_metric_elem.checked = true;
+            for(let i=0; i<unit_spans_elemCollection.length; i++){
+                unit_spans_elemCollection[i].innerText = "Kgs";
+            }
         } else {
             unit_metric_elem.checked = false;
             unit_imperial_elem.checked = true;
+            for(let i=0; i<unit_spans_elemCollection.length; i++){
+                unit_spans_elemCollection[i].innerText = "Lbs";
+            }
         }
         // Block Up weight
         if (formData.buw.ct300.volume != null){
@@ -454,10 +483,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_buw_ct300_weight_elem.value = formData.buw.ct300.weight;
         } else {
             if(formData.units === "metric"){
-                output_buw_ct300_weight_elem.value = variables.metric.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
+                output_buw_ct300_weight_elem.value = constants.metric.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
                 formData.buw.ct300.weight = parseFloat(output_buw_ct300_weight_elem.value);
             } else {
-                output_buw_ct300_weight_elem.value = variables.imperial.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
+                output_buw_ct300_weight_elem.value = constants.imperial.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
                 formData.buw.ct300.weight = parseFloat(output_buw_ct300_weight_elem.value);
             }
         }
@@ -465,10 +494,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_buw_ct850_weight_elem.value = formData.buw.ct850.weight;
         } else {
             if(formData.units === "metric"){
-                output_buw_ct850_weight_elem.value = (variables.metric.buw.ct850 * parseFloat(buw_ct8502_volume_elem.value) + variables.metric.buw.ct850 * parseFloat(buw_ct8504_volume_elem.value));
+                output_buw_ct850_weight_elem.value = (constants.metric.buw.ct850 * parseFloat(buw_ct8502_volume_elem.value) + constants.metric.buw.ct850 * parseFloat(buw_ct8504_volume_elem.value));
                 formData.buw.ct850.weight = parseFloat(output_buw_ct850_weight_elem.value);
             } else {
-                output_buw_ct850_weight_elem.value = (variables.imperial.buw.ct850 * parseFloat(buw_ct8502_volume_elem.value) + variables.imperial.buw.ct850 * parseFloat(buw_ct8504_volume_elem.value));
+                output_buw_ct850_weight_elem.value = (constants.imperial.buw.ct850 * parseFloat(buw_ct8502_volume_elem.value) + constants.imperial.buw.ct850 * parseFloat(buw_ct8504_volume_elem.value));
                 formData.buw.ct850.weight = parseFloat(output_buw_ct850_weight_elem.value);
             }
         }
@@ -483,10 +512,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_nob_ct300_elem.value = formData.nob.ct300.amount;
         } else {
             if(formData.units === "metric"){
-                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / variables.metric.nob.ct300);
+                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.metric.nob.ct300);
                 formData.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
             } else {
-                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / variables.imperial.nob.ct300);
+                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
                 formData.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
             }
         }
@@ -494,10 +523,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_nob_ct8504_elem.value = formData.nob.ct8504.amount;
         } else {
             if(formData.units === "metric"){
-                output_nob_ct8504_elem.value = Math.ceil(parseFloat(output_nob_ct8504_elem.value) / variables.metric.nob.ct8504);
+                output_nob_ct8504_elem.value = Math.ceil(parseFloat(output_nob_ct8504_elem.value) / constants.metric.nob.ct8504);
                 formData.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
             } else {
-                output_nob_ct8504_elem.value = Math.ceil(parseFloat(output_nob_ct8504_elem.value) / variables.imperial.nob.ct8504);
+                output_nob_ct8504_elem.value = Math.ceil(parseFloat(output_nob_ct8504_elem.value) / constants.imperial.nob.ct8504);
                 formData.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
             }
         }
@@ -505,10 +534,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_nob_ct8502_elem.value = formData.nob.ct8502.amount;
         } else {
             if(formData.units === "metric"){
-                output_nob_ct8502_elem.value = Math.ceil(parseFloat(output_nob_ct8502_elem.value) / variables.metric.nob.ct8502);
+                output_nob_ct8502_elem.value = Math.ceil(parseFloat(output_nob_ct8502_elem.value) / constants.metric.nob.ct8502);
                 formData.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
             } else {
-                output_nob_ct8502_elem.value = Math.ceil(parseFloat(output_nob_ct8502_elem.value) / variables.imperial.nob.ct8502);
+                output_nob_ct8502_elem.value = Math.ceil(parseFloat(output_nob_ct8502_elem.value) / constants.imperial.nob.ct8502);
                 formData.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
             }
         }
@@ -524,10 +553,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_adhesive_volumeAdhesive_elem.value = formData.adhesive.volume;
         } else {
             if(formData.units === "metric"){
-                output_adhesive_volumeAdhesive_elem.value = parseFloat(adhesive_bondedSurface_elem.value) * variables.metric.adhesive;
+                output_adhesive_volumeAdhesive_elem.value = parseFloat(adhesive_bondedSurface_elem.value) * constants.metric.adhesive;
                 formData.adhesive.amount = parseFloat(output_adhesive_volumeAdhesive_elem.value);
             } else {
-                output_adhesive_volumeAdhesive_elem.value = parseFloat(adhesive_bondedSurface_elem.value) * variables.imperial.adhesive;
+                output_adhesive_volumeAdhesive_elem.value = parseFloat(adhesive_bondedSurface_elem.value) * constants.imperial.adhesive;
                 formData.adhesive.amount = parseFloat(output_adhesive_volumeAdhesive_elem.value);
             }
         }
@@ -543,10 +572,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_sealer_stage1_elem.value = formData.sealer.stageOne;
         } else {
             if(formData.units === "metric"){
-                output_sealer_stage1_elem.value = parseFloat(sealer_toolSurface_elem.value) * variables.metric.sealer.stageOne;
+                output_sealer_stage1_elem.value = parseFloat(sealer_toolSurface_elem.value) * constants.metric.sealer.stageOne;
                 formData.sealer.stageOne = parseFloat(output_sealer_stage1_elem.value);
             } else {
-                output_sealer_stage1_elem.value = parseFloat(sealer_toolSurface_elem.value) * variables.imperial.sealer.stageOne;
+                output_sealer_stage1_elem.value = parseFloat(sealer_toolSurface_elem.value) * constants.imperial.sealer.stageOne;
                 formData.sealer.stageOne = parseFloat(output_sealer_stage1_elem.value);
             }
         }
@@ -554,10 +583,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_sealer_stage2_elem.value = formData.sealer.stageTwo;
         } else {
             if(formData.units === "metric"){
-                output_sealer_stage2_elem.value = parseFloat(sealer_toolSurface_elem.value) * variables.metric.sealer.stageTwo;
+                output_sealer_stage2_elem.value = parseFloat(sealer_toolSurface_elem.value) * constants.metric.sealer.stageTwo;
                 formData.sealer.stageTwo = parseFloat(output_sealer_stage2_elem.value);
             } else {
-                output_sealer_stage2_elem.value = parseFloat(sealer_toolSurface_elem.value) * variables.imperial.sealer.stageTwo;
+                output_sealer_stage2_elem.value = parseFloat(sealer_toolSurface_elem.value) * constants.imperial.sealer.stageTwo;
                 formData.sealer.stageTwo = parseFloat(output_sealer_stage2_elem.value);
             }
         }
@@ -567,33 +596,37 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_ship_ct300_elem.value = formData.shipping.ct300;
         } else {
             if(formData.units === "metric"){
-                output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * variables.metric.shipping.ct300;
+                output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * constants.metric.shipping.ct300;
                 formData.shipping.ct300 = parseFloat(output_ship_ct300_elem.value);
             } else {
-                output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * variables.imperial.shipping.ct300;
+                output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * constants.imperial.shipping.ct300;
                 formData.shipping.ct300 = parseFloat(output_ship_ct300_elem.value);
             }
         }
         if(formData.shipping.ct850 != null){
             output_ship_ct850_elem.value = formData.shipping.ct850;
         } else {
+            console.log(constants.ct8502);
+            let metric8502 = constants.ct8502.shipping.metric || 0;
+            let metric8504 = constants.ct8504.shipping.metric || 0;
+            let imperial8502 = constants.ct8503.shipping.imperial || 0;
+            let imperial8504 = constants.ct8504.shipping.imperial || 0;
             if(formData.units === "metric"){
-                output_ship_ct850_elem.value = ((parseFloat(output_nob_ct8502_elem.value) * variables.metric.shipping.ct8502) + (parseFloat(output_nob_ct8504_elem.value) * variables.metric.shipping.ct8504));
+                output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) * constants.metric.shipping.ct8502) + (parseFloat(output_nob_ct8504_elem.value) * constants.metric.shipping.ct8504); // ((parseFloat(output_nob_ct8502_elem.value) * constants.metric.shipping.ct8502) + (parseFloat(output_nob_ct8504_elem.value) * constants.metric.shipping.ct8504));
                 formData.shipping.ct850 = parseFloat(output_ship_ct850_elem.value);
             } else {
-                output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) * variables.imperial.shipping.ct8502) + (parseFloat(output_nob_ct8504_elem.value) * variables.imperial.shipping.ct8504);
+                output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) * constants.imperial.shipping.ct8502) + (parseFloat(output_nob_ct8504_elem.value) * constants.imperial.shipping.ct8504s); // output_ship_ct850_elem.value = ((parseFloat(output_nob_ct8502_elem.value) * constants.imperial.shipping.ct8502) + (parseFloat(output_nob_ct8504_elem.value) * constants.imperial.shipping.ct8504));
                 formData.shipping.ct850 = parseFloat(output_ship_ct850_elem.value);
             }
-
         }
         if(formData.shipping.adhesive != null){
             output_ship_adhesive_elem.value = formData.shipping.adhesive;
         } else {
             if(formData.units === "metric"){
-                output_ship_adhesive_elem.value = (Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / variables.metric.shipping.adhesive.liters)) * variables.metric.shipping.adhesive.weight;
+                output_ship_adhesive_elem.value = (Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / constants.metric.shipping.adhesive.liters)) * constants.metric.shipping.adhesive.weight;
                 formData.shipping.adhesive = parseFloat(output_ship_adhesive_elem.value);
             } else {
-                output_ship_adhesive_elem.value = (Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / variables.imperial.shipping.adhesive.liters)) * variables.imperial.shipping.adhesive.weight;
+                output_ship_adhesive_elem.value = (Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / constants.imperial.shipping.adhesive.liters)) * constants.imperial.shipping.adhesive.weight;
                 formData.shipping.adhesive = parseFloat(output_ship_adhesive_elem.value);
             }
 
@@ -602,10 +635,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_ship_sealerStage1_elem.value = formData.shipping.sealer.stageOne;
         } else {
             if(formData.units === "metric"){
-                output_ship_sealerStage1_elem.value = (Math.ceil(parseFloat(output_sealer_stage1_elem.value) / variables.metric.shipping.sealer.stageOne.liters)) * variables.metric.shipping.sealer.stageOne.weight;
+                output_ship_sealerStage1_elem.value = (Math.ceil(parseFloat(output_sealer_stage1_elem.value) / constants.metric.shipping.sealer.stageOne.liters)) * constants.metric.shipping.sealer.stageOne.weight;
                 formData.shipping.sealer.stageOne = parseFloat(output_ship_sealerStage1_elem.value);
             } else {
-                output_ship_sealerStage1_elem.value = (Math.ceil(parseFloat(output_sealer_stage1_elem.value) / variables.imperial.shipping.sealer.stageOne.liters)) * variables.imperial.shipping.sealer.stageOne.weight;
+                output_ship_sealerStage1_elem.value = (Math.ceil(parseFloat(output_sealer_stage1_elem.value) / constants.imperial.shipping.sealer.stageOne.liters)) * constants.imperial.shipping.sealer.stageOne.weight;
                 formData.shipping.sealer.stageOne = parseFloat(output_ship_sealerStage1_elem.value);
             }
         }
@@ -613,10 +646,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_ship_sealerStage2_elem.value = formData.shipping.sealer.stageTwo;
         } else {
             if(formData.units === "metric"){
-                output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_ship_sealerStage2_elem.value) / variables.metric.shipping.sealer.stageTwo.liters)) * variables.metric.shipping.sealer.stageTwo.weight;
+                output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_ship_sealerStage2_elem.value) / constants.metric.shipping.sealer.stageTwo.liters)) * constants.metric.shipping.sealer.stageTwo.weight;
                 formData.shipping.sealer.stageTwo = parseFloat(output_ship_sealerStage2_elem.value);
             } else {
-                output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_ship_sealerStage2_elem.value) / variables.imperial.shipping.sealer.stageTwo.liters)) * variables.imperial.shipping.sealer.stageTwo.weight;
+                output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_ship_sealerStage2_elem.value) / constants.imperial.shipping.sealer.stageTwo.liters)) * constants.imperial.shipping.sealer.stageTwo.weight;
                 formData.shipping.sealer.stageTwo = parseFloat(output_ship_sealerStage2_elem.value);
             }
         }
@@ -678,15 +711,28 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     btn_buw_elem.onclick = function() {
         // first update the state var, and sync with localStorage
-
-
-
-
+        // Lets get the values that they have entered
+        /* 
+            buw_ct300_volume_elem
+            buw_ct8502_volume_elem
+            buw_ct8504_volume_elem
+        */
+        let buwct300vol = buw_ct300_volume_elem.value;
+        state.form.buw.ct300.volume = buwct300vol;
+        let buwct8502vol = buw_ct8502_volume_elem.value;
+        state.form.buw.ct8502.volume = buwct8502vol;
+        let buwct8504vol = buw_ct8504_volume_elem.value;
+        state.form.buw.ct8504.volume = buwct8504vol;
+        
         // Now call updatebuw(), update nob(), update Shipping()
         updateState(state);
         calculateBUW(state);
         calculateNOB(state);
         calculateShippingWeight(state);
+    }
+    
+    btn_adhesive_elem.onclick = function() {
+        
     }
 
 
