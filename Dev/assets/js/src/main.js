@@ -230,26 +230,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
         output_ship_total_elem.value = 0;
     };
 
-    function getQueryVariable(variable) {
-       let query = window.location.search.substring(1);
-       let vars = query.split("&");
-       for (let i=0;i<vars.length;i++) {
-               let pair = vars[i].split("=");
-               if(pair[0] == variable){return pair[1];}
-       }
-       return(false);
-    }
-    let clear = false;
-    function pageInit(){
-        let query = getQueryVariable("clear");
-        if(query){
-            initializeInputs();
-            clear = true;
-        } else {
-            // Don't do anything
-        }
-    }
-    pageInit();
+    // function getQueryVariable(variable) {
+    //    let query = window.location.search.substring(1);
+    //    let vars = query.split("&");
+    //    for (let i=0;i<vars.length;i++) {
+    //            let pair = vars[i].split("=");
+    //            if(pair[0] == variable){return pair[1];}
+    //    }
+    //    return(false);
+    // }
+    // let clear = false;
+    // function pageInit(){
+    //     let query = getQueryVariable("clear");
+    //     if(query){
+    //         initializeInputs();
+    //         clear = true;
+    //     } else {
+    //         // Don't do anything
+    //     }
+    // }
+    // pageInit();
 
     function calculateBUW(state){
         // Ok we need to calculate any changes to buw inputs
@@ -260,30 +260,30 @@ document.addEventListener("DOMContentLoaded", function(event) {
         */
         if(state.form.units === "metric"){
             // Element
-            output_buw_ct300_weight_elem.value = constants.metric.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
+            output_buw_ct300_weight_elem.value = (constants.metric.buw.ct300 * parseFloat(buw_ct300_volume_elem.value)).toFixed(3);
             // State
-            state.form.buw.ct300.weight = constants.metric.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
+            state.form.buw.ct300.weight = parseFloat(output_buw_ct300_weight_elem.value);
             // Element
-            output_buw_ct850_weight_elem.value = constants.metric.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value));
+            output_buw_ct850_weight_elem.value = (constants.metric.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value))).toFixed(3);
             // State
-            state.form.buw.ct850.weight = constants.metric.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value));
+            state.form.buw.ct850.weight = parseFloat(output_buw_ct850_weight_elem.value);
             // Element
-            output_buw_total_weight_elem.value = (parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value));
+            output_buw_total_weight_elem.value = ((parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value))).toFixed(3);
             // State
-            state.form.buw.total.weight = (parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value));
+            state.form.buw.total.weight = parseFloat(output_buw_total_weight_elem.value);
         } else {
             // Element
-            output_buw_ct300_weight_elem.value = constants.imperial.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
+            output_buw_ct300_weight_elem.value = (constants.imperial.buw.ct300 * parseFloat(buw_ct300_volume_elem.value)).toFixed(3);
             // State
-            state.form.buw.ct300.weight = constants.imperial.buw.ct300 * parseFloat(buw_ct300_volume_elem.value);
+            state.form.buw.ct300.weight = parseFloat(output_buw_ct300_weight_elem.value);
             // Element
-            output_buw_ct850_weight_elem.value = constants.imperial.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value));
+            output_buw_ct850_weight_elem.value = (constants.imperial.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value))).toFixed(3);
             // State
-            state.form.buw.ct850.weight = constants.imperial.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value));
+            state.form.buw.ct850.weight = parseFloat(output_buw_ct850_weight_elem.value);
             // Element
-            output_buw_total_weight_elem.value = (parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value));
+            output_buw_total_weight_elem.value = ((parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value))).toFixed(3);
             // State
-            state.form.buw.total.weight = (parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value));
+            state.form.buw.total.weight = parseFloat(output_buw_total_weight_elem.value);
         }
         updateTimestamp(state);
         updateState(state);
@@ -335,7 +335,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             state.form.shipping.adhesive = parseFloat(output_ship_adhesive_elem.value);
             output_ship_sealerStage1_elem.value = (Math.ceil(parseFloat(output_sealer_stage1_elem.value) / constants.metric.shipping.sealer.stageOne.liters)) * constants.metric.shipping.sealer.stageOne.weight;
             state.form.shipping.sealer.stageOne = parseFloat(output_ship_sealerStage1_elem.value);
-            output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_ship_sealerStage2_elem.value) / constants.metric.shipping.sealer.stageTwo.liters)) * constants.metric.shipping.sealer.stageTwo.weight;
+            output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_sealer_stage2_elem.value) / constants.metric.shipping.sealer.stageTwo.liters)) * constants.metric.shipping.sealer.stageTwo.weight;
             state.form.shipping.sealer.stageTwo = parseFloat(output_ship_sealerStage2_elem.value);
             output_ship_total_elem.value = parseFloat(output_ship_ct300_elem.value) + parseFloat(output_ship_adhesive_elem.value) + parseFloat(output_ship_sealerStage2_elem.value) + parseFloat(output_ship_sealerStage1_elem.value) + parseFloat(output_ship_ct850_elem.value) + parseFloat(output_ship_other_elem.value);
             state.form.shipping.total = parseFloat(output_ship_total_elem.value);
@@ -383,14 +383,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_sealer_stage2_elem
         */
         if(state.form.units === "metric"){
-            output_sealer_stage1_elem.value = parseFloat(sealer_toolSurface_elem.value) * constants.metric.sealer.stageOne;
+            output_sealer_stage1_elem.value = Math.ceil(parseFloat(sealer_toolSurface_elem.value) * constants.metric.sealer.stageOne);
             state.form.sealer.stageOne = parseFloat(output_sealer_stage1_elem.value);
-            output_sealer_stage2_elem.value = parseFloat(sealer_toolSurface_elem.value) * constants.metric.sealer.stageTwo;
+            output_sealer_stage2_elem.value = Math.ceil(parseFloat(sealer_toolSurface_elem.value) * constants.metric.sealer.stageTwo);
             state.form.sealer.stageTwo = parseFloat(output_sealer_stage2_elem.value);
         } else {
-            output_sealer_stage1_elem.value = parseFloat(sealer_toolSurface_elem.value) * constants.imperial.sealer.stageOne;
+            output_sealer_stage1_elem.value = Math.ceil(parseFloat(sealer_toolSurface_elem.value) * constants.imperial.sealer.stageOne);
             state.form.sealer.stageOne = parseFloat(output_sealer_stage1_elem.value);
-            output_sealer_stage2_elem.value = parseFloat(sealer_toolSurface_elem.value) * constants.imperial.sealer.stageTwo;
+            output_sealer_stage2_elem.value = Math.ceil(parseFloat(sealer_toolSurface_elem.value) * constants.imperial.sealer.stageTwo);
             state.form.sealer.stageTwo = parseFloat(output_sealer_stage2_elem.value);
         }
         updateTimestamp(state);
@@ -684,7 +684,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         updateState(state);
     }
     
-    if(clear){
+    
+    let clearLinkElem = document.getElementsByClassName('js--clear')[0];
+    clearLinkElem.onclick =function() {
         initializeInputs();
         let statetwo = {};
         let initform = getFormState();
@@ -757,7 +759,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
             adhesive_bondedSurface_elem.value
             output_adhesive_volumeAdhesive_elem.value
         */
-        
+        calculateAdhesive(state);
+        calculateShippingWeight(state);
+    }
+    btn_sealer_elem.onclick = function() {
+        calculateSealers(state);
+        calculateShippingWeight(state);
     }
 
 
