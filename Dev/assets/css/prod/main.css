@@ -107,12 +107,10 @@ a:hover {
 
 .one--fourth {
   width: 24%;
-  text-align: center;
 }
 
 .one--third {
   width: 32%;
-  text-align: center;
 }
 
 .bg--black {
@@ -177,15 +175,15 @@ a:hover {
 }
 
 .one--fourth {
-  width: 200px;
+  min-width: 200px;
 }
 
 .one--third {
-  width: 250px;
+  min-width: 275px;
 }
 
 .full--width {
-  width: 870px;
+  width: calc(960px - 5em);
 }
 
 .section--text {
@@ -282,6 +280,10 @@ input + label {
   border-bottom-right-radius: 0;
 }
 
+.form--group {
+  text-align: center;
+}
+
 .inline--block {
   display: inline-block;
   position: relative;
@@ -318,7 +320,7 @@ input + label {
 }
 
 .full-btn {
-  width: 95%;
+  width: 99%;
 }
 
 .left {
