@@ -577,10 +577,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_ship_ct850_elem.value = formData.shipping.ct850;
         } else {
             if(formData.units === "metric"){
-                output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) + parseFloat(output_nob_ct8504_elem.value)) * variables.metric.shipping.ct850;
+                output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) * variables.metric.shipping.ct8502) + (parseFloat(output_nob_ct8504_elem.value) * variables.metric.shipping.ct8504);
                 formData.shipping.ct850 = parseFloat(output_ship_ct850_elem.value);
             } else {
-                output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) + parseFloat(output_nob_ct8504_elem.value)) * variables.metric.shipping.ct850;
+                output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) * variables.imperial.shipping.ct8502) + (parseFloat(output_nob_ct8504_elem.value) * variables.imperial.shipping.ct8504);
                 formData.shipping.ct850 = parseFloat(output_ship_ct850_elem.value);
             }
 
