@@ -16,7 +16,7 @@ function fetchVars(vars) {
 
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
-            console.log(this.responseText);
+            // console.log(this.responseText);
             var data = JSON.parse(this.responseText);
             vars.metric = {};
             vars.imperial = {};
@@ -122,11 +122,12 @@ function fetchVars(vars) {
 
 };
 
+// Lets get the vars
+var variables = {};
+fetchVars(variables);
+console.log(variables);
 
 document.addEventListener("DOMContentLoaded", function(event) {
-    // Lets get the vars
-    var variables = {};
-    fetchVars(variables);
     // variables
 
 

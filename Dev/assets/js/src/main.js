@@ -122,11 +122,12 @@ function fetchVars(vars) {
 
 };
 
+// Lets get the vars
+let variables = {};
+fetchVars(variables);
+console.log(variables);
 
 document.addEventListener("DOMContentLoaded", function(event) {
-    // Lets get the vars
-    let variables = {};
-    fetchVars(variables);
     // variables
 
 
