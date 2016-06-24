@@ -112,7 +112,6 @@ a:hover {
   /* TWEENER - IE 10 */
   display: -webkit-flex;
   /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-  -js-display: flex;
   display: flex;
   justify-content: space-around;
   -ms-flex-pack: justify;
