@@ -106,6 +106,7 @@ a:hover {
 }
 
 .flex {
+  -js-display: flex;
   display: flex;
   justify-content: space-around;
   flex-direction: row;
