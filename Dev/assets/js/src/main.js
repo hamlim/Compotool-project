@@ -297,6 +297,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_nob_ct8504_elem
         */
         if(state.form.units === "metric"){
+            if((parseFloat(buw_ct300_volume_elem.value) === state.form.buw.ct300.volume) && ){
+                
+            }
             output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) || Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.metric.nob.ct300);
             state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
             output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value) || Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.metric.nob.ct8502);
