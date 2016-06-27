@@ -12,7 +12,7 @@ function updateState(newState){
 };
 
 function updateTimestamp(state){
-    state.timestamp = Math.floor(new Date().getTime() / 1000);  
+    state.timestamp = Math.floor(new Date().getTime() / 1000);
 };
 function fetchVars(vars) {
     var xhr = new XMLHttpRequest();
@@ -280,7 +280,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         var c = parseFloat(buw_ct8504_volume_elem.value) == state.form.buw.ct8504.volume;
         if(state.form.units === "metric"){
             if(a && b && c){
-                // no Volume changed but nob's might have, we only want to take 
+                // no Volume changed but nob's might have, we only want to take
                 output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
                 state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
                 output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
@@ -530,27 +530,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
         form.shipping = {};
         form.shipping.sealer = {};
 
-        form.buw.ct300.volume = parseInt(buw_ct300_volume_elem.value, 10);
-        form.buw.ct8502.volume = parseInt(buw_ct8502_volume_elem.value, 10);
-        form.buw.ct8504.volume = parseInt(buw_ct8504_volume_elem.value, 10);
-        form.buw.ct300.weight = parseInt(output_buw_ct300_weight_elem.value, 10);
-        form.buw.ct850.weight = parseInt(output_buw_ct850_weight_elem.value, 10);
-        form.buw.total.weight = parseInt(output_buw_total_weight_elem.value, 10);
-        form.nob.ct300.amount = parseInt(output_nob_ct300_elem.value, 10);
-        form.nob.ct8502.amount = parseInt(output_nob_ct8502_elem.value, 10);
-        form.nob.ct8504.amount = parseInt(output_nob_ct8504_elem.value, 10);
-        form.adhesive.surfaceArea = parseInt(adhesive_bondedSurface_elem.value, 10);
-        form.adhesive.volume = parseInt(output_adhesive_volumeAdhesive_elem.value, 10);
-        form.sealer.toolSurface = parseInt(sealer_toolSurface_elem.value, 10);
-        form.sealer.stageOne = parseInt(output_sealer_stage1_elem.value, 10);
-        form.sealer.stageTwo = parseInt(output_sealer_stage2_elem.value, 10);
-        form.shipping.ct300 = parseInt(output_ship_ct300_elem.value, 10);
-        form.shipping.ct850 = parseInt(output_ship_ct850_elem.value, 10);
-        form.shipping.adhesive = parseInt(output_ship_adhesive_elem.value, 10);
-        form.shipping.sealer.stageOne = parseInt(output_ship_sealerStage1_elem.value, 10);
-        form.shipping.sealer.stageTwo = parseInt(output_ship_sealerStage2_elem.value, 10);
-        form.shipping.other = parseInt(output_ship_other_elem.value, 10);
-        form.shipping.total = parseInt(output_ship_total_elem.value, 10);
+        form.buw.ct300.volume = parseFloat(buw_ct300_volume_elem.value);
+        form.buw.ct8502.volume = parseFloat(buw_ct8502_volume_elem.value);
+        form.buw.ct8504.volume = parseFloat(buw_ct8504_volume_elem.value);
+        form.buw.ct300.weight = parseFloat(output_buw_ct300_weight_elem.value);
+        form.buw.ct850.weight = parseFloat(output_buw_ct850_weight_elem.value);
+        form.buw.total.weight = parseFloat(output_buw_total_weight_elem.value);
+        form.nob.ct300.amount = parseFloat(output_nob_ct300_elem.value);
+        form.nob.ct8502.amount = parseFloat(output_nob_ct8502_elem.value);
+        form.nob.ct8504.amount = parseFloat(output_nob_ct8504_elem.value);
+        form.adhesive.surfaceArea = parseFloat(adhesive_bondedSurface_elem.value);
+        form.adhesive.volume = parseFloat(output_adhesive_volumeAdhesive_elem.value);
+        form.sealer.toolSurface = parseFloat(sealer_toolSurface_elem.value);
+        form.sealer.stageOne = parseFloat(output_sealer_stage1_elem.value);
+        form.sealer.stageTwo = parseFloat(output_sealer_stage2_elem.value);
+        form.shipping.ct300 = parseFloat(output_ship_ct300_elem.value);
+        form.shipping.ct850 = parseFloat(output_ship_ct850_elem.value);
+        form.shipping.adhesive = parseFloat(output_ship_adhesive_elem.value);
+        form.shipping.sealer.stageOne = parseFloat(output_ship_sealerStage1_elem.value);
+        form.shipping.sealer.stageTwo = parseFloat(output_ship_sealerStage2_elem.value);
+        form.shipping.other = parseFloat(output_ship_other_elem.value);
+        form.shipping.total = parseFloat(output_ship_total_elem.value);
 
         return form;
     };
@@ -785,8 +785,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         state.form = form;
         updateState(state);
     }
-    
-    
+
+
     var clearLinkElem = document.getElementsByClassName('js--clear')[0];
     clearLinkElem.onclick =function() {
         initializeInputs();
@@ -796,7 +796,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         statetwo.form = initform;
         updateState(statetwo);
     }
-    
+
 
     // Onclick events
     btn_units_elem.onclick = function(){
@@ -836,7 +836,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     btn_buw_elem.onclick = function() {
         // first update the state var, and sync with localStorage
         // Lets get the values that they have entered
-        /* 
+        /*
             buw_ct300_volume_elem
             buw_ct8502_volume_elem
             buw_ct8504_volume_elem
@@ -847,7 +847,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         state.form.buw.ct8502.volume = buwct8502vol;
         var buwct8504vol = buw_ct8504_volume_elem.value;
         state.form.buw.ct8504.volume = buwct8504vol;
-        
+
         // Now call updatebuw(), update nob(), update Shipping()
         updateTimestamp(state);
         updateState(state);
@@ -855,7 +855,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         calculateNOB(state);
         calculateShippingWeight(state);
     }
-    
+
     btn_adhesive_elem.onclick = function() {
         /*
             adhesive_bondedSurface_elem.value

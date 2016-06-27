@@ -34,17 +34,22 @@ module.exports = function(grunt) {
                     'assets/js/prod/main.js': 'assets/js/src/main.js'
                 }
             }
+        },
+        jshint: {
+            all: 'assets/js/main.js'
         }
     });
 
     // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.loadNpmTasks('grunt-contrib-watch');
+    // grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-es6-transpiler');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 
     // Default task(s).
     grunt.registerTask('default', ['es6transpiler', 'sass', 'uglify']);
     grunt.registerTask('es6', 'es6transpiler');
+    grunt.registerTask('jshint', 'jshint');
 
 };
