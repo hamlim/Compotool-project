@@ -9,7 +9,7 @@ module.exports = function(grunt) {
             },
             build: {
                 src: ['bower_components/jquery/dist/jquery.js', 'bower_components/bootstrap/dist/js/bootstrap.min.js', 'assets/js/prod/*.js'],
-                dest: 'assets/prod/main.min.js'
+                dest: 'assets/js/prod/main.min.js'
             }
         },
         sass: {

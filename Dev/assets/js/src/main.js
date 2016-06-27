@@ -275,10 +275,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_nob_ct8502_elem
             output_nob_ct8504_elem
         */
+        let a = parseFloat(buw_ct300_volume_elem.value) === state.form.buw.ct300.volume;
+        let b = parseFloat(buw_ct8502_volume_elem.value) === state.form.buw.ct8502.volume;
+        let c = parseFloat(buw_ct8504_volume_elem.value) === state.form.buw.ct8504.volume;
         if(state.form.units === "metric"){
-            let a = parseFloat(buw_ct300_volume_elem.value) === state.form.buw.ct300.volume;
-            let b = parseFloat(buw_ct8502_volume_elem.value) === state.form.buw.ct8502.volume;
-            let c = parseFloat(buw_ct8504_volume_elem.value) === state.form.buw.ct8504.volume;
             if(a && b && c){
                 // no Volume changed but nob's might have, we only want to take 
                 output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
@@ -346,11 +346,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
             // output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value) || Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.metric.nob.ct8504);
             // state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
         } else {
-            let a = parseFloat(buw_ct300_volume_elem.value) === state.form.buw.ct300.volume;
-            let b = parseFloat(buw_ct8502_volume_elem.value) === state.form.buw.ct8502.volume;
-            let c = parseFloat(buw_ct8504_volume_elem.value) === state.form.buw.ct8504.volume;
             if(a && b && c){
-                console.log("test?");
+                console.log("abc");
                 // no Volume changed but nob's might have, we only want to take the previous nob
                 output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
                 state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
@@ -359,6 +356,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
                 state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
             } else if (a && b && !c) {
+                console.log("ab!c");
                 // CT300 and CT8502 volume has not changed but ct8504 changed
                 output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
                 state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
@@ -367,6 +365,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.imperial.nob.ct8504);
                 state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
             } else if (!a && b && c){
+                console.log("!abc");
                 // CT8502 and CT8504 volume has not changed but ct300 changed
                 output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
                 state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
@@ -375,6 +374,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
                 state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
             } else if (a && !b && c){
+                console.log("a!bc");
                 output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
                 state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
                 output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
@@ -382,6 +382,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
                 state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
             } else if (a && !b && !c) {
+                console.log("a!b!c");
                 output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
                 state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
                 output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
@@ -389,6 +390,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.imperial.nob.ct8504);
                 state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
             } else if (!a && !b && c) {
+                console.log("!a!bc");
                 output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
                 state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
                 output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
@@ -396,6 +398,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
                 state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
             } else if (!a && b && !c) {
+                console.log("!ab!c");
                 output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
                 state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
                 output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
@@ -403,6 +406,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.imperial.nob.ct8504);
                 state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
             } else if (!a && !b && !c){
+                console.log("!a!b!c");
                 output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
                 state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
                 output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
