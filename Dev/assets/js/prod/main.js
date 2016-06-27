@@ -230,27 +230,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         output_ship_total_elem.value = 0;
     };
 
-    // function getQueryVariable(variable) {
-    //    let query = window.location.search.substring(1);
-    //    let vars = query.split("&");
-    //    for (let i=0;i<vars.length;i++) {
-    //            let pair = vars[i].split("=");
-    //            if(pair[0] == variable){return pair[1];}
-    //    }
-    //    return(false);
-    // }
-    // let clear = false;
-    // function pageInit(){
-    //     let query = getQueryVariable("clear");
-    //     if(query){
-    //         initializeInputs();
-    //         clear = true;
-    //     } else {
-    //         // Don't do anything
-    //     }
-    // }
-    // pageInit();
-
     function calculateBUW(state){
         // Ok we need to calculate any changes to buw inputs
         /*
@@ -297,19 +276,145 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_nob_ct8504_elem
         */
         if(state.form.units === "metric"){
-            output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) || Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.metric.nob.ct300);
-            state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-            output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value) || Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.metric.nob.ct8502);
-            state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-            output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value) || Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.metric.nob.ct8504);
-            state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            var a = parseFloat(buw_ct300_volume_elem.value) === state.form.buw.ct300.volume;
+            var b = parseFloat(buw_ct8502_volume_elem.value) === state.form.buw.ct8502.volume;
+            var c = parseFloat(buw_ct8504_volume_elem.value) === state.form.buw.ct8504.volume;
+            if(a && b && c){
+                // no Volume changed but nob's might have, we only want to take 
+                output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
+                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+                output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
+                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+                output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
+                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            } else if (a && b && !c) {
+                // CT300 and CT8502 volume has not changed but ct8504 changed
+                output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
+                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+                output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
+                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+                output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.metric.nob.ct8504);
+                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            } else if (!a && b && c){
+                // CT8502 and CT8504 volume has not changed but ct300 changed
+                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.metric.nob.ct300);
+                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+                output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
+                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+                output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
+                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            } else if (a && !b && c){
+                output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
+                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+                output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.metric.nob.ct8502);
+                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+                output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
+                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            } else if (a && !b && !c) {
+                output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
+                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+                output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.metric.nob.ct8502);
+                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+                output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.metric.nob.ct8504);
+                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            } else if (!a && !b && c) {
+                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.metric.nob.ct300);
+                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+                output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.metric.nob.ct8502);
+                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+                output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
+                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            } else if (!a && b && !c) {
+                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.metric.nob.ct300);
+                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+                output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
+                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+                output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.metric.nob.ct8504);
+                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            } else if (!a && !b && !c){
+                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.metric.nob.ct300);
+                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+                output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.metric.nob.ct8502);
+                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+                output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.metric.nob.ct8504);
+                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            }
+            // output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) || Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.metric.nob.ct300);
+            // state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+            // output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value) || Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.metric.nob.ct8502);
+            // state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+            // output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value) || Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.metric.nob.ct8504);
+            // state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
         } else {
-            output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) || Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
-            state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-            output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value) || Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
-            state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-            output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value) || Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.imperial.nob.ct8504);
-            state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            var a$0 = parseFloat(buw_ct300_volume_elem.value) === state.form.buw.ct300.volume;
+            var b$0 = parseFloat(buw_ct8502_volume_elem.value) === state.form.buw.ct8502.volume;
+            var c$0 = parseFloat(buw_ct8504_volume_elem.value) === state.form.buw.ct8504.volume;
+            if(a$0 && b$0 && c$0){
+                // no Volume changed but nob's might have, we only want to take 
+                output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
+                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+                output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
+                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+                output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
+                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            } else if (a$0 && b$0 && !c$0) {
+                // CT300 and CT8502 volume has not changed but ct8504 changed
+                output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
+                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+                output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
+                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+                output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.imperial.nob.ct8504);
+                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            } else if (!a$0 && b$0 && c$0){
+                // CT8502 and CT8504 volume has not changed but ct300 changed
+                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
+                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+                output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
+                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+                output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
+                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            } else if (a$0 && !b$0 && c$0){
+                output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
+                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+                output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
+                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+                output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
+                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            } else if (a$0 && !b$0 && !c$0) {
+                output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
+                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+                output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
+                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+                output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.imperial.nob.ct8504);
+                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            } else if (!a$0 && !b$0 && c$0) {
+                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
+                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+                output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
+                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+                output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
+                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            } else if (!a$0 && b$0 && !c$0) {
+                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
+                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+                output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
+                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+                output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.imperial.nob.ct8504);
+                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            } else if (!a$0 && !b$0 && !c$0){
+                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
+                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+                output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
+                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+                output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.imperial.nob.ct8504);
+                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            }
+            // output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) || Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
+            // state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
+            // output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value) || Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
+            // state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+            // output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value) || Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.imperial.nob.ct8504);
+            // state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
         }
         updateTimestamp(state);
         updateState(state);
