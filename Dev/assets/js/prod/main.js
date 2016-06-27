@@ -350,7 +350,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
             var b$0 = parseFloat(buw_ct8502_volume_elem.value) === state.form.buw.ct8502.volume;
             var c$0 = parseFloat(buw_ct8504_volume_elem.value) === state.form.buw.ct8504.volume;
             if(a$0 && b$0 && c$0){
-                // no Volume changed but nob's might have, we only want to take 
+                console.log("test?");
+                // no Volume changed but nob's might have, we only want to take the previous nob
                 output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
                 state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
                 output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
