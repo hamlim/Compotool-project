@@ -788,14 +788,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
     var clearLinkElem = document.getElementsByClassName('js--clear')[0];
-    clearLinkElem.onclick =function() {
+    clearLinkElem.onclick =function(){
         initializeInputs();
         var statetwo = {};
         var initform = getFormState();
         updateTimestamp(statetwo);
         statetwo.form = initform;
         updateState(statetwo);
-    }
+    };
 
 
     // Onclick events
@@ -831,7 +831,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 calculateShippingWeight(state);
             }
         }
-    }
+    };
 
     btn_buw_elem.onclick = function() {
         // first update the state var, and sync with localStorage
@@ -854,7 +854,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         calculateBUW(state);
         calculateNOB(state);
         calculateShippingWeight(state);
-    }
+    };
 
     btn_adhesive_elem.onclick = function() {
         /*
@@ -863,11 +863,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         */
         calculateAdhesive(state);
         calculateShippingWeight(state);
-    }
+    };
     btn_sealer_elem.onclick = function() {
         calculateSealers(state);
         calculateShippingWeight(state);
-    }
+    };
 
 
 });
