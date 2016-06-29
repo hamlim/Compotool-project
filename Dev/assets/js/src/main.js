@@ -291,7 +291,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         */
         // permutate a
         state.form.buw.ct300.volume = newA;
-        if(state.units === "metric"){
+        if(state.form.units === "metric"){
             // update d
             output_buw_ct300_weight_elem.value = (constants.metric.buw.ct300 * newA).toFixed(3);
             // update f
@@ -341,7 +341,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         */
         // permutate b
         state.form.buw.ct8504.volume = newval
-        if(state.units === "metric"){
+        if(state.form.units === "metric"){
             // update e
             output_buw_ct850_weight_elem.value =  (constants.metric.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value))).toFixed(3);
             // update f
@@ -391,7 +391,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         */
         // permutate c
         state.form.buw.ct8502.volume = newval
-        if(state.units === "metric"){
+        if(state.form.units === "metric"){
             // update e
             output_buw_ct850_weight_elem.value = (constants.metric.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value))).toFixed(3);
             // update f
@@ -868,12 +868,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
     btn_units_elem.onclick = function() {
         if (state.form.units === "metric") {
             if (unit_metric_elem.checked === true) {
+                state.form.oldunits = state.form.units;
                 // Do nothing because the units haven't changed
             } else {
                 // Imperial is selected, previous units were metric, change all unit_spans_elemCollection to Lbs
                 for (let i = 0; i < unit_spans_elemCollection.length; i++) {
                     unit_spans_elemCollection[i].innerText = "Lbs";
                 }
+                state.form.oldunits = "metric";
                 state.form.units = "imperial";
                 updateTimestamp(state);
                 updateState(state);
@@ -882,12 +884,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
         } else {
             if (unit_imperial_elem.checked === true) {
+                state.form.oldunits = state.form.units;
                 // do nothing, they are both imperial
             } else {
                 // it is imperial but they are changing it to metric
                 for (let i = 0; i < unit_spans_elemCollection.length; i++) {
                     unit_spans_elemCollection[i].innerText = "Kgs";
                 }
+                state.form.oldunits = "imperial";
                 state.form.units = "metric";
                 updateTimestamp(state);
                 updateState(state);
@@ -905,22 +909,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
             buw_ct8502_volume_elem
             buw_ct8504_volume_elem
         */
-        if(parseFloat(buw_ct300_volume_elem.value) != state.form.buw.ct300.volume){
+        if(parseFloat(buw_ct300_volume_elem.value) != state.form.buw.ct300.volume || state.form.oldunits != state.form.units){
             changeA(state, parseFloat(buw_ct300_volume_elem.value));
         }
-        if(parseFloat(buw_ct8504_volume_elem.value) != state.form.buw.ct8504.volume){
+        if(parseFloat(buw_ct8504_volume_elem.value) != state.form.buw.ct8504.volume || state.form.oldunits != state.form.units){
             changeB(state, parseFloat(buw_ct8504_volume_elem.value));
         }
-        if(parseFloat(buw_ct8502_volume_elem.value) != state.form.buw.ct8502.volume){
+        if(parseFloat(buw_ct8502_volume_elem.value) != state.form.buw.ct8502.volume || state.form.oldunits != state.form.units){
             changeC(state, parseFloat(buw_ct8502_volume_elem.value));
         }
-        if(parseFloat(output_nob_ct300_elem.value) != state.form.nob.ct300.amount){
+        if(parseFloat(output_nob_ct300_elem.value) != state.form.nob.ct300.amount || state.form.oldunits != state.form.units){
             changeG(state, parseFloat(output_nob_ct300_elem.value));
         }
-        if(parseFloat(output_nob_ct8504_elem.value) != state.form.nob.ct8504.amount){
+        if(parseFloat(output_nob_ct8504_elem.value) != state.form.nob.ct8504.amount || state.form.oldunits != state.form.units){
             changeH(state, parseFloat(output_nob_ct8504_elem.value));
         }
-        if(parseFloat(output_nob_ct8502_elem.value) != state.form.nob.ct8502.amount){
+        if(parseFloat(output_nob_ct8502_elem.value) != state.form.nob.ct8502.amount || state.form.oldunits != state.form.units){
             changeI(state, parseFloat(output_nob_ct8502_elem.value));
         }
         calculateShippingWeight(state);
