@@ -16,137 +16,271 @@ function updateTimestamp(state) {
 };
 
 function fetchVars(vars) {
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-
-    xhr.addEventListener("readystatechange", function() {
-        if (this.readyState === 4) {
-            // console.log(this.responseText);
-            var data = JSON.parse(this.responseText);
-            vars.metric = {};
-            vars.imperial = {};
-            vars.metric.sealer = {};
-            vars.imperial.sealer = {};
-            vars.metric.buw = {};
-            vars.imperial.buw = {};
-            vars.metric.nob = {};
-            vars.imperial.nob = {};
-            vars.metric.shipping = {};
-            vars.imperial.shipping = {};
-            vars.metric.shipping.adhesive = {};
-            vars.imperial.shipping.adhesive = {};
-            vars.metric.shipping.sealer = {};
-            vars.imperial.shipping.sealer = {};
-            vars.metric.shipping.sealer.stageOne = {};
-            vars.imperial.shipping.sealer.stageOne = {};
-            vars.metric.shipping.sealer.stageTwo = {};
-            vars.imperial.shipping.sealer.stageTwo = {};
-            vars.metric.shipping.ct8502 = 0;
-            vars.imperial.shipping.ct8502 = 0;
-            vars.metric.shipping.ct8504 = 0;
-            vars.imperial.shipping.ct8504 = 0;
-            vars.ct300 = {};
-            vars.ct300.shipping = {};
-            vars.ct300.shipping.metric = 0;
-            vars.ct300.shipping.imperial = 0;
-            vars.ct8502 = {};
-            vars.ct8504 = {};
-            vars.ct8502.shipping = {};
-            vars.ct8504.shipping = {};
-            vars.ct8502.shipping.metric = 0;
-            vars.ct8504.shipping.metric = 0;
-            vars.ct8502.shipping.imperial = 0;
-            vars.ct8504.shipping.imperial = 0;
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].Order === "1") {
-                    vars.imperial.adhesive = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "2") {
-                    vars.metric.adhesive = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "3") {
-                    vars.imperial.sealer.stageOne = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "4") {
-                    vars.metric.sealer.stageOne = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "5") {
-                    vars.imperial.sealer.stageTwo = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "6") {
-                    vars.metric.sealer.stageTwo = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "7") {
-                    // releaser
-                } else if (data[i].Order === "8") {
-                    // releaser
-                } else if (data[i].Order === "9") {
-                    vars.imperial.buw.ct300 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "10") {
-                    vars.metric.buw.ct300 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "11") {
-                    vars.imperial.buw.ct850 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "12") {
-                    vars.metric.buw.ct850 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "13") {
-                    vars.imperial.nob.ct300 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "14") {
-                    vars.metric.nob.ct300 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "15") {
-                    vars.imperial.nob.ct8504 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "16") {
-                    vars.metric.nob.ct8504 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "17") {
-                    vars.imperial.nob.ct8502 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "18") {
-                    vars.metric.nob.ct8502 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "19") {
-                    vars.ct300.shipping.imperial = parseFloat(data[i].Coverage);
-                    vars.imperial.shipping.ct300 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "20") {
-                    // console.log(vars.ct300);
-                    vars.ct300.shipping.metric = parseFloat(data[i].Coverage);
-                    vars.metric.shipping.ct300 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "21") {
-                    vars.imperial.shipping.ct8502 = parseFloat(data[i].Coverage);
-                    vars.ct8502.shipping.imperial = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "22") {
-                    vars.metric.shipping.ct8502 = parseFloat(data[i].Coverage);
-                    vars.ct8502.shipping.metric = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "23") {
-                    vars.imperial.shipping.ct8504 = parseFloat(data[i].Coverage);
-                    vars.ct8504.shipping.imperial = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "24") {
-                    vars.metric.shipping.ct8504 = parseFloat(data[i].Coverage);
-                    vars.ct8504.shipping.metric = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "25") {
-                    vars.imperial.shipping.adhesive.liters = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "26") {
-                    vars.metric.shipping.adhesive.liters = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "27") {
-                    vars.imperial.shipping.adhesive.weight = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "28") {
-                    vars.metric.shipping.adhesive.weight = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "29") {
-                    vars.imperial.shipping.sealer.stageOne.liters = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "30") {
-                    vars.metric.shipping.sealer.stageOne.liters = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "31") {
-                    vars.imperial.shipping.sealer.stageOne.weight = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "32") {
-                    vars.metric.shipping.sealer.stageOne.weight = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "33") {
-                    vars.imperial.shipping.sealer.stageTwo.liters = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "34") {
-                    vars.metric.shipping.sealer.stageTwo.liters = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "35") {
-                    vars.imperial.shipping.sealer.stageTwo.weight = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "36") {
-                    vars.metric.shipping.sealer.stageTwo.weight = parseFloat(data[i].Coverage);
+    if(window.fetch){
+        var myHeaders = new window.Headers();
+        myHeaders.append("authorization", "Basic cGRBek5zM3hxMjRNbTZiUGJ5ZjE6ZjlibzVBVjEyOTNoZUh4c3lIYml0cUc0RXlXWXhqenF4MndITmh0cQ==");
+        var myInit = { method: 'GET',
+                    headers: myHeaders,
+                    mode: 'cors',
+                    cache: 'default' };
+        window.fetch('https://sheetsu.com/apis/v1.0/755fe98f1e9c', myInit)
+            .then(function(response){
+                return response.json();
+            }).then(function(json){
+                console.log('parsed json', json);
+                vars.metric = {};
+                vars.imperial = {};
+                vars.metric.sealer = {};
+                vars.imperial.sealer = {};
+                vars.metric.buw = {};
+                vars.imperial.buw = {};
+                vars.metric.nob = {};
+                vars.imperial.nob = {};
+                vars.metric.shipping = {};
+                vars.imperial.shipping = {};
+                vars.metric.shipping.adhesive = {};
+                vars.imperial.shipping.adhesive = {};
+                vars.metric.shipping.sealer = {};
+                vars.imperial.shipping.sealer = {};
+                vars.metric.shipping.sealer.stageOne = {};
+                vars.imperial.shipping.sealer.stageOne = {};
+                vars.metric.shipping.sealer.stageTwo = {};
+                vars.imperial.shipping.sealer.stageTwo = {};
+                vars.metric.shipping.ct8502 = 0;
+                vars.imperial.shipping.ct8502 = 0;
+                vars.metric.shipping.ct8504 = 0;
+                vars.imperial.shipping.ct8504 = 0;
+                vars.ct300 = {};
+                vars.ct300.shipping = {};
+                vars.ct300.shipping.metric = 0;
+                vars.ct300.shipping.imperial = 0;
+                vars.ct8502 = {};
+                vars.ct8504 = {};
+                vars.ct8502.shipping = {};
+                vars.ct8504.shipping = {};
+                vars.ct8502.shipping.metric = 0;
+                vars.ct8504.shipping.metric = 0;
+                vars.ct8502.shipping.imperial = 0;
+                vars.ct8504.shipping.imperial = 0;
+                for (var i = 0; i < json.length; i++) {
+                    if (json[i].Order === "1") {
+                        vars.imperial.adhesive = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "2") {
+                        vars.metric.adhesive = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "3") {
+                        vars.imperial.sealer.stageOne = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "4") {
+                        vars.metric.sealer.stageOne = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "5") {
+                        vars.imperial.sealer.stageTwo = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "6") {
+                        vars.metric.sealer.stageTwo = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "7") {
+                        // releaser
+                    } else if (json[i].Order === "8") {
+                        // releaser
+                    } else if (json[i].Order === "9") {
+                        vars.imperial.buw.ct300 = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "10") {
+                        vars.metric.buw.ct300 = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "11") {
+                        vars.imperial.buw.ct850 = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "12") {
+                        vars.metric.buw.ct850 = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "13") {
+                        vars.imperial.nob.ct300 = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "14") {
+                        vars.metric.nob.ct300 = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "15") {
+                        vars.imperial.nob.ct8504 = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "16") {
+                        vars.metric.nob.ct8504 = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "17") {
+                        vars.imperial.nob.ct8502 = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "18") {
+                        vars.metric.nob.ct8502 = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "19") {
+                        vars.ct300.shipping.imperial = parseFloat(json[i].Coverage);
+                        vars.imperial.shipping.ct300 = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "20") {
+                        // console.log(vars.ct300);
+                        vars.ct300.shipping.metric = parseFloat(json[i].Coverage);
+                        vars.metric.shipping.ct300 = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "21") {
+                        vars.imperial.shipping.ct8502 = parseFloat(json[i].Coverage);
+                        vars.ct8502.shipping.imperial = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "22") {
+                        vars.metric.shipping.ct8502 = parseFloat(json[i].Coverage);
+                        vars.ct8502.shipping.metric = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "23") {
+                        vars.imperial.shipping.ct8504 = parseFloat(json[i].Coverage);
+                        vars.ct8504.shipping.imperial = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "24") {
+                        vars.metric.shipping.ct8504 = parseFloat(json[i].Coverage);
+                        vars.ct8504.shipping.metric = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "25") {
+                        vars.imperial.shipping.adhesive.liters = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "26") {
+                        vars.metric.shipping.adhesive.liters = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "27") {
+                        vars.imperial.shipping.adhesive.weight = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "28") {
+                        vars.metric.shipping.adhesive.weight = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "29") {
+                        vars.imperial.shipping.sealer.stageOne.liters = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "30") {
+                        vars.metric.shipping.sealer.stageOne.liters = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "31") {
+                        vars.imperial.shipping.sealer.stageOne.weight = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "32") {
+                        vars.metric.shipping.sealer.stageOne.weight = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "33") {
+                        vars.imperial.shipping.sealer.stageTwo.liters = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "34") {
+                        vars.metric.shipping.sealer.stageTwo.liters = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "35") {
+                        vars.imperial.shipping.sealer.stageTwo.weight = parseFloat(json[i].Coverage);
+                    } else if (json[i].Order === "36") {
+                        vars.metric.shipping.sealer.stageTwo.weight = parseFloat(json[i].Coverage);
+                    }
                 }
+            }).catch(function(ex) {
+                console.log('parsing failed', ex);
+            });
+    } else {
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function() {
+            if (this.readyState === 4) {
+                // console.log(this.responseText);
+                var data = JSON.parse(this.responseText);
+                vars.metric = {};
+                vars.imperial = {};
+                vars.metric.sealer = {};
+                vars.imperial.sealer = {};
+                vars.metric.buw = {};
+                vars.imperial.buw = {};
+                vars.metric.nob = {};
+                vars.imperial.nob = {};
+                vars.metric.shipping = {};
+                vars.imperial.shipping = {};
+                vars.metric.shipping.adhesive = {};
+                vars.imperial.shipping.adhesive = {};
+                vars.metric.shipping.sealer = {};
+                vars.imperial.shipping.sealer = {};
+                vars.metric.shipping.sealer.stageOne = {};
+                vars.imperial.shipping.sealer.stageOne = {};
+                vars.metric.shipping.sealer.stageTwo = {};
+                vars.imperial.shipping.sealer.stageTwo = {};
+                vars.metric.shipping.ct8502 = 0;
+                vars.imperial.shipping.ct8502 = 0;
+                vars.metric.shipping.ct8504 = 0;
+                vars.imperial.shipping.ct8504 = 0;
+                vars.ct300 = {};
+                vars.ct300.shipping = {};
+                vars.ct300.shipping.metric = 0;
+                vars.ct300.shipping.imperial = 0;
+                vars.ct8502 = {};
+                vars.ct8504 = {};
+                vars.ct8502.shipping = {};
+                vars.ct8504.shipping = {};
+                vars.ct8502.shipping.metric = 0;
+                vars.ct8504.shipping.metric = 0;
+                vars.ct8502.shipping.imperial = 0;
+                vars.ct8504.shipping.imperial = 0;
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].Order === "1") {
+                        vars.imperial.adhesive = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "2") {
+                        vars.metric.adhesive = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "3") {
+                        vars.imperial.sealer.stageOne = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "4") {
+                        vars.metric.sealer.stageOne = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "5") {
+                        vars.imperial.sealer.stageTwo = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "6") {
+                        vars.metric.sealer.stageTwo = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "7") {
+                        // releaser
+                    } else if (data[i].Order === "8") {
+                        // releaser
+                    } else if (data[i].Order === "9") {
+                        vars.imperial.buw.ct300 = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "10") {
+                        vars.metric.buw.ct300 = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "11") {
+                        vars.imperial.buw.ct850 = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "12") {
+                        vars.metric.buw.ct850 = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "13") {
+                        vars.imperial.nob.ct300 = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "14") {
+                        vars.metric.nob.ct300 = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "15") {
+                        vars.imperial.nob.ct8504 = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "16") {
+                        vars.metric.nob.ct8504 = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "17") {
+                        vars.imperial.nob.ct8502 = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "18") {
+                        vars.metric.nob.ct8502 = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "19") {
+                        vars.ct300.shipping.imperial = parseFloat(data[i].Coverage);
+                        vars.imperial.shipping.ct300 = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "20") {
+                        // console.log(vars.ct300);
+                        vars.ct300.shipping.metric = parseFloat(data[i].Coverage);
+                        vars.metric.shipping.ct300 = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "21") {
+                        vars.imperial.shipping.ct8502 = parseFloat(data[i].Coverage);
+                        vars.ct8502.shipping.imperial = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "22") {
+                        vars.metric.shipping.ct8502 = parseFloat(data[i].Coverage);
+                        vars.ct8502.shipping.metric = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "23") {
+                        vars.imperial.shipping.ct8504 = parseFloat(data[i].Coverage);
+                        vars.ct8504.shipping.imperial = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "24") {
+                        vars.metric.shipping.ct8504 = parseFloat(data[i].Coverage);
+                        vars.ct8504.shipping.metric = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "25") {
+                        vars.imperial.shipping.adhesive.liters = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "26") {
+                        vars.metric.shipping.adhesive.liters = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "27") {
+                        vars.imperial.shipping.adhesive.weight = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "28") {
+                        vars.metric.shipping.adhesive.weight = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "29") {
+                        vars.imperial.shipping.sealer.stageOne.liters = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "30") {
+                        vars.metric.shipping.sealer.stageOne.liters = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "31") {
+                        vars.imperial.shipping.sealer.stageOne.weight = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "32") {
+                        vars.metric.shipping.sealer.stageOne.weight = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "33") {
+                        vars.imperial.shipping.sealer.stageTwo.liters = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "34") {
+                        vars.metric.shipping.sealer.stageTwo.liters = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "35") {
+                        vars.imperial.shipping.sealer.stageTwo.weight = parseFloat(data[i].Coverage);
+                    } else if (data[i].Order === "36") {
+                        vars.metric.shipping.sealer.stageTwo.weight = parseFloat(data[i].Coverage);
+                    }
+                }
+
             }
+        });
 
-        }
-    });
+        xhr.open("GET", "https://sheetsu.com/apis/v1.0/755fe98f1e9c", false);
+        xhr.setRequestHeader("authorization", "Basic cGRBek5zM3hxMjRNbTZiUGJ5ZjE6ZjlibzVBVjEyOTNoZUh4c3lIYml0cUc0RXlXWXhqenF4MndITmh0cQ==");
 
-    xhr.open("GET", "https://sheetsu.com/apis/v1.0/755fe98f1e9c", false);
-    xhr.setRequestHeader("authorization", "Basic cGRBek5zM3hxMjRNbTZiUGJ5ZjE6ZjlibzVBVjEyOTNoZUh4c3lIYml0cUc0RXlXWXhqenF4MndITmh0cQ==");
-
-    xhr.send();
+        xhr.send();
+    
+    }
 
 };
 
