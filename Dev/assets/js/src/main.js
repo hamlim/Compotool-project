@@ -45,6 +45,10 @@ function fetchVars(vars) {
             vars.imperial.shipping.ct8502 = 0;
             vars.metric.shipping.ct8504 = 0;
             vars.imperial.shipping.ct8504 = 0;
+            vars.ct300 = {};
+            vars.ct300.shipping = {};
+            vars.ct300.shipping.metric = 0;
+            vars.ct300.shipping.imperial = 0;
             vars.ct8502 = {};
             vars.ct8504 = {};
             vars.ct8502.shipping = {};
@@ -91,8 +95,11 @@ function fetchVars(vars) {
                 } else if (data[i].Order === "18") {
                     vars.metric.nob.ct8502 = parseFloat(data[i].Coverage);
                 } else if (data[i].Order === "19") {
+                    vars.ct300.shipping.imperial = parseFloat(data[i].Coverage);
                     vars.imperial.shipping.ct300 = parseFloat(data[i].Coverage);
                 } else if (data[i].Order === "20") {
+                    // console.log(vars.ct300);
+                    vars.ct300.shipping.metric = parseFloat(data[i].Coverage);
                     vars.metric.shipping.ct300 = parseFloat(data[i].Coverage);
                 } else if (data[i].Order === "21") {
                     vars.imperial.shipping.ct8502 = parseFloat(data[i].Coverage);
@@ -136,7 +143,7 @@ function fetchVars(vars) {
         }
     });
 
-    xhr.open("GET", "https://sheetsu.com/apis/v1.0/755fe98f1e9c");
+    xhr.open("GET", "https://sheetsu.com/apis/v1.0/755fe98f1e9c", false);
     xhr.setRequestHeader("authorization", "Basic cGRBek5zM3hxMjRNbTZiUGJ5ZjE6ZjlibzVBVjEyOTNoZUh4c3lIYml0cUc0RXlXWXhqenF4MndITmh0cQ==");
 
     xhr.send();
@@ -146,7 +153,8 @@ function fetchVars(vars) {
 // Lets get the vars
 let constants = {};
 fetchVars(constants);
-console.log(constants);
+// console.log(constants);
+// console.log(constants.ct300);
 
 document.addEventListener("DOMContentLoaded", function(event) {
     // variables
@@ -231,195 +239,237 @@ document.addEventListener("DOMContentLoaded", function(event) {
         output_ship_total_elem.value = 0;
     };
 
-    function calculateBUW(state) {
-        // Ok we need to calculate any changes to buw inputs
+
+    // Blockup weight and Number of Boards
+    // Individual calculation functions
+    /*
+        a = buw_ct300_volume_elem
+        a = state.form.buw.ct300.volume
+
+        b = buw_ct8504_volume_elem
+        b = state.form.buw.ct8504.volume
+
+        c = buw_ct8502_volume_elem
+        c = state.form.buw.ct8502.volume
+
+
+        d = output_buw_ct300_weight_elem
+        d = state.form.buw.ct300.weight
+
+        e = output_buw_ct850_weight_elem
+        e = state.form.buw.ct850.weight
+
+        f = output_buw_total_weight_elem
+        f = state.form.buw.total.weight
+
+
+        g = output_nob_ct300_elem
+        g = state.form.nob.ct300.amount
+
+        h = output_nob_ct8504_elem
+        h = state.form.nob.ct8504.amount
+
+        i = output_nob_ct8502_elem
+        i = state.form.nob.ct8502.amount
+
+    */
+
+    function changeA(state, newA){
         /*
-            output_buw_ct300_weight_elem
-            output_buw_ct850_weight_elem
-            output_buw_total_weight_elem
+            Arguments:
+                state: an object representing the current state of all the calculated values currently
+                newA: a float of the new blockup volume of ct300
+            Returns:
+                none
         */
-        if (state.form.units === "metric") {
-            // Element
-            output_buw_ct300_weight_elem.value = (constants.metric.buw.ct300 * parseFloat(buw_ct300_volume_elem.value)).toFixed(3);
-            // State
-            state.form.buw.ct300.weight = parseFloat(output_buw_ct300_weight_elem.value);
-            // Element
-            output_buw_ct850_weight_elem.value = (constants.metric.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value))).toFixed(3);
-            // State
-            state.form.buw.ct850.weight = parseFloat(output_buw_ct850_weight_elem.value);
-            // Element
+        // a has changed
+        /* 
+            Update:
+                d, f, g
+            Permutate:
+                a, d, f, g
+        */
+        // permutate a
+        state.form.buw.ct300.volume = newA;
+        if(state.units === "metric"){
+            // update d
+            output_buw_ct300_weight_elem.value = (constants.metric.buw.ct300 * newA).toFixed(3);
+            // update f
             output_buw_total_weight_elem.value = ((parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value))).toFixed(3);
-            // State
+            // update g
+            output_nob_ct300_elem.value = Math.ceil(newA / constants.metric.nob.ct300);
+
+            // Permutate d
+            state.form.buw.ct300.weight = parseFloat(output_buw_ct300_weight_elem.value);
+            // Permutate f
             state.form.buw.total.weight = parseFloat(output_buw_total_weight_elem.value);
+            // Permutate g
+            state.form.nob.ct300.amount = parseFloat(output_nob_ct300_elem.value);
         } else {
-            // Element
+            // update d
             output_buw_ct300_weight_elem.value = (constants.imperial.buw.ct300 * parseFloat(buw_ct300_volume_elem.value)).toFixed(3);
-            // State
-            state.form.buw.ct300.weight = parseFloat(output_buw_ct300_weight_elem.value);
-            // Element
-            output_buw_ct850_weight_elem.value = (constants.imperial.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value))).toFixed(3);
-            // State
-            state.form.buw.ct850.weight = parseFloat(output_buw_ct850_weight_elem.value);
-            // Element
+            // update f
             output_buw_total_weight_elem.value = ((parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value))).toFixed(3);
-            // State
+            // update g
+            output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
+
+            // Permutate d
+            state.form.buw.ct300.weight = parseFloat(output_buw_ct300_weight_elem.value);
+            // Permutate f
             state.form.buw.total.weight = parseFloat(output_buw_total_weight_elem.value);
+            // Permutate g
+            state.form.nob.ct300.amount = parseFloat(output_nob_ct300_elem.value);
         }
         updateTimestamp(state);
         updateState(state);
     }
 
-    function calculateNOB(state) {
-        // Ok we need to calculate any changes to nob inputs
+    function changeB(state, newval){
         /*
-            output_nob_ct300_elem
-            output_nob_ct8502_elem
-            output_nob_ct8504_elem
+            Arguments:
+                state: an object representing the current state of all the calculated values currently
+                newval: a float of the new blockup volume of ct8504
+            Returns:
+                none
         */
-        let a = parseFloat(buw_ct300_volume_elem.value) == state.form.buw.ct300.volume;
-        let b = parseFloat(buw_ct8502_volume_elem.value) == state.form.buw.ct8502.volume;
-        let c = parseFloat(buw_ct8504_volume_elem.value) == state.form.buw.ct8504.volume;
-        let consoleObj = {};
-        consoleObj.a = a;
-        consoleObj.b = b;
-        consoleObj.c = c;
-        consoleObj.form = state.form;
-        console.log(consoleObj);
-        if (state.form.units === "metric") {
-            if (a && b && c) {
-                // no Volume changed but nob's might have, we only want to take
-                output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
-                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-                output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
-                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-                output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
-                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
-            } else if (a && b && !c) {
-                // CT300 and CT8502 volume has not changed but ct8504 changed
-                output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
-                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-                output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
-                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-                output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.metric.nob.ct8504);
-                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
-            } else if (!a && b && c) {
-                // CT8502 and CT8504 volume has not changed but ct300 changed
-                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.metric.nob.ct300);
-                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-                output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
-                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-                output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
-                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
-            } else if (a && !b && c) {
-                output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
-                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-                output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.metric.nob.ct8502);
-                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-                output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
-                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
-            } else if (a && !b && !c) {
-                output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
-                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-                output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.metric.nob.ct8502);
-                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-                output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.metric.nob.ct8504);
-                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
-            } else if (!a && !b && c) {
-                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.metric.nob.ct300);
-                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-                output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.metric.nob.ct8502);
-                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-                output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
-                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
-            } else if (!a && b && !c) {
-                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.metric.nob.ct300);
-                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-                output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
-                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-                output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.metric.nob.ct8504);
-                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
-            } else if (!a && !b && !c) {
-                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.metric.nob.ct300);
-                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-                output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.metric.nob.ct8502);
-                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-                output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.metric.nob.ct8504);
-                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
-            }
-            // output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) || Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.metric.nob.ct300);
-            // state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-            // output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value) || Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.metric.nob.ct8502);
-            // state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-            // output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value) || Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.metric.nob.ct8504);
-            // state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+        // b has changed
+        /* 
+            Update:
+                e, f, h
+            Permutate:
+                b, e, f, h
+        */
+        // permutate b
+        state.form.buw.ct8504.volume = newval
+        if(state.units === "metric"){
+            // update e
+            output_buw_ct850_weight_elem.value =  (constants.metric.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value))).toFixed(3);
+            // update f
+            output_buw_total_weight_elem.value = ((parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value))).toFixed(3);
+            // update h
+            output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.metric.nob.ct8504);
+
+            // permutate e
+            state.form.buw.ct850.weight = parseFloat(output_buw_ct850_weight_elem.value);
+            // permutate f
+            state.form.buw.total.weight = parseFloat(output_buw_total_weight_elem.value);
+            // permutate h
+            state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
         } else {
-            if (a && b && c) {
-                // no Volume changed but nob's might have, we only want to take the previous nob
-                output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
-                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-                output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
-                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-                output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
-                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
-            } else if (a && b && !c) {
-                // CT300 and CT8502 volume has not changed but ct8504 changed
-                output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
-                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-                output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
-                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-                output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.imperial.nob.ct8504);
-                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
-            } else if (!a && b && c) {
-                // CT8502 and CT8504 volume has not changed but ct300 changed
-                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
-                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-                output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
-                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-                output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
-                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
-            } else if (a && !b && c) {
-                output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
-                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-                output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
-                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-                output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
-                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
-            } else if (a && !b && !c) {
-                output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value);
-                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-                output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
-                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-                output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.imperial.nob.ct8504);
-                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
-            } else if (!a && !b && c) {
-                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
-                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-                output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
-                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-                output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value);
-                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
-            } else if (!a && b && !c) {
-                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
-                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-                output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value);
-                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-                output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.imperial.nob.ct8504);
-                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
-            } else if (!a && !b && !c) {
-                output_nob_ct300_elem.value = Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
-                state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-                output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
-                state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-                output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.imperial.nob.ct8504);
-                state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
-            }
-            // output_nob_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) || Math.ceil(parseFloat(buw_ct300_volume_elem.value) / constants.imperial.nob.ct300);
-            // state.form.nob.ct300.amount = Math.ceil(parseFloat(output_nob_ct300_elem.value));
-            // output_nob_ct8502_elem.value = parseFloat(output_nob_ct8502_elem.value) || Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
-            // state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
-            // output_nob_ct8504_elem.value = parseFloat(output_nob_ct8504_elem.value) || Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.imperial.nob.ct8504);
-            // state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
+            // update e
+            output_buw_ct850_weight_elem.value =  (constants.imperial.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value))).toFixed(3);
+            // update f
+            output_buw_total_weight_elem.value = ((parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value))).toFixed(3);
+            // update h
+            output_nob_ct8504_elem.value = Math.ceil(parseFloat(buw_ct8504_volume_elem.value) / constants.imperial.nob.ct8504);
+
+            // permutate e
+            state.form.buw.ct850.weight = parseFloat(output_buw_ct850_weight_elem.value);
+            // permutate f
+            state.form.buw.total.weight = parseFloat(output_buw_total_weight_elem.value);
+            // permutate h
+            state.form.nob.ct8504.amount = Math.ceil(parseFloat(output_nob_ct8504_elem.value));
         }
+        updateTimestamp(state);
+        updateState(state);
+    }
+
+    function changeC(state, newval){
+        /*
+            Arguments:
+                state: an object representing the current state of all the calculated values currently
+                newval: a float of the new blockup volume of ct8502
+            Returns:
+                none
+        */
+        // c has changed
+        /* 
+            Update:
+                e, f, i
+            Permutate:
+                c, e, f, i
+        */
+        // permutate c
+        state.form.buw.ct8502.volume = newval
+        if(state.units === "metric"){
+            // update e
+            output_buw_ct850_weight_elem.value = (constants.metric.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value))).toFixed(3);
+            // update f
+            output_buw_total_weight_elem.value = ((parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value))).toFixed(3);
+            // update i
+            output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.metric.nob.ct8502);
+
+            // permutate e
+            state.form.buw.ct850.weight = parseFloat(output_buw_ct850_weight_elem.value);
+            // permutate f
+            state.form.buw.total.weight = parseFloat(output_buw_total_weight_elem.value);
+            // permutate i
+            state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+        } else {
+            // update e
+            output_buw_ct850_weight_elem.value = (constants.imperial.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value))).toFixed(3);
+            // update f
+            output_buw_total_weight_elem.value = ((parseFloat(output_buw_ct850_weight_elem.value) + parseFloat(output_buw_ct300_weight_elem.value))).toFixed(3);
+            // update i
+            output_nob_ct8502_elem.value = Math.ceil(parseFloat(buw_ct8502_volume_elem.value) / constants.imperial.nob.ct8502);
+
+            // permutate e
+            state.form.buw.ct850.weight = parseFloat(output_buw_ct850_weight_elem.value);
+            // permutate f
+            state.form.buw.total.weight = parseFloat(output_buw_total_weight_elem.value);
+            // permutate i
+            state.form.nob.ct8502.amount = Math.ceil(parseFloat(output_nob_ct8502_elem.value));
+        }
+        updateTimestamp(state);
+        updateState(state);
+    }
+
+
+
+    function changeG(state, newval){
+        /*
+            Arguments:
+                state: an object representing the current state of all the calculated values currently
+                newval: an int of the new number of blocks of ct300
+            Returns:
+                none
+        */
+        /* 
+        Permutate g
+        */
+        state.form.nob.ct300.amount = newval;
+        updateTimestamp(state);
+        updateState(state);
+    }
+
+    function changeH(state, newval){
+        /*
+            Arguments:
+                state: an object representing the current state of all the calculated values currently
+                newval: an int of the new number of blocks of ct8504
+            Returns:
+                none
+        */
+        /* 
+        Permutate h
+        */
+        state.form.nob.ct8504.amount = newval;
+        updateTimestamp(state);
+        updateState(state);
+    }
+
+    function changeI(state, newval){
+        /*
+            Arguments:
+                state: an object representing the current state of all the calculated values currently
+                newval: an int of the new number of blocks of ct8502
+            Returns:
+                none
+        */
+        /* 
+        Permutate i
+        */
+        state.form.nob.ct8502.amount = newval;
         updateTimestamp(state);
         updateState(state);
     }
@@ -436,7 +486,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_ship_other_elem
         */
         if (state.form.units === "metric") {
-            output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * constants.metric.shipping.ct300;
+            // output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * constants.metric.shipping.ct300;
+            output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * constants.ct300.shipping.metric;
             state.form.shipping.ct300 = parseFloat(output_ship_ct300_elem.value);
             output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) * constants.ct8502.shipping.metric) + (parseFloat(output_nob_ct8504_elem.value) * constants.ct8504.shipping.metric); // (parseFloat(output_nob_ct8502_elem.value) + parseFloat(output_nob_ct8504_elem.value)) * constants.metric.shipping.ct850;
             state.form.shipping.ct850 = parseFloat(output_ship_ct850_elem.value);
@@ -451,7 +502,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
             output_ship_other_elem.value = 0;
             state.form.shipping.other = parseFloat(output_ship_other_elem.value);
         } else {
-            output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * constants.imperial.shipping.ct300;
+            // output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * constants.imperial.shipping.ct300;
+            output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * constants.ct300.shipping.imperial;
             state.form.shipping.ct300 = parseFloat(output_ship_ct300_elem.value);
             output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) * constants.ct8502.shipping.imperial) + (parseFloat(output_nob_ct8504_elem.value) * constants.ct8504.shipping.imperial); // (parseFloat(output_nob_ct8502_elem.value) * constants.imperial.shipping.ct8502) + (parseFloat(output_nob_ct8504_elem.value) * constants.imperial.shipping.ct8504);
             state.form.shipping.ct850 = parseFloat(output_ship_ct850_elem.value);
@@ -725,11 +777,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
         if (formData.shipping.ct850 != null) {
             output_ship_ct850_elem.value = formData.shipping.ct850;
         } else {
-            console.log(constants.ct8502);
-            let metric8502 = constants.ct8502.shipping.metric || 0;
-            let metric8504 = constants.ct8504.shipping.metric || 0;
-            let imperial8502 = constants.ct8503.shipping.imperial || 0;
-            let imperial8504 = constants.ct8504.shipping.imperial || 0;
+            // let metric8502 = constants.ct8502.shipping.metric || 0;
+            // let metric8504 = constants.ct8504.shipping.metric || 0;
+            // let imperial8502 = constants.ct8503.shipping.imperial || 0;
+            // let imperial8504 = constants.ct8504.shipping.imperial || 0;
+            // let formShippingData = {};
+            // formShippingData.metric8502 = metric8502;
+            // formShippingData.metric8504 = metric8504;
+            // formShippingData.imperial8502 = imperial8502;
+            // formShippingData.imperial8504 = imperial8504;
+            // console.log(formShippingData);
             if (formData.units === "metric") {
                 output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) * constants.metric.shipping.ct8502) + (parseFloat(output_nob_ct8504_elem.value) * constants.metric.shipping.ct8504); // ((parseFloat(output_nob_ct8502_elem.value) * constants.metric.shipping.ct8502) + (parseFloat(output_nob_ct8504_elem.value) * constants.metric.shipping.ct8504));
                 formData.shipping.ct850 = parseFloat(output_ship_ct850_elem.value);
@@ -797,6 +854,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     let clearLinkElem = document.getElementsByClassName('js--clear')[0];
     clearLinkElem.onclick = function() {
+        localStorage.setItem('CTstate', "");
         initializeInputs();
         let statetwo = {};
         let initform = getFormState();
@@ -819,8 +877,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 state.form.units = "imperial";
                 updateTimestamp(state);
                 updateState(state);
-                calculateBUW(state);
-                calculateNOB(state);
+                buwandnob();
                 calculateShippingWeight(state);
             }
         } else {
@@ -834,14 +891,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 state.form.units = "metric";
                 updateTimestamp(state);
                 updateState(state);
-                calculateBUW(state);
-                calculateNOB(state);
+                buwandnob();
                 calculateShippingWeight(state);
             }
         }
     }
 
-    btn_buw_elem.onclick = function() {
+    function buwandnob() {
         // first update the state var, and sync with localStorage
         // Lets get the values that they have entered
         /*
@@ -849,20 +905,55 @@ document.addEventListener("DOMContentLoaded", function(event) {
             buw_ct8502_volume_elem
             buw_ct8504_volume_elem
         */
-        let buwct300vol = buw_ct300_volume_elem.value;
-        state.form.buw.ct300.volume = parseFloat(buwct300vol);
-        let buwct8502vol = buw_ct8502_volume_elem.value;
-        state.form.buw.ct8502.volume = parseFloat(buwct8502vol);
-        let buwct8504vol = buw_ct8504_volume_elem.value;
-        state.form.buw.ct8504.volume = parseFloat(buwct8504vol);
-
-        // Now call updatebuw(), update nob(), update Shipping()
-        updateTimestamp(state);
-        updateState(state);
-        calculateBUW(state);
-        calculateNOB(state);
+        if(parseFloat(buw_ct300_volume_elem.value) != state.form.buw.ct300.volume){
+            changeA(state, parseFloat(buw_ct300_volume_elem.value));
+        }
+        if(parseFloat(buw_ct8504_volume_elem.value) != state.form.buw.ct8504.volume){
+            changeB(state, parseFloat(buw_ct8504_volume_elem.value));
+        }
+        if(parseFloat(buw_ct8502_volume_elem.value) != state.form.buw.ct8502.volume){
+            changeC(state, parseFloat(buw_ct8502_volume_elem.value));
+        }
+        if(parseFloat(output_nob_ct300_elem.value) != state.form.nob.ct300.amount){
+            changeG(state, parseFloat(output_nob_ct300_elem.value));
+        }
+        if(parseFloat(output_nob_ct8504_elem.value) != state.form.nob.ct8504.amount){
+            changeH(state, parseFloat(output_nob_ct8504_elem.value));
+        }
+        if(parseFloat(output_nob_ct8502_elem.value) != state.form.nob.ct8502.amount){
+            changeI(state, parseFloat(output_nob_ct8502_elem.value));
+        }
         calculateShippingWeight(state);
     }
+
+    btn_buw_elem.onclick = function(){
+        // first update the state var, and sync with localStorage
+        // Lets get the values that they have entered
+        /*
+            buw_ct300_volume_elem
+            buw_ct8502_volume_elem
+            buw_ct8504_volume_elem
+        */
+        if(parseFloat(buw_ct300_volume_elem.value) != state.form.buw.ct300.volume){
+            changeA(state, parseFloat(buw_ct300_volume_elem.value));
+        }
+        if(parseFloat(buw_ct8504_volume_elem.value) != state.form.buw.ct8504.volume){
+            changeB(state, parseFloat(buw_ct8504_volume_elem.value));
+        }
+        if(parseFloat(buw_ct8502_volume_elem.value) != state.form.buw.ct8502.volume){
+            changeC(state, parseFloat(buw_ct8502_volume_elem.value));
+        }
+        if(parseFloat(output_nob_ct300_elem.value) != state.form.nob.ct300.amount){
+            changeG(state, parseFloat(output_nob_ct300_elem.value));
+        }
+        if(parseFloat(output_nob_ct8504_elem.value) != state.form.nob.ct8504.amount){
+            changeH(state, parseFloat(output_nob_ct8504_elem.value));
+        }
+        if(parseFloat(output_nob_ct8502_elem.value) != state.form.nob.ct8502.amount){
+            changeI(state, parseFloat(output_nob_ct8502_elem.value));
+        }
+        calculateShippingWeight(state);
+    };
 
     btn_adhesive_elem.onclick = function() {
         /*
