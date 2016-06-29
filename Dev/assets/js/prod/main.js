@@ -1,19 +1,30 @@
 function updateState(newState) {
-    var oldState = localStorage.getItem('CTstate');
+    var oldState = localStorage.CTstate;
     if (oldState) {
         if (JSON.parse(oldState).timestamp <= newState.timestamp) {
             localStorage.setItem('CTstate', JSON.stringify(newState));
-        } else {
-
         }
     } else {
         localStorage.setItem('CTstate', JSON.stringify(newState));
     }
-};
+}
 
 function updateTimestamp(state) {
     state.timestamp = Math.floor(new Date().getTime() / 1000);
-};
+}
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
 
 function fetchVars(vars) {
     if(window.fetch){
@@ -281,8 +292,7 @@ function fetchVars(vars) {
         xhr.send();
     
     }
-
-};
+}
 
 // Lets get the vars
 var constants = {};
@@ -988,13 +998,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     var clearLinkElem = document.getElementsByClassName('js--clear')[0];
     clearLinkElem.onclick = function() {
-        localStorage.setItem('CTstate', "");
+        localStorage.setItem("CTstate", "");
         initializeInputs();
         var statetwo = {};
         var initform = getFormState();
         updateTimestamp(statetwo);
         statetwo.form = initform;
         updateState(statetwo);
+        document.getElementsByClassName('show')[0].className = "alert alert-info alert--info hide";
     };
 
 
@@ -1106,5 +1117,37 @@ document.addEventListener("DOMContentLoaded", function(event) {
         calculateShippingWeight(state);
     }
 
+    btn_export_elem.onclick = function() {
+        var data;
+        data = (("Compotool Material Calculator Export, " + (new Date().toJSON().slice(0, 10))) + ("  \
+\nUnits, " + (state.form.units)) + ("\
+\nSection, Blockup Weight\
+\nct300 volume, " + (state.form.buw.ct300.volume)) + ("\
+\nct8504 volume, " + (state.form.buw.ct8504.volume)) + ("\
+\nct8502 volume, " + (state.form.buw.ct8502.volume)) + (" \
+\nct300 weight, " + (state.form.buw.ct300.weight)) + (" \
+\nct850 weight, " + (state.form.buw.ct850.weight)) + (" \
+\ntotal weight, " + (state.form.buw.total.weight)) + (" \
+\nSection, Number of Boards \
+\nct300 boards, " + (state.form.nob.ct300.amount)) + (" \
+\nct8504 boards, " + (state.form.nob.ct8504.amount)) + (" \
+\nct8502 boards, " + (state.form.nob.ct8502.amount)) + (" \
+\nSection, Adhesive \
+\nBonded Surface Area, " + (state.form.adhesive.surfaceArea)) + (" \
+\nVolume of Adhesive, " + (state.form.adhesive.volume)) + (" \
+\nSection, Sealer \
+\nTool Surface Area, " + (state.form.sealer.toolSurface)) + (" \
+\nStage 1 Sealer Volume, " + (state.form.sealer.stageOne)) + ("\
+\nStage 2 Sealer Volume, " + (state.form.sealer.stageTwo)) + (" \
+\nSection, Shipping Weight \
+\nct300 shipping weight, " + (state.form.shipping.ct300)) + ("\
+\nct850 shipping weight, " + (state.form.shipping.ct850)) + ("\
+\nAdhesive shipping weight, " + (state.form.shipping.adhesive)) + ("\
+\nSealer stage 1 weight, " + (state.form.shipping.sealer.stageOne)) + ("\
+\nSealer stage 2 weight, " + (state.form.shipping.sealer.stageTwo)) + ("\
+\nOther weight, " + (state.form.shipping.other)) + ("\
+\nTotal Shipping Weight, " + (state.form.shipping.total)) + "");
+        download("Compotool_data.csv", data);
+    }
 
 });
