@@ -38,7 +38,7 @@ function fetchVars(vars) {
             .then(function(response){
                 return response.json();
             }).then(function(json){
-                console.log('parsed json', json);
+                // console.log('parsed json', json);
                 vars.metric = {};
                 vars.imperial = {};
                 vars.metric.sealer = {};
