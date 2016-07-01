@@ -28,17 +28,15 @@ function download(filename, text) {
 
 function fetchVars(vars) {
     if(window.fetch){
-        let myHeaders = new window.Headers();
-        myHeaders.append("authorization", "Basic cGRBek5zM3hxMjRNbTZiUGJ5ZjE6ZjlibzVBVjEyOTNoZUh4c3lIYml0cUc0RXlXWXhqenF4MndITmh0cQ==");
         let myInit = { method: 'GET',
-                    headers: myHeaders,
                     mode: 'cors',
                     cache: 'default' };
-        window.fetch('https://sheetsu.com/apis/v1.0/755fe98f1e9c', myInit)
+        window.fetch('https://fieldbookcode.com/5776ee58633c03030006c8ab/get-codelet', myInit)
             .then(function(response){
                 return response.json();
             }).then(function(json){
-                // console.log('parsed json', json);
+
+                console.log('parsed json', json);
                 vars.metric = {};
                 vars.imperial = {};
                 vars.metric.sealer = {};
@@ -74,85 +72,85 @@ function fetchVars(vars) {
                 vars.ct8502.shipping.imperial = 0;
                 vars.ct8504.shipping.imperial = 0;
                 for (let i = 0; i < json.length; i++) {
-                    if (json[i].Order === "1") {
-                        vars.imperial.adhesive = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "2") {
-                        vars.metric.adhesive = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "3") {
-                        vars.imperial.sealer.stageOne = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "4") {
-                        vars.metric.sealer.stageOne = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "5") {
-                        vars.imperial.sealer.stageTwo = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "6") {
-                        vars.metric.sealer.stageTwo = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "7") {
+                    if (json[i].order === 1) {
+                        vars.imperial.adhesive = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 2) {
+                        vars.metric.adhesive = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 3) {
+                        vars.imperial.sealer.stageOne = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 4) {
+                        vars.metric.sealer.stageOne = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 5) {
+                        vars.imperial.sealer.stageTwo = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 6) {
+                        vars.metric.sealer.stageTwo = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 7) {
                         // releaser
-                    } else if (json[i].Order === "8") {
+                    } else if (json[i].order === 8) {
                         // releaser
-                    } else if (json[i].Order === "9") {
-                        vars.imperial.buw.ct300 = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "10") {
-                        vars.metric.buw.ct300 = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "11") {
-                        vars.imperial.buw.ct850 = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "12") {
-                        vars.metric.buw.ct850 = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "13") {
-                        vars.imperial.nob.ct300 = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "14") {
-                        vars.metric.nob.ct300 = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "15") {
-                        vars.imperial.nob.ct8504 = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "16") {
-                        vars.metric.nob.ct8504 = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "17") {
-                        vars.imperial.nob.ct8502 = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "18") {
-                        vars.metric.nob.ct8502 = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "19") {
-                        vars.ct300.shipping.imperial = parseFloat(json[i].Coverage);
-                        vars.imperial.shipping.ct300 = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "20") {
+                    } else if (json[i].order === 9) {
+                        vars.imperial.buw.ct300 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 10) {
+                        vars.metric.buw.ct300 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 11) {
+                        vars.imperial.buw.ct850 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 12) {
+                        vars.metric.buw.ct850 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 13) {
+                        vars.imperial.nob.ct300 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 14) {
+                        vars.metric.nob.ct300 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 15) {
+                        vars.imperial.nob.ct8504 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 16) {
+                        vars.metric.nob.ct8504 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 17) {
+                        vars.imperial.nob.ct8502 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 18) {
+                        vars.metric.nob.ct8502 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 19) {
+                        vars.ct300.shipping.imperial = parseFloat(json[i].coverage);
+                        vars.imperial.shipping.ct300 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 20) {
                         // console.log(vars.ct300);
-                        vars.ct300.shipping.metric = parseFloat(json[i].Coverage);
-                        vars.metric.shipping.ct300 = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "21") {
-                        vars.imperial.shipping.ct8502 = parseFloat(json[i].Coverage);
-                        vars.ct8502.shipping.imperial = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "22") {
-                        vars.metric.shipping.ct8502 = parseFloat(json[i].Coverage);
-                        vars.ct8502.shipping.metric = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "23") {
-                        vars.imperial.shipping.ct8504 = parseFloat(json[i].Coverage);
-                        vars.ct8504.shipping.imperial = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "24") {
-                        vars.metric.shipping.ct8504 = parseFloat(json[i].Coverage);
-                        vars.ct8504.shipping.metric = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "25") {
-                        vars.imperial.shipping.adhesive.liters = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "26") {
-                        vars.metric.shipping.adhesive.liters = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "27") {
-                        vars.imperial.shipping.adhesive.weight = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "28") {
-                        vars.metric.shipping.adhesive.weight = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "29") {
-                        vars.imperial.shipping.sealer.stageOne.liters = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "30") {
-                        vars.metric.shipping.sealer.stageOne.liters = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "31") {
-                        vars.imperial.shipping.sealer.stageOne.weight = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "32") {
-                        vars.metric.shipping.sealer.stageOne.weight = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "33") {
-                        vars.imperial.shipping.sealer.stageTwo.liters = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "34") {
-                        vars.metric.shipping.sealer.stageTwo.liters = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "35") {
-                        vars.imperial.shipping.sealer.stageTwo.weight = parseFloat(json[i].Coverage);
-                    } else if (json[i].Order === "36") {
-                        vars.metric.shipping.sealer.stageTwo.weight = parseFloat(json[i].Coverage);
+                        vars.ct300.shipping.metric = parseFloat(json[i].coverage);
+                        vars.metric.shipping.ct300 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 21) {
+                        vars.imperial.shipping.ct8502 = parseFloat(json[i].coverage);
+                        vars.ct8502.shipping.imperial = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 22) {
+                        vars.metric.shipping.ct8502 = parseFloat(json[i].coverage);
+                        vars.ct8502.shipping.metric = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 23) {
+                        vars.imperial.shipping.ct8504 = parseFloat(json[i].coverage);
+                        vars.ct8504.shipping.imperial = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 24) {
+                        vars.metric.shipping.ct8504 = parseFloat(json[i].coverage);
+                        vars.ct8504.shipping.metric = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 25) {
+                        vars.imperial.shipping.adhesive.liters = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 26) {
+                        vars.metric.shipping.adhesive.liters = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 27) {
+                        vars.imperial.shipping.adhesive.weight = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 28) {
+                        vars.metric.shipping.adhesive.weight = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 29) {
+                        vars.imperial.shipping.sealer.stageOne.liters = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 30) {
+                        vars.metric.shipping.sealer.stageOne.liters = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 31) {
+                        vars.imperial.shipping.sealer.stageOne.weight = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 32) {
+                        vars.metric.shipping.sealer.stageOne.weight = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 33) {
+                        vars.imperial.shipping.sealer.stageTwo.liters = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 34) {
+                        vars.metric.shipping.sealer.stageTwo.liters = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 35) {
+                        vars.imperial.shipping.sealer.stageTwo.weight = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 36) {
+                        vars.metric.shipping.sealer.stageTwo.weight = parseFloat(json[i].coverage);
                     }
                 }
             }).catch(function(ex) {
@@ -160,7 +158,7 @@ function fetchVars(vars) {
             });
     } else {
         let xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
+        // xhr.withCredentials = true;
 
         xhr.addEventListener("readystatechange", function() {
             if (this.readyState === 4) {
@@ -201,93 +199,93 @@ function fetchVars(vars) {
                 vars.ct8502.shipping.imperial = 0;
                 vars.ct8504.shipping.imperial = 0;
                 for (let i = 0; i < data.length; i++) {
-                    if (data[i].Order === "1") {
-                        vars.imperial.adhesive = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "2") {
-                        vars.metric.adhesive = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "3") {
-                        vars.imperial.sealer.stageOne = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "4") {
-                        vars.metric.sealer.stageOne = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "5") {
-                        vars.imperial.sealer.stageTwo = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "6") {
-                        vars.metric.sealer.stageTwo = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "7") {
+                    if (data[i].order === 1) {
+                        vars.imperial.adhesive = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 2) {
+                        vars.metric.adhesive = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 3) {
+                        vars.imperial.sealer.stageOne = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 4) {
+                        vars.metric.sealer.stageOne = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 5) {
+                        vars.imperial.sealer.stageTwo = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 6) {
+                        vars.metric.sealer.stageTwo = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 7) {
                         // releaser
-                    } else if (data[i].Order === "8") {
+                    } else if (data[i].order === 8) {
                         // releaser
-                    } else if (data[i].Order === "9") {
-                        vars.imperial.buw.ct300 = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "10") {
-                        vars.metric.buw.ct300 = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "11") {
-                        vars.imperial.buw.ct850 = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "12") {
-                        vars.metric.buw.ct850 = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "13") {
-                        vars.imperial.nob.ct300 = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "14") {
-                        vars.metric.nob.ct300 = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "15") {
-                        vars.imperial.nob.ct8504 = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "16") {
-                        vars.metric.nob.ct8504 = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "17") {
-                        vars.imperial.nob.ct8502 = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "18") {
-                        vars.metric.nob.ct8502 = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "19") {
-                        vars.ct300.shipping.imperial = parseFloat(data[i].Coverage);
-                        vars.imperial.shipping.ct300 = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "20") {
+                    } else if (data[i].order === 9) {
+                        vars.imperial.buw.ct300 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 10) {
+                        vars.metric.buw.ct300 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 11) {
+                        vars.imperial.buw.ct850 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 12) {
+                        vars.metric.buw.ct850 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 13) {
+                        vars.imperial.nob.ct300 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 14) {
+                        vars.metric.nob.ct300 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 15) {
+                        vars.imperial.nob.ct8504 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 16) {
+                        vars.metric.nob.ct8504 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 17) {
+                        vars.imperial.nob.ct8502 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 18) {
+                        vars.metric.nob.ct8502 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 19) {
+                        vars.ct300.shipping.imperial = parseFloat(data[i].coverage);
+                        vars.imperial.shipping.ct300 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 20) {
                         // console.log(vars.ct300);
-                        vars.ct300.shipping.metric = parseFloat(data[i].Coverage);
-                        vars.metric.shipping.ct300 = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "21") {
-                        vars.imperial.shipping.ct8502 = parseFloat(data[i].Coverage);
-                        vars.ct8502.shipping.imperial = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "22") {
-                        vars.metric.shipping.ct8502 = parseFloat(data[i].Coverage);
-                        vars.ct8502.shipping.metric = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "23") {
-                        vars.imperial.shipping.ct8504 = parseFloat(data[i].Coverage);
-                        vars.ct8504.shipping.imperial = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "24") {
-                        vars.metric.shipping.ct8504 = parseFloat(data[i].Coverage);
-                        vars.ct8504.shipping.metric = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "25") {
-                        vars.imperial.shipping.adhesive.liters = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "26") {
-                        vars.metric.shipping.adhesive.liters = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "27") {
-                        vars.imperial.shipping.adhesive.weight = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "28") {
-                        vars.metric.shipping.adhesive.weight = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "29") {
-                        vars.imperial.shipping.sealer.stageOne.liters = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "30") {
-                        vars.metric.shipping.sealer.stageOne.liters = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "31") {
-                        vars.imperial.shipping.sealer.stageOne.weight = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "32") {
-                        vars.metric.shipping.sealer.stageOne.weight = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "33") {
-                        vars.imperial.shipping.sealer.stageTwo.liters = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "34") {
-                        vars.metric.shipping.sealer.stageTwo.liters = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "35") {
-                        vars.imperial.shipping.sealer.stageTwo.weight = parseFloat(data[i].Coverage);
-                    } else if (data[i].Order === "36") {
-                        vars.metric.shipping.sealer.stageTwo.weight = parseFloat(data[i].Coverage);
+                        vars.ct300.shipping.metric = parseFloat(data[i].coverage);
+                        vars.metric.shipping.ct300 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 21) {
+                        vars.imperial.shipping.ct8502 = parseFloat(data[i].coverage);
+                        vars.ct8502.shipping.imperial = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 22) {
+                        vars.metric.shipping.ct8502 = parseFloat(data[i].coverage);
+                        vars.ct8502.shipping.metric = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 23) {
+                        vars.imperial.shipping.ct8504 = parseFloat(data[i].coverage);
+                        vars.ct8504.shipping.imperial = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 24) {
+                        vars.metric.shipping.ct8504 = parseFloat(data[i].coverage);
+                        vars.ct8504.shipping.metric = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 25) {
+                        vars.imperial.shipping.adhesive.liters = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 26) {
+                        vars.metric.shipping.adhesive.liters = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 27) {
+                        vars.imperial.shipping.adhesive.weight = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 28) {
+                        vars.metric.shipping.adhesive.weight = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 29) {
+                        vars.imperial.shipping.sealer.stageOne.liters = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 30) {
+                        vars.metric.shipping.sealer.stageOne.liters = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 31) {
+                        vars.imperial.shipping.sealer.stageOne.weight = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 32) {
+                        vars.metric.shipping.sealer.stageOne.weight = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 33) {
+                        vars.imperial.shipping.sealer.stageTwo.liters = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 34) {
+                        vars.metric.shipping.sealer.stageTwo.liters = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 35) {
+                        vars.imperial.shipping.sealer.stageTwo.weight = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 36) {
+                        vars.metric.shipping.sealer.stageTwo.weight = parseFloat(data[i].coverage);
                     }
                 }
 
             }
         });
 
-        xhr.open("GET", "https://sheetsu.com/apis/v1.0/755fe98f1e9c", false);
-        xhr.setRequestHeader("authorization", "Basic cGRBek5zM3hxMjRNbTZiUGJ5ZjE6ZjlibzVBVjEyOTNoZUh4c3lIYml0cUc0RXlXWXhqenF4MndITmh0cQ==");
+        xhr.open("GET", "https://fieldbookcode.com/5776ee58633c03030006c8ab/get-codelet", false);
+        // xhr.setRequestHeader("authorization", "Basic cGRBek5zM3hxMjRNbTZiUGJ5ZjE6ZjlibzVBVjEyOTNoZUh4c3lIYml0cUc0RXlXWXhqenF4MndITmh0cQ==");
 
         xhr.send();
     
@@ -297,7 +295,7 @@ function fetchVars(vars) {
 // Lets get the vars
 let constants = {};
 fetchVars(constants);
-// console.log(constants);
+console.log(constants);
 // console.log(constants.ct300);
 
 document.addEventListener("DOMContentLoaded", function(event) {
