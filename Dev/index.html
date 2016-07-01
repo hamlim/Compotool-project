@@ -258,8 +258,45 @@
                             If you’d like, you can send the above data and contact information straight to Compotool for a quote.
                         </p>
                         <a href="#inline-modal" class="btn-anchor full-btn color--white bg--orange js--quote">Request Quote</a>
-                        <div class="hidden modal" id="inline-modal">
-                            <p>Testing</p>
+                        <div class="modal" id="inline-modal" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-header">
+                                    <h2>Request Quote:</h2>
+                                    <a href="#" class="btn-close" aria-hidden="true">×</a>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form--group flex--column">
+                                        <div class="form--section form--flex">
+                                            <label for="name" class="label required">Name:</label>
+                                            <input class="input form--control required--input" name="name" type="text" />
+                                        </div>
+
+                                        <div class="form--section form--flex">
+                                            <label for="email" class="label required">Email:</label>
+                                            <input class="input form--control required--input" name="email" type="email" />
+                                        </div>
+                                        <div class="form--section form--flex">
+                                            <label for="company-name" class="label required">Company Name:</label>
+                                            <input type="text" class="input form--control required--input" name="company-name" />
+                                        </div>
+                                        <div class="form--section form--flex">
+                                            <label for="phone-number" class="label required">Phone Number: </label>
+                                            <input type="tel" class="input form--control required--input" name="phone-number" />
+                                        </div>
+                                        <div class="form--section form--flex">
+                                            <label for="address" class="label required" >Address:</label>
+                                            <input name="address" class="input form--control required--input" type="text" />
+                                        </div>
+                                        <div class="form--section form--flex">
+                                            <label for="notes" class="label">Notes:</label>
+                                            <textarea class="input form--control input--textarea" name="notes"></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn color--white bg--orange js--request">Submit</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </footer>
