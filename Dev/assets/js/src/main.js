@@ -1147,7 +1147,7 @@ Sealer stage 1 weight, ${state.form.shipping.sealer.stageOne}
 Sealer stage 2 weight, ${state.form.shipping.sealer.stageTwo}
 Other weight, ${state.form.shipping.other}
 Total Shipping Weight, ${state.form.shipping.total}`;
-        download("Compotool_data.csv", data);
+        download(`Compotool_data (${new Date().toJSON().slice(0, 10)}).csv`, data);
     }
 
 });
