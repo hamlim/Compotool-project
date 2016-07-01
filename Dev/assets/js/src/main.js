@@ -311,7 +311,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let unit_imperial_elem = document.getElementById('input--units-2');
 
     let unit_spans_elemCollection = document.getElementsByClassName('js--hook-units');
-
+    let volum_unit_spans = document.getElementsByClassName('js--hook-units-vol');
+    let area_unit_spans = document.getElementsByClassName('js--hook-units-area');
     // Block up weight + number of boards -> buw
     let buw_ct300_volume_elem = document.getElementById('input--buw_nob-1');
     let buw_ct8504_volume_elem = document.getElementById('input--buw_nob-2');
@@ -770,11 +771,23 @@ document.addEventListener("DOMContentLoaded", function(event) {
             for (let i = 0; i < unit_spans_elemCollection.length; i++) {
                 unit_spans_elemCollection[i].innerText = "Kgs";
             }
+            for(let j=0; j<area_unit_spans.length; j++){
+                area_unit_spans[j].innerHTML = "m<sup>2</sup>";
+            }
+            for(let k=0; k<volum_unit_spans.length; k++){
+                volum_unit_spans[k].innerHTML = "m<sup>3</sup>";
+            }
         } else {
             unit_metric_elem.checked = false;
             unit_imperial_elem.checked = true;
             for (let i = 0; i < unit_spans_elemCollection.length; i++) {
                 unit_spans_elemCollection[i].innerText = "Lbs";
+            }
+            for(let j=0; j<area_unit_spans.length; j++){
+                area_unit_spans[j].innerHTML = "ft<sup>2</sup>";
+            }
+            for(let k=0; k<volum_unit_spans.length; k++){
+                volum_unit_spans[k].innerHTML = "ft<sup>3</sup>";
             }
         }
         // Block Up weight
@@ -1020,6 +1033,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 for (let i = 0; i < unit_spans_elemCollection.length; i++) {
                     unit_spans_elemCollection[i].innerText = "Lbs";
                 }
+                for(let j=0; j<area_unit_spans.length; j++){
+                    area_unit_spans[j].innerHTML = "ft<sup>2</sup>";
+                }
+                for(let k=0; k<volum_unit_spans.length; k++){
+                    volum_unit_spans[k].innerHTML = "ft<sup>3</sup>";
+                }
                 state.form.oldunits = "metric";
                 state.form.units = "imperial";
                 updateTimestamp(state);
@@ -1035,6 +1054,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 // it is imperial but they are changing it to metric
                 for (let i = 0; i < unit_spans_elemCollection.length; i++) {
                     unit_spans_elemCollection[i].innerText = "Kgs";
+                }
+                for(let j=0; j<area_unit_spans.length; j++){
+                    area_unit_spans[j].innerHTML = "m<sup>2</sup>";
+                }
+                for(let k=0; k<volum_unit_spans.length; k++){
+                    volum_unit_spans[k].innerHTML = "m<sup>3</sup>";
                 }
                 state.form.oldunits = "imperial";
                 state.form.units = "metric";

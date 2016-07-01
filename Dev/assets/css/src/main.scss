@@ -1,6 +1,7 @@
 @import "_variables";
 @import "_typography";
 @import "_grid";
+@import "modaal";
 
 .bg--black {
     background-color: $ct_black;
@@ -76,8 +77,25 @@
 .btn {
     margin-top: 15px;
     font-size: 17px;
-    min-height: 24px;
+    min-height: 26px;
     padding: 6px 12px;
+    border-radius: 5px;
+    border: solid 3px $ct_orange;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+.btn-anchor {
+    text-align: center;
+    font-style: normal;
+    height: 24px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 17px;
+    min-height: 24px;
+    padding: 4px 12px 4px 12px;
     border-radius: 5px;
     border: solid 3px $ct_orange;
 
@@ -102,7 +120,7 @@
     float: right;
 }
 .full-btn {
-    width: 99%;
+    width: 94%;
 }
 
 .left {
@@ -141,5 +159,8 @@ img {
 }
 .hide {
     visibility: hidden;
+    display: none;
+}
+.hidden {
     display: none;
 }
