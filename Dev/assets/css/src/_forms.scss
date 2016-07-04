@@ -135,5 +135,6 @@ input + label {
     color: red;
 }
 .invalid-input {
-    outline: 2px solid red;
+    // outline: 2px solid red;
+    border: 2px solid red;
 }

@@ -1186,19 +1186,24 @@ document.addEventListener("DOMContentLoaded", function(event) {
         var caddress = document.getElementById("contact-address");
         var cnotes = document.getElementById("contact-company");
         if(cname.value === "" || cname.value === null){
-            cname.setAttribute('className', 'invalid-input');
+            cname.className += ' invalid-input';
+            return;
         }
         if(cemail.value === "" || cemail.value === null){
-            cemail.setAttribute('className', 'invalid-input');
+            cemail.className += ' invalid-input';
+            return;
         }
         if(ccompany.value === "" || ccompany.value === null){
-            ccompany.setAttribute('className', 'invalid-input');
+            ccompany.className += ' invalid-input';
+            return;
         }
         if(cphone.value === "" || cphone.value === null){
-            cphone.setAttribute('className', 'invalid-input');
+            cphone.className += ' invalid-input';
+            return;
         }
         if(caddress.value === "" || caddress.value === null){
-            caddress.setAttribute('className', 'invalid-input');
+            caddress.className += ' invalid-input';
+            return;
         }
 
         var package = {};
@@ -1241,17 +1246,34 @@ document.addEventListener("DOMContentLoaded", function(event) {
         package.input.ship.other = state.form.shipping.other;
         package.input.ship.total = state.form.shipping.total;
 
+        console.log(package);
 
-        var url = "/mailer.php";
+        // let url = "https://tonicdev.io/matthamlin/emailer/branches/master";
+        var pos = new XMLHttpRequest();
+        // xhr.withCredentials = true;
 
+        pos.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+            console.log(this.responseText);
+        }
+        });
+
+        pos.open("POST", "https://tonicdev.io/matthamlin/emailer/branches/master");
+        pos.setRequestHeader("content-type", "application/json");
+        // xhr.setRequestHeader("cache-control", "no-cache");
+        // xhr.setRequestHeader("postman-token", "7aa8e4ba-45aa-a9f9-3228-abf362362682");
+
+        pos.send(JSON.stringify(package));
+        /*
         window.fetch(url, {
             method: "POST",
             body: JSON.stringify(package),
             headers: {
                 "Content-Type": "application/json"
             },
-            credentials: "same-origin"
+            mode: "cors"
             }).then(function(response) {
+                console.log(response);
                 // response.status     //=> number 100–599
                 // response.statusText //=> String
                 // response.headers    //=> Headers
@@ -1261,6 +1283,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 // }, function(error) {
                 // error.message //=> String
             });
+        */
     }
 
 

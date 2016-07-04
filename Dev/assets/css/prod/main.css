@@ -1096,7 +1096,7 @@ input + label {
 }
 
 .invalid-input {
-  outline: 2px solid red;
+  border: 2px solid red;
 }
 
 .inline--block {
@@ -1232,7 +1232,7 @@ img {
   -webkit-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   transform: translate(0, 0);
-  top: 10%;
+  top: 10vh;
 }
 
 .modal-dialog {
