@@ -1250,7 +1250,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         // let url = "https://tonicdev.io/matthamlin/emailer/branches/master";
         var pos = new XMLHttpRequest();
-        // xhr.withCredentials = true;
+        // pos.withCredentials = true;
 
         pos.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
@@ -1260,7 +1260,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         pos.open("POST", "https://tonicdev.io/matthamlin/emailer/branches/master");
         pos.setRequestHeader("content-type", "application/json");
-        // xhr.setRequestHeader("cache-control", "no-cache");
+        // pos.setRequestHeader("cache-control", "no-cache");
         // xhr.setRequestHeader("postman-token", "7aa8e4ba-45aa-a9f9-3228-abf362362682");
 
         pos.send(JSON.stringify(package));
