@@ -355,6 +355,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let btn_sealer_elem = document.getElementsByClassName("js--sealer")[0];
     let btn_export_elem = document.getElementsByClassName("js--export")[0];
     let btn_quote_elem = document.getElementsByClassName("js--quote")[0];
+    let btn_request_elem = document.getElementsByClassName("js--request")[0];
 
     // Logic
 
@@ -1172,5 +1173,95 @@ Other weight, ${state.form.shipping.other}
 Total Shipping Weight, ${state.form.shipping.total}`;
         download(`Compotool_data (${new Date().toJSON().slice(0, 10)}).csv`, data);
     }
+
+
+    btn_request_elem.onclick = function(){
+        // We want to post the data to mailer.php
+        // compose data object
+        // form validation
+        let cname = document.getElementById("contact-name");
+        let cemail = document.getElementById("contact-email");
+        let ccompany = document.getElementById("contact-company");
+        let cphone = document.getElementById("contact-phone");
+        let caddress = document.getElementById("contact-address");
+        let cnotes = document.getElementById("contact-company");
+        if(cname.value === "" || cname.value === null){
+            cname.setAttribute('className', 'invalid-input');
+        }
+        if(cemail.value === "" || cemail.value === null){
+            cemail.setAttribute('className', 'invalid-input');
+        }
+        if(ccompany.value === "" || ccompany.value === null){
+            ccompany.setAttribute('className', 'invalid-input');
+        }
+        if(cphone.value === "" || cphone.value === null){
+            cphone.setAttribute('className', 'invalid-input');
+        }
+        if(caddress.value === "" || caddress.value === null){
+            caddress.setAttribute('className', 'invalid-input');
+        }
+
+        let package = {};
+        package.contact = {};
+        package.input = {};
+        package.contact.name = cname.value;
+        package.contact.email = cemail.value;
+        package.contact.company_name = ccompany.value;
+        package.contact.phone_number = cphone.value;
+        package.contact.address = caddress.value;
+        package.contact.notes = cnotes.value;
+        package.input.units = state.form.units;
+        package.input.ct300 = {};
+        package.input.ct300.buv = state.form.buw.ct300.volume;
+        package.input.ct300.buw = state.form.buw.ct300.weight;
+        package.input.ct300.nob = state.form.nob.ct300.amount;
+        package.input.ct850 = {};
+        package.input.ct850.buw = state.form.buw.ct850.weight;
+        package.input.ct8504 = {};
+        package.input.ct8504.buv = state.form.buw.ct8504.volume;
+        package.input.ct8504.nob = state.form.nob.ct8504.amount;
+        package.input.ct8502 = {};
+        package.input.ct8502.buv = state.form.buw.ct8502.volume;
+        package.input.ct8502.nob = state.form.nob.ct8502.amount;
+        package.input.total = {};
+        package.input.total.buw = state.form.buw.total.weight;
+        package.input.adhesive = {};
+        package.input.adhesive.surface_area = state.form.adhesive.surfaceArea;
+        package.input.adhesive.volume = state.form.adhesive.volume;
+        package.input.sealer = {};
+        package.input.sealer.surface_area = state.form.sealer.toolSurface;
+        package.input.sealer.stageOne = state.form.sealer.stageOne;
+        package.input.sealer.stageTwo = state.form.sealer.stageTwo;
+        package.input.ship = {};
+        package.input.ship.ct300 = state.form.shipping.ct300;
+        package.input.ship.ct850 = state.form.shipping.ct850;
+        package.input.ship.adhesive = state.form.shipping.adhesive;
+        package.input.ship.sealerStageOne = state.form.shipping.sealer.stageOne;
+        package.input.ship.sealerStageTwo = state.form.shipping.sealer.stageTwo;
+        package.input.ship.other = state.form.shipping.other;
+        package.input.ship.total = state.form.shipping.total;
+
+
+        let url = "/mailer.php";
+
+        window.fetch(url, {
+            method: "POST",
+            body: JSON.stringify(package),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "same-origin"
+            }).then(function(response) {
+                // response.status     //=> number 100–599
+                // response.statusText //=> String
+                // response.headers    //=> Headers
+                // response.url        //=> String
+
+                // response.text().then(function(responseText) { ... })
+                // }, function(error) {
+                // error.message //=> String
+            });
+    }
+
 
 });

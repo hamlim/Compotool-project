@@ -1095,6 +1095,10 @@ input + label {
   color: red;
 }
 
+.invalid-input {
+  outline: 2px solid red;
+}
+
 .inline--block {
   display: inline-block;
   position: relative;
