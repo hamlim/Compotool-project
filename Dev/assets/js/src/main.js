@@ -1246,7 +1246,21 @@ Total Shipping Weight, ${state.form.shipping.total}`;
         package.input.ship.other = state.form.shipping.other;
         package.input.ship.total = state.form.shipping.total;
 
-        console.log(package);
+        let toAddress = "hamlim@outlook.com"; // Test email address
+        let subject = "Someone has requested a quote for Compotool Products";
+        let head = "Below is thier contact information and below that is their quoted materials";
+        let contact = package["contact"]["name"] + "\n" +  package["contact"]["email"] + "/n" + package["contact"]["company_name"] + "\n" + package["contact"]["phone_number"] + "\n" + package["contact"]["address"] + "\n" + package["contact"]["notes"];
+        let splitter = "\n\n\n ----------- DATA ---------- \n\n\n";
+        let inputData = "Units: " + package["input"]["units"] + "\n" + "ct300 blockup volume: " + package["input"]["ct300"]["buv"] + "\n" + "ct8504 blockup volume: " + package["input"]["ct8504"]["buv"] + "\n" + "ct8502 blockup volume: " + package["input"]["ct8502"]["buv"] + "\n" + "ct300 blockup weight: " + package["input"]["ct300"]["buw"] + "\n" + "ct850 blockup weight: " + package["input"]["ct850"]["buw"] + "\n" + "Total blockup weight: " + package["input"]["total"]["buw"] + "\n" + "Number of ct300 Boards: " + package["input"]["ct300"]["nob"] + "\n" + "Number of ct8504 Boards: " + package["input"]["ct8504"]["nob"] + "\n" + "Number of ct8502 Boards: " + package["input"]["ct8504"]["buw"] + "\n" + "Adhesive: " + "\n" + "Bonded Surface Area: " + package["input"]["adhesive"]["surface_area"] + "\n" + "Volume of adheisve: " + package["input"]["adhesive"]["volume"] + "\n" + "Sealer: " + "\n" + "Tool Surface Area: " + package["input"]["sealer"]["surface_area"] + "\n" + "Volume of Stage 1: " + package["input"]["sealer"]["stageOne"] + "\n" + "Volume of Stage 2: " + package["input"]["sealer"]["stageTwo"] + "\n" + "Shipping Weight: " + "\n" + "ct300 Shipping Weight: " + package["input"]["ship"]["ct300"] + "\n" + "ct850 Shipping Weight: " + package["input"]["ship"]["ct850"] + "\n" + "Asdhesive Shipping Weight: " + package["input"]["ship"]["adhesive"] + "\n" + "Sealer stage 1 Shipping Weight: " + package["input"]["ship"]["sealerStageOne"] + "\n" + "Sealer stage 2 Shipping Weight: " + package["input"]["ship"]["sealerStageTwo"] + "\n" + "Other Shipping Weight: " + package["input"]["ship"]["other"] + "\n" + "Total Shipping Weight: " + package["input"]["ship"]["total"] + "\n";
+
+        let foot = "This was sent at: " + new Date().toJSON().slice(0, 10);
+        let message = head + contact + splitter + inputData + foot;
+
+        let emailPackage = {};
+        emailPackage.message = message;
+        emailPackage.toAddress = toAddress;
+        emailPackage.subject = subject;
+        console.log(emailPackage);
 
         // let url = "https://tonicdev.io/matthamlin/emailer/branches/master";
         let pos = new XMLHttpRequest();
@@ -1263,27 +1277,7 @@ Total Shipping Weight, ${state.form.shipping.total}`;
         // pos.setRequestHeader("cache-control", "no-cache");
         // xhr.setRequestHeader("postman-token", "7aa8e4ba-45aa-a9f9-3228-abf362362682");
 
-        pos.send(JSON.stringify(package));
-        /*
-        window.fetch(url, {
-            method: "POST",
-            body: JSON.stringify(package),
-            headers: {
-                "Content-Type": "application/json"
-            },
-            mode: "cors"
-            }).then(function(response) {
-                console.log(response);
-                // response.status     //=> number 100–599
-                // response.statusText //=> String
-                // response.headers    //=> Headers
-                // response.url        //=> String
-
-                // response.text().then(function(responseText) { ... })
-                // }, function(error) {
-                // error.message //=> String
-            });
-        */
+        pos.send(JSON.stringify(emailPackage));
     }
 
 
