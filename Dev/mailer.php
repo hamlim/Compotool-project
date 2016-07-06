@@ -1,5 +1,5 @@
 <?php
-    require_once('vendor/phpmailer/phpmailer/class.phpmailer.php');
+    require_once('vendor/phpmailer/phpmailer/PHPMailerAutoload.php');
     define('GUSER', 'compotoolmailer@gmail.com'); // GMail username
     define('GPWD', 'lxosdqpyejxsefpw'); // GMail password
 
@@ -37,11 +37,9 @@
         }
     }
 
-    if(smtpmailer($toAddress, $fromEmail, $fromName, $subject, $message)) {
-        // It sent
-    } else {
-        // it failed
-    }
+    smtpmailer($toAddress, $fromEmail, $fromName, $subject, $message)
+    // It sent
+    // it failed
 
     // $toAddress = "hamlim@outlook.com"; // Test email address
     // $subject = "Someone has requested a quote for Compotool Products";

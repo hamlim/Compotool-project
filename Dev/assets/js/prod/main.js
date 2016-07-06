@@ -1248,8 +1248,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         var toAddress = "hamlim@outlook.com"; // Test email address
         var subject = "Someone has requested a quote for Compotool Products";
-        var head = "Below is thier contact information and below that is their quoted materials";
-        var contact = package["contact"]["name"] + "\n" +  package["contact"]["email"] + "/n" + package["contact"]["company_name"] + "\n" + package["contact"]["phone_number"] + "\n" + package["contact"]["address"] + "\n" + package["contact"]["notes"];
+        var head = "Below is thier contact information and below that is their quoted materials \n";
+        var contact = "Name: " + package["contact"]["name"] + "\n" + "Email: " + package["contact"]["email"] + "\n" + "Company Name: " + package["contact"]["company_name"] + "\n" + "Phone Number: " + package["contact"]["phone_number"] + "\n" + "Address: " + package["contact"]["address"] + "\n" + "Notes: " + package["contact"]["notes"];
         var splitter = "\n\n\n ----------- DATA ---------- \n\n\n";
         var inputData = "Units: " + package["input"]["units"] + "\n" + "ct300 blockup volume: " + package["input"]["ct300"]["buv"] + "\n" + "ct8504 blockup volume: " + package["input"]["ct8504"]["buv"] + "\n" + "ct8502 blockup volume: " + package["input"]["ct8502"]["buv"] + "\n" + "ct300 blockup weight: " + package["input"]["ct300"]["buw"] + "\n" + "ct850 blockup weight: " + package["input"]["ct850"]["buw"] + "\n" + "Total blockup weight: " + package["input"]["total"]["buw"] + "\n" + "Number of ct300 Boards: " + package["input"]["ct300"]["nob"] + "\n" + "Number of ct8504 Boards: " + package["input"]["ct8504"]["nob"] + "\n" + "Number of ct8502 Boards: " + package["input"]["ct8504"]["buw"] + "\n" + "Adhesive: " + "\n" + "Bonded Surface Area: " + package["input"]["adhesive"]["surface_area"] + "\n" + "Volume of adheisve: " + package["input"]["adhesive"]["volume"] + "\n" + "Sealer: " + "\n" + "Tool Surface Area: " + package["input"]["sealer"]["surface_area"] + "\n" + "Volume of Stage 1: " + package["input"]["sealer"]["stageOne"] + "\n" + "Volume of Stage 2: " + package["input"]["sealer"]["stageTwo"] + "\n" + "Shipping Weight: " + "\n" + "ct300 Shipping Weight: " + package["input"]["ship"]["ct300"] + "\n" + "ct850 Shipping Weight: " + package["input"]["ship"]["ct850"] + "\n" + "Asdhesive Shipping Weight: " + package["input"]["ship"]["adhesive"] + "\n" + "Sealer stage 1 Shipping Weight: " + package["input"]["ship"]["sealerStageOne"] + "\n" + "Sealer stage 2 Shipping Weight: " + package["input"]["ship"]["sealerStageTwo"] + "\n" + "Other Shipping Weight: " + package["input"]["ship"]["other"] + "\n" + "Total Shipping Weight: " + package["input"]["ship"]["total"] + "\n";
 
@@ -1268,6 +1268,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         pos.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
                 console.log(this.responseText);
+                window.location.href = "./index.html#thanks-modal";
             }
         });
 
