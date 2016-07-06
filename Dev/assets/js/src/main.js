@@ -1262,20 +1262,17 @@ Total Shipping Weight, ${state.form.shipping.total}`;
         emailPackage.subject = subject;
         console.log(emailPackage);
 
-        // let url = "https://tonicdev.io/matthamlin/emailer/branches/master";
+        let url = "./mailer.php";
         let pos = new XMLHttpRequest();
-        // pos.withCredentials = true;
 
         pos.addEventListener("readystatechange", function () {
-        if (this.readyState === 4) {
-            console.log(this.responseText);
-        }
+            if (this.readyState === 4) {
+                console.log(this.responseText);
+            }
         });
 
-        pos.open("POST", "https://tonicdev.io/matthamlin/emailer/branches/master");
+        pos.open("POST", url);
         pos.setRequestHeader("content-type", "application/json");
-        // pos.setRequestHeader("cache-control", "no-cache");
-        // xhr.setRequestHeader("postman-token", "7aa8e4ba-45aa-a9f9-3228-abf362362682");
 
         pos.send(JSON.stringify(emailPackage));
     }
