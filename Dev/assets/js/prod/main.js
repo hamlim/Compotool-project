@@ -1246,7 +1246,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         package.input.ship.other = state.form.shipping.other;
         package.input.ship.total = state.form.shipping.total;
 
-        var toAddress = "hamlim@outlook.com"; // Test email address
+        var toAddress = "neil@compotool.com"; // Test email address
         var subject = "Someone has requested a quote for Compotool Products";
         var head = "Below is thier contact information and below that is their quoted materials \n";
         var contact = "Name: " + package["contact"]["name"] + "\n" + "Email: " + package["contact"]["email"] + "\n" + "Company Name: " + package["contact"]["company_name"] + "\n" + "Phone Number: " + package["contact"]["phone_number"] + "\n" + "Address: " + package["contact"]["address"] + "\n" + "Notes: " + package["contact"]["notes"];

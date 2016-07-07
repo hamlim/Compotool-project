@@ -40,4 +40,16 @@ You will need to edit the following things:
 * filename of `index.html`
 * Line 1271 in `./assets/js/prod/main.js` `window.location.href = "./index.html#thanks-modal";` change the 'index.html' part of the string with the new filename for the HTML document
 * Add in the links to the other website pages to the `<nav></nav>` elements on `index.html` (Lines 22-67 in index.html)
+* Change the `toAddress` to whatever static email address you want the emails sent to (found on line 1249 in ./assets/js/prod/main.js)
 
+### Notes on HTML
+
+There is only one HTML file included in the folder, it is the main page for the project. To rename it to another name please see the notes above.
+
+### Notes on CSS
+
+All the css is written in SCSS source files (./assets/css/src/), if you want to edit the CSS, you can use grunt to compile the source files with the default grunt command `grunt default`. None of it should interfere with other pages as the classes are all in BEM like formating.
+
+### Notes on JS
+
+The JS is the most vital part of the project, it is written in ES6 and transpiled to ES5 using grunt, if any edits need to be made they can be made within the ./assets/js/src/main.js file and transpiled in grunt with `grunt default` or `grunt es6`.

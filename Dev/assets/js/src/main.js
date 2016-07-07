@@ -1246,7 +1246,7 @@ Total Shipping Weight, ${state.form.shipping.total}`;
         package.input.ship.other = state.form.shipping.other;
         package.input.ship.total = state.form.shipping.total;
 
-        let toAddress = "hamlim@outlook.com"; // Test email address
+        let toAddress = "neil@compotool.com"; // Test email address
         let subject = "Someone has requested a quote for Compotool Products";
         let head = "Below is thier contact information and below that is their quoted materials \n";
         let contact = "Name: " + package["contact"]["name"] + "\n" + "Email: " + package["contact"]["email"] + "\n" + "Company Name: " + package["contact"]["company_name"] + "\n" + "Phone Number: " + package["contact"]["phone_number"] + "\n" + "Address: " + package["contact"]["address"] + "\n" + "Notes: " + package["contact"]["notes"];
