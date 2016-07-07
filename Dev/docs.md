@@ -1,5 +1,9 @@
 # Documentation for Compotool Materials Calculator Webpage
 
+# NOTE: This doc is out of date, please see the README.md file in the parent directory.
+
+
+
 ## Table of Contents
 
 * TODO's for Webmaster of Compotool.com
