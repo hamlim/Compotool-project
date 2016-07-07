@@ -1,6 +1,7 @@
 @import "_variables";
 @import "_typography";
 @import "_grid";
+@import "modaal";
 
 .bg--black {
     background-color: $ct_black;
@@ -76,8 +77,25 @@
 .btn {
     margin-top: 15px;
     font-size: 17px;
-    min-height: 24px;
+    min-height: 26px;
     padding: 6px 12px;
+    border-radius: 5px;
+    border: solid 3px $ct_orange;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+.btn-anchor {
+    text-align: center;
+    font-style: normal;
+    height: 24px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 17px;
+    min-height: 24px;
+    padding: 4px 12px 4px 12px;
     border-radius: 5px;
     border: solid 3px $ct_orange;
 
@@ -102,7 +120,7 @@
     float: right;
 }
 .full-btn {
-    width: 99%;
+    width: 94%;
 }
 
 .left {
@@ -142,4 +160,77 @@ img {
 .hide {
     visibility: hidden;
     display: none;
+}
+.hidden {
+    display: none;
+}
+
+// Modals
+
+.btn-close {
+  color: #aaa;
+  font-size: 30px;
+  text-decoration: none;
+  position: absolute;
+  right: 5px;
+  top: 0;
+}
+.btn-close:hover {
+  color: #919191;
+}
+
+.modal:before {
+  content: "";
+  display: none;
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
+.modal:target:before {
+  display: block;
+}
+.modal:target .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+  top: 10vh;
+}
+.modal-dialog {
+  background: #fefefe;
+  border: #333 solid 1px;
+//   border-radius: 5px;
+  margin-left: -200px;
+  position: fixed;
+  left: 50%;
+  top: -100%;
+  z-index: 11;
+  width: 500px;
+  -webkit-transform: translate(0, -500%);
+  -ms-transform: translate(0, -500%);
+  transform: translate(0, -500%);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  -moz-transition: -moz-transform 0.3s ease-out;
+  -o-transition: -o-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+}
+.modal-body {
+  padding: 20px;
+}
+.modal-header,
+.modal-footer {
+  padding: 10px 20px;
+}
+.modal-header {
+  border-bottom: #eee solid 1px;
+}
+.modal-header h2 {
+  font-size: 20px;
+}
+.modal-footer {
+  border-top: #eee solid 1px;
+  text-align: right;
 }

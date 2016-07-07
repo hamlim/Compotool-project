@@ -1,0 +1,37 @@
+Order,Branch,Unit,Coverage,Product,Units
+1,adhesive,imperial,0.2,CTA-505 Adhesive,Liters per Square Feet
+2,adhesive,metric,2,CTA-505 Adhesive,Liters per Square Meter
+3,sealer,imperial,0.03125,CTS-101[B] Stage ONE sealer (blue),Liters per Square Feet
+4,sealer,metric,0.33,CTS-101[B] Stage ONE sealer (blue),Liters per Square Meter
+5,sealer,imperial,0.2,CTS-202 Stage TWO sealer,Liters per Square Feet
+6,sealer,metric,2,CTS-202 Stage TWO sealer,Liters per Square Meter
+7,release,imperial,N/A,CTR-404 Release,Liters per Square Feet
+8,release,metric,N/A,CTR-404 Release,Liters per Square Meter
+9,buw,imperial,18.72838817,CT-300 Weight (cubic volume),Pounds per Cubic Feet
+10,buw,metric,300,CT-300 Weight (cubic volume),Kgs per Cubic Meter
+11,buw,imperial,53.06376649,CT-850 Weight (cubic volume),Pounds per Cubic Feet
+12,buw,metric,850,CT-850 Weight (cubic volume),Kgs per Cubic Meter
+13,nob,imperial,1.76575,CT300-4 (volume per board),Cubic Feet per Board
+14,nob,metric,0.05,CT300-4 (volume per board),Cubic Meters per Board
+15,nob,imperial,2.07586,CT850-4 (volume per board),Cubic Feet per Board
+16,nob,metric,0.0580872,CT850-4 (volume per board),Cubic Meters per Board
+17,nob,imperial,1.03793,CT850-2 (volume per board),Cubic Feet per Board
+18,nob,metric,0.0290436,CT850-2 (volume per board),Cubic Meters per Board
+19,shipping,imperial,33,CT-300-4 Weight (per board),Pounds
+20,shipping,metric,15,CT-3004 Weight (per board),KGs
+21,shipping,imperial,55.08,CT-850-2 Weight (per board),Pounds
+22,shipping,metric,24.69,CT-850-2 Weight (per board),KGs
+23,shipping,imperial,110.16,CT-850-4 Weight (per board),Pounds
+24,shipping,metric,49.38,CT-850-4 Weight (per board),KGs
+25,shipping,imperial,9,Adhesive liters per box,liters
+26,shipping,metric,9,Adhesive liters per box,liters
+27,shipping,imperial,44,Adhesive weight per box,pounds
+28,shipping,metric,20,Adhesive weight per box,kgs
+29,shipping,imperial,2,Sealer stage 1 liters per box/container,liters
+30,shipping,metric,2,Sealer stage 1 liters per box/container,liters
+31,shipping,imperial,4.4,Sealer stage 1 weight per box/container,pounds
+32,shipping,metric,2,Sealer stage 1 weight per box/container,kgs
+33,shipping,imperial,1,Sealer stage 2 liters per box/container,liters
+34,shipping,metric,1,Sealer stage 2 liters per box/container,liters
+35,shipping,imperial,2.08,Sealer stage 2 weight per box/container,pounds
+36,shipping,metric,1,Sealer stage 2 weight per box,kgs

@@ -109,3 +109,32 @@ input + label {
 .form--group {
     text-align: center;
 }
+.js--hook-units-vol,
+.js--hook-units-area {
+    padding-bottom: 5px;
+}
+
+// Modal form
+.form--flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: flex-start;
+    align-items: center;
+}
+.form--section {
+    margin: 5px 0px;
+}
+.flex--column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.required:after {
+    content: "*";
+    color: red;
+}
+.invalid-input {
+    // outline: 2px solid red;
+    border: 2px solid red;
+}

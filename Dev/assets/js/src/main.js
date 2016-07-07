@@ -1,159 +1,301 @@
 function updateState(newState) {
-    let oldState = localStorage.getItem('CTstate');
+    let oldState = localStorage.CTstate;
     if (oldState) {
         if (JSON.parse(oldState).timestamp <= newState.timestamp) {
             localStorage.setItem('CTstate', JSON.stringify(newState));
-        } else {
-
         }
     } else {
         localStorage.setItem('CTstate', JSON.stringify(newState));
     }
-};
+}
 
 function updateTimestamp(state) {
     state.timestamp = Math.floor(new Date().getTime() / 1000);
-};
+}
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
 
 function fetchVars(vars) {
-    let xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    if(window.fetch){
+        let myInit = { method: 'GET',
+                    mode: 'cors',
+                    cache: 'default' };
+        window.fetch('https://fieldbookcode.com/5776ee58633c03030006c8ab/get-codelet', myInit)
+            .then(function(response){
+                return response.json();
+            }).then(function(json){
 
-    xhr.addEventListener("readystatechange", function() {
-        if (this.readyState === 4) {
-            // console.log(this.responseText);
-            let data = JSON.parse(this.responseText);
-            vars.metric = {};
-            vars.imperial = {};
-            vars.metric.sealer = {};
-            vars.imperial.sealer = {};
-            vars.metric.buw = {};
-            vars.imperial.buw = {};
-            vars.metric.nob = {};
-            vars.imperial.nob = {};
-            vars.metric.shipping = {};
-            vars.imperial.shipping = {};
-            vars.metric.shipping.adhesive = {};
-            vars.imperial.shipping.adhesive = {};
-            vars.metric.shipping.sealer = {};
-            vars.imperial.shipping.sealer = {};
-            vars.metric.shipping.sealer.stageOne = {};
-            vars.imperial.shipping.sealer.stageOne = {};
-            vars.metric.shipping.sealer.stageTwo = {};
-            vars.imperial.shipping.sealer.stageTwo = {};
-            vars.metric.shipping.ct8502 = 0;
-            vars.imperial.shipping.ct8502 = 0;
-            vars.metric.shipping.ct8504 = 0;
-            vars.imperial.shipping.ct8504 = 0;
-            vars.ct300 = {};
-            vars.ct300.shipping = {};
-            vars.ct300.shipping.metric = 0;
-            vars.ct300.shipping.imperial = 0;
-            vars.ct8502 = {};
-            vars.ct8504 = {};
-            vars.ct8502.shipping = {};
-            vars.ct8504.shipping = {};
-            vars.ct8502.shipping.metric = 0;
-            vars.ct8504.shipping.metric = 0;
-            vars.ct8502.shipping.imperial = 0;
-            vars.ct8504.shipping.imperial = 0;
-            for (let i = 0; i < data.length; i++) {
-                if (data[i].Order === "1") {
-                    vars.imperial.adhesive = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "2") {
-                    vars.metric.adhesive = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "3") {
-                    vars.imperial.sealer.stageOne = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "4") {
-                    vars.metric.sealer.stageOne = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "5") {
-                    vars.imperial.sealer.stageTwo = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "6") {
-                    vars.metric.sealer.stageTwo = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "7") {
-                    // releaser
-                } else if (data[i].Order === "8") {
-                    // releaser
-                } else if (data[i].Order === "9") {
-                    vars.imperial.buw.ct300 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "10") {
-                    vars.metric.buw.ct300 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "11") {
-                    vars.imperial.buw.ct850 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "12") {
-                    vars.metric.buw.ct850 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "13") {
-                    vars.imperial.nob.ct300 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "14") {
-                    vars.metric.nob.ct300 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "15") {
-                    vars.imperial.nob.ct8504 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "16") {
-                    vars.metric.nob.ct8504 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "17") {
-                    vars.imperial.nob.ct8502 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "18") {
-                    vars.metric.nob.ct8502 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "19") {
-                    vars.ct300.shipping.imperial = parseFloat(data[i].Coverage);
-                    vars.imperial.shipping.ct300 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "20") {
-                    // console.log(vars.ct300);
-                    vars.ct300.shipping.metric = parseFloat(data[i].Coverage);
-                    vars.metric.shipping.ct300 = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "21") {
-                    vars.imperial.shipping.ct8502 = parseFloat(data[i].Coverage);
-                    vars.ct8502.shipping.imperial = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "22") {
-                    vars.metric.shipping.ct8502 = parseFloat(data[i].Coverage);
-                    vars.ct8502.shipping.metric = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "23") {
-                    vars.imperial.shipping.ct8504 = parseFloat(data[i].Coverage);
-                    vars.ct8504.shipping.imperial = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "24") {
-                    vars.metric.shipping.ct8504 = parseFloat(data[i].Coverage);
-                    vars.ct8504.shipping.metric = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "25") {
-                    vars.imperial.shipping.adhesive.liters = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "26") {
-                    vars.metric.shipping.adhesive.liters = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "27") {
-                    vars.imperial.shipping.adhesive.weight = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "28") {
-                    vars.metric.shipping.adhesive.weight = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "29") {
-                    vars.imperial.shipping.sealer.stageOne.liters = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "30") {
-                    vars.metric.shipping.sealer.stageOne.liters = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "31") {
-                    vars.imperial.shipping.sealer.stageOne.weight = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "32") {
-                    vars.metric.shipping.sealer.stageOne.weight = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "33") {
-                    vars.imperial.shipping.sealer.stageTwo.liters = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "34") {
-                    vars.metric.shipping.sealer.stageTwo.liters = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "35") {
-                    vars.imperial.shipping.sealer.stageTwo.weight = parseFloat(data[i].Coverage);
-                } else if (data[i].Order === "36") {
-                    vars.metric.shipping.sealer.stageTwo.weight = parseFloat(data[i].Coverage);
+                console.log('parsed json', json);
+                vars.metric = {};
+                vars.imperial = {};
+                vars.metric.sealer = {};
+                vars.imperial.sealer = {};
+                vars.metric.buw = {};
+                vars.imperial.buw = {};
+                vars.metric.nob = {};
+                vars.imperial.nob = {};
+                vars.metric.shipping = {};
+                vars.imperial.shipping = {};
+                vars.metric.shipping.adhesive = {};
+                vars.imperial.shipping.adhesive = {};
+                vars.metric.shipping.sealer = {};
+                vars.imperial.shipping.sealer = {};
+                vars.metric.shipping.sealer.stageOne = {};
+                vars.imperial.shipping.sealer.stageOne = {};
+                vars.metric.shipping.sealer.stageTwo = {};
+                vars.imperial.shipping.sealer.stageTwo = {};
+                vars.metric.shipping.ct8502 = 0;
+                vars.imperial.shipping.ct8502 = 0;
+                vars.metric.shipping.ct8504 = 0;
+                vars.imperial.shipping.ct8504 = 0;
+                vars.ct300 = {};
+                vars.ct300.shipping = {};
+                vars.ct300.shipping.metric = 0;
+                vars.ct300.shipping.imperial = 0;
+                vars.ct8502 = {};
+                vars.ct8504 = {};
+                vars.ct8502.shipping = {};
+                vars.ct8504.shipping = {};
+                vars.ct8502.shipping.metric = 0;
+                vars.ct8504.shipping.metric = 0;
+                vars.ct8502.shipping.imperial = 0;
+                vars.ct8504.shipping.imperial = 0;
+                for (let i = 0; i < json.length; i++) {
+                    if (json[i].order === 1) {
+                        vars.imperial.adhesive = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 2) {
+                        vars.metric.adhesive = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 3) {
+                        vars.imperial.sealer.stageOne = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 4) {
+                        vars.metric.sealer.stageOne = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 5) {
+                        vars.imperial.sealer.stageTwo = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 6) {
+                        vars.metric.sealer.stageTwo = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 7) {
+                        // releaser
+                    } else if (json[i].order === 8) {
+                        // releaser
+                    } else if (json[i].order === 9) {
+                        vars.imperial.buw.ct300 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 10) {
+                        vars.metric.buw.ct300 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 11) {
+                        vars.imperial.buw.ct850 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 12) {
+                        vars.metric.buw.ct850 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 13) {
+                        vars.imperial.nob.ct300 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 14) {
+                        vars.metric.nob.ct300 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 15) {
+                        vars.imperial.nob.ct8504 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 16) {
+                        vars.metric.nob.ct8504 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 17) {
+                        vars.imperial.nob.ct8502 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 18) {
+                        vars.metric.nob.ct8502 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 19) {
+                        vars.ct300.shipping.imperial = parseFloat(json[i].coverage);
+                        vars.imperial.shipping.ct300 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 20) {
+                        // console.log(vars.ct300);
+                        vars.ct300.shipping.metric = parseFloat(json[i].coverage);
+                        vars.metric.shipping.ct300 = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 21) {
+                        vars.imperial.shipping.ct8502 = parseFloat(json[i].coverage);
+                        vars.ct8502.shipping.imperial = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 22) {
+                        vars.metric.shipping.ct8502 = parseFloat(json[i].coverage);
+                        vars.ct8502.shipping.metric = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 23) {
+                        vars.imperial.shipping.ct8504 = parseFloat(json[i].coverage);
+                        vars.ct8504.shipping.imperial = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 24) {
+                        vars.metric.shipping.ct8504 = parseFloat(json[i].coverage);
+                        vars.ct8504.shipping.metric = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 25) {
+                        vars.imperial.shipping.adhesive.liters = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 26) {
+                        vars.metric.shipping.adhesive.liters = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 27) {
+                        vars.imperial.shipping.adhesive.weight = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 28) {
+                        vars.metric.shipping.adhesive.weight = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 29) {
+                        vars.imperial.shipping.sealer.stageOne.liters = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 30) {
+                        vars.metric.shipping.sealer.stageOne.liters = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 31) {
+                        vars.imperial.shipping.sealer.stageOne.weight = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 32) {
+                        vars.metric.shipping.sealer.stageOne.weight = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 33) {
+                        vars.imperial.shipping.sealer.stageTwo.liters = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 34) {
+                        vars.metric.shipping.sealer.stageTwo.liters = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 35) {
+                        vars.imperial.shipping.sealer.stageTwo.weight = parseFloat(json[i].coverage);
+                    } else if (json[i].order === 36) {
+                        vars.metric.shipping.sealer.stageTwo.weight = parseFloat(json[i].coverage);
+                    }
                 }
+            }).catch(function(ex) {
+                console.log('parsing failed', ex);
+            });
+    } else {
+        let xhr = new XMLHttpRequest();
+        // xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function() {
+            if (this.readyState === 4) {
+                // console.log(this.responseText);
+                let data = JSON.parse(this.responseText);
+                vars.metric = {};
+                vars.imperial = {};
+                vars.metric.sealer = {};
+                vars.imperial.sealer = {};
+                vars.metric.buw = {};
+                vars.imperial.buw = {};
+                vars.metric.nob = {};
+                vars.imperial.nob = {};
+                vars.metric.shipping = {};
+                vars.imperial.shipping = {};
+                vars.metric.shipping.adhesive = {};
+                vars.imperial.shipping.adhesive = {};
+                vars.metric.shipping.sealer = {};
+                vars.imperial.shipping.sealer = {};
+                vars.metric.shipping.sealer.stageOne = {};
+                vars.imperial.shipping.sealer.stageOne = {};
+                vars.metric.shipping.sealer.stageTwo = {};
+                vars.imperial.shipping.sealer.stageTwo = {};
+                vars.metric.shipping.ct8502 = 0;
+                vars.imperial.shipping.ct8502 = 0;
+                vars.metric.shipping.ct8504 = 0;
+                vars.imperial.shipping.ct8504 = 0;
+                vars.ct300 = {};
+                vars.ct300.shipping = {};
+                vars.ct300.shipping.metric = 0;
+                vars.ct300.shipping.imperial = 0;
+                vars.ct8502 = {};
+                vars.ct8504 = {};
+                vars.ct8502.shipping = {};
+                vars.ct8504.shipping = {};
+                vars.ct8502.shipping.metric = 0;
+                vars.ct8504.shipping.metric = 0;
+                vars.ct8502.shipping.imperial = 0;
+                vars.ct8504.shipping.imperial = 0;
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].order === 1) {
+                        vars.imperial.adhesive = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 2) {
+                        vars.metric.adhesive = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 3) {
+                        vars.imperial.sealer.stageOne = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 4) {
+                        vars.metric.sealer.stageOne = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 5) {
+                        vars.imperial.sealer.stageTwo = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 6) {
+                        vars.metric.sealer.stageTwo = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 7) {
+                        // releaser
+                    } else if (data[i].order === 8) {
+                        // releaser
+                    } else if (data[i].order === 9) {
+                        vars.imperial.buw.ct300 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 10) {
+                        vars.metric.buw.ct300 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 11) {
+                        vars.imperial.buw.ct850 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 12) {
+                        vars.metric.buw.ct850 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 13) {
+                        vars.imperial.nob.ct300 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 14) {
+                        vars.metric.nob.ct300 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 15) {
+                        vars.imperial.nob.ct8504 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 16) {
+                        vars.metric.nob.ct8504 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 17) {
+                        vars.imperial.nob.ct8502 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 18) {
+                        vars.metric.nob.ct8502 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 19) {
+                        vars.ct300.shipping.imperial = parseFloat(data[i].coverage);
+                        vars.imperial.shipping.ct300 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 20) {
+                        // console.log(vars.ct300);
+                        vars.ct300.shipping.metric = parseFloat(data[i].coverage);
+                        vars.metric.shipping.ct300 = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 21) {
+                        vars.imperial.shipping.ct8502 = parseFloat(data[i].coverage);
+                        vars.ct8502.shipping.imperial = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 22) {
+                        vars.metric.shipping.ct8502 = parseFloat(data[i].coverage);
+                        vars.ct8502.shipping.metric = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 23) {
+                        vars.imperial.shipping.ct8504 = parseFloat(data[i].coverage);
+                        vars.ct8504.shipping.imperial = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 24) {
+                        vars.metric.shipping.ct8504 = parseFloat(data[i].coverage);
+                        vars.ct8504.shipping.metric = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 25) {
+                        vars.imperial.shipping.adhesive.liters = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 26) {
+                        vars.metric.shipping.adhesive.liters = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 27) {
+                        vars.imperial.shipping.adhesive.weight = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 28) {
+                        vars.metric.shipping.adhesive.weight = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 29) {
+                        vars.imperial.shipping.sealer.stageOne.liters = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 30) {
+                        vars.metric.shipping.sealer.stageOne.liters = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 31) {
+                        vars.imperial.shipping.sealer.stageOne.weight = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 32) {
+                        vars.metric.shipping.sealer.stageOne.weight = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 33) {
+                        vars.imperial.shipping.sealer.stageTwo.liters = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 34) {
+                        vars.metric.shipping.sealer.stageTwo.liters = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 35) {
+                        vars.imperial.shipping.sealer.stageTwo.weight = parseFloat(data[i].coverage);
+                    } else if (data[i].order === 36) {
+                        vars.metric.shipping.sealer.stageTwo.weight = parseFloat(data[i].coverage);
+                    }
+                }
+
             }
+        });
 
-        }
-    });
+        xhr.open("GET", "https://fieldbookcode.com/5776ee58633c03030006c8ab/get-codelet", false);
+        // xhr.setRequestHeader("authorization", "Basic cGRBek5zM3hxMjRNbTZiUGJ5ZjE6ZjlibzVBVjEyOTNoZUh4c3lIYml0cUc0RXlXWXhqenF4MndITmh0cQ==");
 
-    xhr.open("GET", "https://sheetsu.com/apis/v1.0/755fe98f1e9c", false);
-    xhr.setRequestHeader("authorization", "Basic cGRBek5zM3hxMjRNbTZiUGJ5ZjE6ZjlibzVBVjEyOTNoZUh4c3lIYml0cUc0RXlXWXhqenF4MndITmh0cQ==");
-
-    xhr.send();
-
-};
+        xhr.send();
+    
+    }
+}
 
 // Lets get the vars
 let constants = {};
 fetchVars(constants);
-// console.log(constants);
+console.log(constants);
 // console.log(constants.ct300);
 
 document.addEventListener("DOMContentLoaded", function(event) {
@@ -167,7 +309,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let unit_imperial_elem = document.getElementById('input--units-2');
 
     let unit_spans_elemCollection = document.getElementsByClassName('js--hook-units');
-
+    let volum_unit_spans = document.getElementsByClassName('js--hook-units-vol');
+    let area_unit_spans = document.getElementsByClassName('js--hook-units-area');
     // Block up weight + number of boards -> buw
     let buw_ct300_volume_elem = document.getElementById('input--buw_nob-1');
     let buw_ct8504_volume_elem = document.getElementById('input--buw_nob-2');
@@ -212,6 +355,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let btn_sealer_elem = document.getElementsByClassName("js--sealer")[0];
     let btn_export_elem = document.getElementsByClassName("js--export")[0];
     let btn_quote_elem = document.getElementsByClassName("js--quote")[0];
+    let btn_request_elem = document.getElementsByClassName("js--request")[0];
 
     // Logic
 
@@ -291,7 +435,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         */
         // permutate a
         state.form.buw.ct300.volume = newA;
-        if(state.units === "metric"){
+        if(state.form.units === "metric"){
             // update d
             output_buw_ct300_weight_elem.value = (constants.metric.buw.ct300 * newA).toFixed(3);
             // update f
@@ -341,7 +485,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         */
         // permutate b
         state.form.buw.ct8504.volume = newval
-        if(state.units === "metric"){
+        if(state.form.units === "metric"){
             // update e
             output_buw_ct850_weight_elem.value =  (constants.metric.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value))).toFixed(3);
             // update f
@@ -391,7 +535,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         */
         // permutate c
         state.form.buw.ct8502.volume = newval
-        if(state.units === "metric"){
+        if(state.form.units === "metric"){
             // update e
             output_buw_ct850_weight_elem.value = (constants.metric.buw.ct850 * (parseFloat(buw_ct8502_volume_elem.value) + parseFloat(buw_ct8504_volume_elem.value))).toFixed(3);
             // update f
@@ -626,11 +770,23 @@ document.addEventListener("DOMContentLoaded", function(event) {
             for (let i = 0; i < unit_spans_elemCollection.length; i++) {
                 unit_spans_elemCollection[i].innerText = "Kgs";
             }
+            for(let j=0; j<area_unit_spans.length; j++){
+                area_unit_spans[j].innerHTML = "m<sup>2</sup>";
+            }
+            for(let k=0; k<volum_unit_spans.length; k++){
+                volum_unit_spans[k].innerHTML = "m<sup>3</sup>";
+            }
         } else {
             unit_metric_elem.checked = false;
             unit_imperial_elem.checked = true;
             for (let i = 0; i < unit_spans_elemCollection.length; i++) {
                 unit_spans_elemCollection[i].innerText = "Lbs";
+            }
+            for(let j=0; j<area_unit_spans.length; j++){
+                area_unit_spans[j].innerHTML = "ft<sup>2</sup>";
+            }
+            for(let k=0; k<volum_unit_spans.length; k++){
+                volum_unit_spans[k].innerHTML = "ft<sup>3</sup>";
             }
         }
         // Block Up weight
@@ -854,13 +1010,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     let clearLinkElem = document.getElementsByClassName('js--clear')[0];
     clearLinkElem.onclick = function() {
-        localStorage.setItem('CTstate', "");
+        localStorage.setItem("CTstate", "");
         initializeInputs();
         let statetwo = {};
         let initform = getFormState();
         updateTimestamp(statetwo);
         statetwo.form = initform;
         updateState(statetwo);
+        document.getElementsByClassName('show')[0].className = "alert alert-info alert--info hide";
     };
 
 
@@ -868,12 +1025,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
     btn_units_elem.onclick = function() {
         if (state.form.units === "metric") {
             if (unit_metric_elem.checked === true) {
+                state.form.oldunits = state.form.units;
                 // Do nothing because the units haven't changed
             } else {
                 // Imperial is selected, previous units were metric, change all unit_spans_elemCollection to Lbs
                 for (let i = 0; i < unit_spans_elemCollection.length; i++) {
                     unit_spans_elemCollection[i].innerText = "Lbs";
                 }
+                for(let j=0; j<area_unit_spans.length; j++){
+                    area_unit_spans[j].innerHTML = "ft<sup>2</sup>";
+                }
+                for(let k=0; k<volum_unit_spans.length; k++){
+                    volum_unit_spans[k].innerHTML = "ft<sup>3</sup>";
+                }
+                state.form.oldunits = "metric";
                 state.form.units = "imperial";
                 updateTimestamp(state);
                 updateState(state);
@@ -882,12 +1047,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
         } else {
             if (unit_imperial_elem.checked === true) {
+                state.form.oldunits = state.form.units;
                 // do nothing, they are both imperial
             } else {
                 // it is imperial but they are changing it to metric
                 for (let i = 0; i < unit_spans_elemCollection.length; i++) {
                     unit_spans_elemCollection[i].innerText = "Kgs";
                 }
+                for(let j=0; j<area_unit_spans.length; j++){
+                    area_unit_spans[j].innerHTML = "m<sup>2</sup>";
+                }
+                for(let k=0; k<volum_unit_spans.length; k++){
+                    volum_unit_spans[k].innerHTML = "m<sup>3</sup>";
+                }
+                state.form.oldunits = "imperial";
                 state.form.units = "metric";
                 updateTimestamp(state);
                 updateState(state);
@@ -905,22 +1078,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
             buw_ct8502_volume_elem
             buw_ct8504_volume_elem
         */
-        if(parseFloat(buw_ct300_volume_elem.value) != state.form.buw.ct300.volume){
+        if(parseFloat(buw_ct300_volume_elem.value) != state.form.buw.ct300.volume || state.form.oldunits != state.form.units){
             changeA(state, parseFloat(buw_ct300_volume_elem.value));
         }
-        if(parseFloat(buw_ct8504_volume_elem.value) != state.form.buw.ct8504.volume){
+        if(parseFloat(buw_ct8504_volume_elem.value) != state.form.buw.ct8504.volume || state.form.oldunits != state.form.units){
             changeB(state, parseFloat(buw_ct8504_volume_elem.value));
         }
-        if(parseFloat(buw_ct8502_volume_elem.value) != state.form.buw.ct8502.volume){
+        if(parseFloat(buw_ct8502_volume_elem.value) != state.form.buw.ct8502.volume || state.form.oldunits != state.form.units){
             changeC(state, parseFloat(buw_ct8502_volume_elem.value));
         }
-        if(parseFloat(output_nob_ct300_elem.value) != state.form.nob.ct300.amount){
+        if(parseFloat(output_nob_ct300_elem.value) != state.form.nob.ct300.amount || state.form.oldunits != state.form.units){
             changeG(state, parseFloat(output_nob_ct300_elem.value));
         }
-        if(parseFloat(output_nob_ct8504_elem.value) != state.form.nob.ct8504.amount){
+        if(parseFloat(output_nob_ct8504_elem.value) != state.form.nob.ct8504.amount || state.form.oldunits != state.form.units){
             changeH(state, parseFloat(output_nob_ct8504_elem.value));
         }
-        if(parseFloat(output_nob_ct8502_elem.value) != state.form.nob.ct8502.amount){
+        if(parseFloat(output_nob_ct8502_elem.value) != state.form.nob.ct8502.amount || state.form.oldunits != state.form.units){
             changeI(state, parseFloat(output_nob_ct8502_elem.value));
         }
         calculateShippingWeight(state);
@@ -966,6 +1139,143 @@ document.addEventListener("DOMContentLoaded", function(event) {
     btn_sealer_elem.onclick = function() {
         calculateSealers(state);
         calculateShippingWeight(state);
+    }
+
+    btn_export_elem.onclick = function() {
+        let data;
+        data = `Compotool Material Calculator Export, ${new Date().toJSON().slice(0, 10)}  
+Units, ${state.form.units}
+Section, Blockup Weight
+ct300 volume, ${state.form.buw.ct300.volume}
+ct8504 volume, ${state.form.buw.ct8504.volume}
+ct8502 volume, ${state.form.buw.ct8502.volume} 
+ct300 weight, ${state.form.buw.ct300.weight} 
+ct850 weight, ${state.form.buw.ct850.weight} 
+total weight, ${state.form.buw.total.weight} 
+Section, Number of Boards 
+ct300 boards, ${state.form.nob.ct300.amount} 
+ct8504 boards, ${state.form.nob.ct8504.amount} 
+ct8502 boards, ${state.form.nob.ct8502.amount} 
+Section, Adhesive 
+Bonded Surface Area, ${state.form.adhesive.surfaceArea} 
+Volume of Adhesive, ${state.form.adhesive.volume} 
+Section, Sealer 
+Tool Surface Area, ${state.form.sealer.toolSurface} 
+Stage 1 Sealer Volume, ${state.form.sealer.stageOne}
+Stage 2 Sealer Volume, ${state.form.sealer.stageTwo} 
+Section, Shipping Weight 
+ct300 shipping weight, ${state.form.shipping.ct300}
+ct850 shipping weight, ${state.form.shipping.ct850}
+Adhesive shipping weight, ${state.form.shipping.adhesive}
+Sealer stage 1 weight, ${state.form.shipping.sealer.stageOne}
+Sealer stage 2 weight, ${state.form.shipping.sealer.stageTwo}
+Other weight, ${state.form.shipping.other}
+Total Shipping Weight, ${state.form.shipping.total}`;
+        download(`Compotool_data (${new Date().toJSON().slice(0, 10)}).csv`, data);
+    }
+
+
+    btn_request_elem.onclick = function(){
+        // We want to post the data to mailer.php
+        // compose data object
+        // form validation
+        let cname = document.getElementById("contact-name");
+        let cemail = document.getElementById("contact-email");
+        let ccompany = document.getElementById("contact-company");
+        let cphone = document.getElementById("contact-phone");
+        let caddress = document.getElementById("contact-address");
+        let cnotes = document.getElementById("contact-company");
+        if(cname.value === "" || cname.value === null){
+            cname.className += ' invalid-input';
+            return;
+        }
+        if(cemail.value === "" || cemail.value === null){
+            cemail.className += ' invalid-input';
+            return;
+        }
+        if(ccompany.value === "" || ccompany.value === null){
+            ccompany.className += ' invalid-input';
+            return;
+        }
+        if(cphone.value === "" || cphone.value === null){
+            cphone.className += ' invalid-input';
+            return;
+        }
+        if(caddress.value === "" || caddress.value === null){
+            caddress.className += ' invalid-input';
+            return;
+        }
+
+        let package = {};
+        package.contact = {};
+        package.input = {};
+        package.contact.name = cname.value;
+        package.contact.email = cemail.value;
+        package.contact.company_name = ccompany.value;
+        package.contact.phone_number = cphone.value;
+        package.contact.address = caddress.value;
+        package.contact.notes = cnotes.value;
+        package.input.units = state.form.units;
+        package.input.ct300 = {};
+        package.input.ct300.buv = state.form.buw.ct300.volume;
+        package.input.ct300.buw = state.form.buw.ct300.weight;
+        package.input.ct300.nob = state.form.nob.ct300.amount;
+        package.input.ct850 = {};
+        package.input.ct850.buw = state.form.buw.ct850.weight;
+        package.input.ct8504 = {};
+        package.input.ct8504.buv = state.form.buw.ct8504.volume;
+        package.input.ct8504.nob = state.form.nob.ct8504.amount;
+        package.input.ct8502 = {};
+        package.input.ct8502.buv = state.form.buw.ct8502.volume;
+        package.input.ct8502.nob = state.form.nob.ct8502.amount;
+        package.input.total = {};
+        package.input.total.buw = state.form.buw.total.weight;
+        package.input.adhesive = {};
+        package.input.adhesive.surface_area = state.form.adhesive.surfaceArea;
+        package.input.adhesive.volume = state.form.adhesive.volume;
+        package.input.sealer = {};
+        package.input.sealer.surface_area = state.form.sealer.toolSurface;
+        package.input.sealer.stageOne = state.form.sealer.stageOne;
+        package.input.sealer.stageTwo = state.form.sealer.stageTwo;
+        package.input.ship = {};
+        package.input.ship.ct300 = state.form.shipping.ct300;
+        package.input.ship.ct850 = state.form.shipping.ct850;
+        package.input.ship.adhesive = state.form.shipping.adhesive;
+        package.input.ship.sealerStageOne = state.form.shipping.sealer.stageOne;
+        package.input.ship.sealerStageTwo = state.form.shipping.sealer.stageTwo;
+        package.input.ship.other = state.form.shipping.other;
+        package.input.ship.total = state.form.shipping.total;
+
+        let toAddress = "neil@compotool.com"; // Test email address
+        let subject = "Someone has requested a quote for Compotool Products";
+        let head = "Below is thier contact information and below that is their quoted materials \n";
+        let contact = "Name: " + package["contact"]["name"] + "\n" + "Email: " + package["contact"]["email"] + "\n" + "Company Name: " + package["contact"]["company_name"] + "\n" + "Phone Number: " + package["contact"]["phone_number"] + "\n" + "Address: " + package["contact"]["address"] + "\n" + "Notes: " + package["contact"]["notes"];
+        let splitter = "\n\n\n ----------- DATA ---------- \n\n\n";
+        let inputData = "Units: " + package["input"]["units"] + "\n" + "ct300 blockup volume: " + package["input"]["ct300"]["buv"] + "\n" + "ct8504 blockup volume: " + package["input"]["ct8504"]["buv"] + "\n" + "ct8502 blockup volume: " + package["input"]["ct8502"]["buv"] + "\n" + "ct300 blockup weight: " + package["input"]["ct300"]["buw"] + "\n" + "ct850 blockup weight: " + package["input"]["ct850"]["buw"] + "\n" + "Total blockup weight: " + package["input"]["total"]["buw"] + "\n" + "Number of ct300 Boards: " + package["input"]["ct300"]["nob"] + "\n" + "Number of ct8504 Boards: " + package["input"]["ct8504"]["nob"] + "\n" + "Number of ct8502 Boards: " + package["input"]["ct8504"]["buw"] + "\n" + "Adhesive: " + "\n" + "Bonded Surface Area: " + package["input"]["adhesive"]["surface_area"] + "\n" + "Volume of adheisve: " + package["input"]["adhesive"]["volume"] + "\n" + "Sealer: " + "\n" + "Tool Surface Area: " + package["input"]["sealer"]["surface_area"] + "\n" + "Volume of Stage 1: " + package["input"]["sealer"]["stageOne"] + "\n" + "Volume of Stage 2: " + package["input"]["sealer"]["stageTwo"] + "\n" + "Shipping Weight: " + "\n" + "ct300 Shipping Weight: " + package["input"]["ship"]["ct300"] + "\n" + "ct850 Shipping Weight: " + package["input"]["ship"]["ct850"] + "\n" + "Asdhesive Shipping Weight: " + package["input"]["ship"]["adhesive"] + "\n" + "Sealer stage 1 Shipping Weight: " + package["input"]["ship"]["sealerStageOne"] + "\n" + "Sealer stage 2 Shipping Weight: " + package["input"]["ship"]["sealerStageTwo"] + "\n" + "Other Shipping Weight: " + package["input"]["ship"]["other"] + "\n" + "Total Shipping Weight: " + package["input"]["ship"]["total"] + "\n";
+
+        let foot = "This was sent at: " + new Date().toJSON().slice(0, 10);
+        let message = head + contact + splitter + inputData + foot;
+
+        let emailPackage = {};
+        emailPackage.message = message;
+        emailPackage.toAddress = toAddress;
+        emailPackage.subject = subject;
+        console.log(emailPackage);
+
+        let url = "./mailer.php";
+        let pos = new XMLHttpRequest();
+
+        pos.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                console.log(this.responseText);
+                window.location.href = "./index.html#thanks-modal";
+            }
+        });
+
+        pos.open("POST", url);
+        pos.setRequestHeader("content-type", "application/json");
+
+        pos.send(JSON.stringify(emailPackage));
     }
 
 
