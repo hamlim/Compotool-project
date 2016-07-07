@@ -1096,7 +1096,11 @@ input + label {
 }
 
 .invalid-input {
-  border: 2px solid red;
+  border: 1px solid red;
+}
+
+input:invalid {
+  border: 1px solid red;
 }
 
 .inline--block {

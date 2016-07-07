@@ -1077,7 +1077,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
             buw_ct300_volume_elem
             buw_ct8502_volume_elem
             buw_ct8504_volume_elem
+            output_nob_ct300_elem
+            output_nob_ct8504_elem
+            output_nob_ct8502_elem
         */
+
+
         if(parseFloat(buw_ct300_volume_elem.value) != state.form.buw.ct300.volume || state.form.oldunits != state.form.units){
             changeA(state, parseFloat(buw_ct300_volume_elem.value));
         }
@@ -1107,6 +1112,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
             buw_ct8502_volume_elem
             buw_ct8504_volume_elem
         */
+        // Validation
+        if(isNaN(parseFloat(buw_ct300_volume_elem.value))) {
+            buw_ct300_volume_elem.className += " invalid-input";
+            return;
+        }
+        if(isNaN(parseFloat(buw_ct8502_volume_elem.value))){
+            buw_ct8502_volume_elem.className += " invalid-input";
+            return;
+        }
+        if(isNaN(parseFloat(buw_ct8504_volume_elem.value))){
+            buw_ct8504_volume_elem.className += " invalid-input";
+            return;
+        }
         if(parseFloat(buw_ct300_volume_elem.value) != state.form.buw.ct300.volume){
             changeA(state, parseFloat(buw_ct300_volume_elem.value));
         }
@@ -1133,10 +1151,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
             adhesive_bondedSurface_elem.value
             output_adhesive_volumeAdhesive_elem.value
         */
+        if(isNaN(parseFloat(adhesive_bondedSurface_elem.value))) {
+            adhesive_bondedSurface_elem.className += " invalid-input";
+            return;
+        }
         calculateAdhesive(state);
         calculateShippingWeight(state);
     }
     btn_sealer_elem.onclick = function() {
+        if(isNaN(parseFloat(sealer_toolSurface_elem.value))) {
+            sealer_toolSurface_elem.className += " invalid-input";
+            return;
+        }
         calculateSealers(state);
         calculateShippingWeight(state);
     }
@@ -1205,7 +1231,6 @@ Total Shipping Weight, ${state.form.shipping.total}`;
             caddress.className += ' invalid-input';
             return;
         }
-
         let package = {};
         package.contact = {};
         package.input = {};
