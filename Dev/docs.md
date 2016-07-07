@@ -11,7 +11,7 @@
 
 ### TODO's for Webmaster of Compotool.com
 
-The website is packaged within a folder which includes its own `assets` folder, `bower_components`, `node_modules` folder and with other necessary web pages.
+The website is packaged within a folder which includes its own `assets` folder, `bower_components`, `node_modules` folder and with other necessary web pages. The entire code base is also available [here]()
 
 The file structure is as follows:
 ```
