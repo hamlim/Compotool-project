@@ -53,3 +53,15 @@ All the css is written in SCSS source files (./assets/css/src/), if you want to 
 ### Notes on JS
 
 The JS is the most vital part of the project, it is written in ES6 and transpiled to ES5 using grunt, if any edits need to be made they can be made within the ./assets/js/src/main.js file and transpiled in grunt with `grunt default` or `grunt es6`.
+
+### Notes on PHP
+
+For development I set up an email account for sending the emails about the quotes that users will want. The email address is `compotoolmailer@gmail.com` and is set up with some basic security defaults so that the PHPMailer class can use it and it's SMTP settings to send emails, if you have another option of sending emails (sendmail etc) all you need to do is parse the input from the AJAX post request from main.js which is an object like:
+```JSON
+{
+    "toAddress": "email@email.com",
+    "subject": "Email subject line",
+    "message": "Email body"
+}
+```
+
