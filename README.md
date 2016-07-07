@@ -11,7 +11,7 @@
 
 ### TODO's for Webmaster of Compotool.com
 
-The website is packaged within a folder which includes its own `assets` folder, `bower_components`, `node_modules` folder and with other necessary web pages. The files can also all be found on the github repo for the project [here](https://github.com/hamlim/Compotool-project). The `gh-pages` is the most up to date branch, and the website is all within the Dev folder.
+The website is packaged within a folder which includes its own `assets` folder, `bower_components`, `node_modules` folder and with other necessary web pages. The files can also all be found on the github repo for the project [here](https://github.com/hamlim/Compotool-project). The `gh-pages` is the most up to date branch, and the website is all within the Dev folder. A link to the running version of the website is [here](198.211.105.97) (This link may change in the future).
 
 The file structure is as follows:
 ```
