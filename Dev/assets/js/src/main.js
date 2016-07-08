@@ -631,35 +631,35 @@ document.addEventListener("DOMContentLoaded", function(event) {
         */
         if (state.form.units === "metric") {
             // output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * constants.metric.shipping.ct300;
-            output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * constants.ct300.shipping.metric;
+            output_ship_ct300_elem.value = Math.ceil(parseFloat(output_nob_ct300_elem.value) * constants.ct300.shipping.metric);
             state.form.shipping.ct300 = parseFloat(output_ship_ct300_elem.value);
-            output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) * constants.ct8502.shipping.metric) + (parseFloat(output_nob_ct8504_elem.value) * constants.ct8504.shipping.metric); // (parseFloat(output_nob_ct8502_elem.value) + parseFloat(output_nob_ct8504_elem.value)) * constants.metric.shipping.ct850;
+            output_ship_ct850_elem.value = Math.ceil((parseFloat(output_nob_ct8502_elem.value) * constants.ct8502.shipping.metric) + (parseFloat(output_nob_ct8504_elem.value) * constants.ct8504.shipping.metric)); 
             state.form.shipping.ct850 = parseFloat(output_ship_ct850_elem.value);
-            output_ship_adhesive_elem.value = (Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / constants.metric.shipping.adhesive.liters)) * constants.metric.shipping.adhesive.weight;
+            output_ship_adhesive_elem.value = Math.ceil((Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / constants.metric.shipping.adhesive.liters)) * constants.metric.shipping.adhesive.weight);
             state.form.shipping.adhesive = parseFloat(output_ship_adhesive_elem.value);
-            output_ship_sealerStage1_elem.value = (Math.ceil(parseFloat(output_sealer_stage1_elem.value) / constants.metric.shipping.sealer.stageOne.liters)) * constants.metric.shipping.sealer.stageOne.weight;
+            output_ship_sealerStage1_elem.value = Math.ceil((Math.ceil(parseFloat(output_sealer_stage1_elem.value) / constants.metric.shipping.sealer.stageOne.liters)) * constants.metric.shipping.sealer.stageOne.weight);
             state.form.shipping.sealer.stageOne = parseFloat(output_ship_sealerStage1_elem.value);
-            output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_sealer_stage2_elem.value) / constants.metric.shipping.sealer.stageTwo.liters)) * constants.metric.shipping.sealer.stageTwo.weight;
+            output_ship_sealerStage2_elem.value = Math.ceil((Math.ceil(parseFloat(output_sealer_stage2_elem.value) / constants.metric.shipping.sealer.stageTwo.liters)) * constants.metric.shipping.sealer.stageTwo.weight);
             state.form.shipping.sealer.stageTwo = parseFloat(output_ship_sealerStage2_elem.value);
-            output_ship_total_elem.value = parseFloat(output_ship_ct300_elem.value) + parseFloat(output_ship_adhesive_elem.value) + parseFloat(output_ship_sealerStage2_elem.value) + parseFloat(output_ship_sealerStage1_elem.value) + parseFloat(output_ship_ct850_elem.value) + parseFloat(output_ship_other_elem.value);
+            output_ship_total_elem.value = Math.ceil(parseFloat(output_ship_ct300_elem.value) + parseFloat(output_ship_adhesive_elem.value) + parseFloat(output_ship_sealerStage2_elem.value) + parseFloat(output_ship_sealerStage1_elem.value) + parseFloat(output_ship_ct850_elem.value) + parseFloat(output_ship_other_elem.value));
             state.form.shipping.total = parseFloat(output_ship_total_elem.value);
-            output_ship_other_elem.value = 0;
+            output_ship_other_elem.value = Math.ceil(parseFloat(output_ship_other_elem.value));
             state.form.shipping.other = parseFloat(output_ship_other_elem.value);
         } else {
             // output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * constants.imperial.shipping.ct300;
-            output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * constants.ct300.shipping.imperial;
+            output_ship_ct300_elem.value = Math.ceil(parseFloat(output_nob_ct300_elem.value) * constants.ct300.shipping.imperial);
             state.form.shipping.ct300 = parseFloat(output_ship_ct300_elem.value);
-            output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) * constants.ct8502.shipping.imperial) + (parseFloat(output_nob_ct8504_elem.value) * constants.ct8504.shipping.imperial); // (parseFloat(output_nob_ct8502_elem.value) * constants.imperial.shipping.ct8502) + (parseFloat(output_nob_ct8504_elem.value) * constants.imperial.shipping.ct8504);
+            output_ship_ct850_elem.value = Math.ceil((parseFloat(output_nob_ct8502_elem.value) * constants.ct8502.shipping.imperial) + (parseFloat(output_nob_ct8504_elem.value) * constants.ct8504.shipping.imperial));
             state.form.shipping.ct850 = parseFloat(output_ship_ct850_elem.value);
-            output_ship_adhesive_elem.value = (Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / constants.imperial.shipping.adhesive.liters)) * constants.imperial.shipping.adhesive.weight;
+            output_ship_adhesive_elem.value = Math.ceil((Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / constants.imperial.shipping.adhesive.liters)) * constants.imperial.shipping.adhesive.weight);
             state.form.shipping.adhesive = parseFloat(output_ship_adhesive_elem.value);
-            output_ship_sealerStage1_elem.value = (Math.ceil(parseFloat(output_sealer_stage1_elem.value) / constants.imperial.shipping.sealer.stageOne.liters)) * constants.imperial.shipping.sealer.stageOne.weight;
+            output_ship_sealerStage1_elem.value = Math.ceil((Math.ceil(parseFloat(output_sealer_stage1_elem.value) / constants.imperial.shipping.sealer.stageOne.liters)) * constants.imperial.shipping.sealer.stageOne.weight);
             state.form.shipping.sealer.stageOne = parseFloat(output_ship_sealerStage1_elem.value);
-            output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_sealer_stage2_elem.value) / constants.imperial.shipping.sealer.stageTwo.liters)) * constants.imperial.shipping.sealer.stageTwo.weight;
+            output_ship_sealerStage2_elem.value = Math.ceil((Math.ceil(parseFloat(output_sealer_stage2_elem.value) / constants.imperial.shipping.sealer.stageTwo.liters)) * constants.imperial.shipping.sealer.stageTwo.weight);
             state.form.shipping.sealer.stageTwo = parseFloat(output_ship_sealerStage2_elem.value);
-            output_ship_total_elem.value = parseFloat(output_ship_ct300_elem.value) + parseFloat(output_ship_adhesive_elem.value) + parseFloat(output_ship_sealerStage2_elem.value) + parseFloat(output_ship_sealerStage1_elem.value) + parseFloat(output_ship_ct850_elem.value) + parseFloat(output_ship_other_elem.value);
+            output_ship_total_elem.value = Math.ceil(parseFloat(output_ship_ct300_elem.value) + parseFloat(output_ship_adhesive_elem.value) + parseFloat(output_ship_sealerStage2_elem.value) + parseFloat(output_ship_sealerStage1_elem.value) + parseFloat(output_ship_ct850_elem.value) + parseFloat(output_ship_other_elem.value));
             state.form.shipping.total = parseFloat(output_ship_total_elem.value);
-            output_ship_other_elem.value = 0;
+            output_ship_other_elem.value = Math.ceil(parseFloat(output_ship_other_elem.value));
             state.form.shipping.other = parseFloat(output_ship_other_elem.value);
         }
         updateTimestamp(state);
@@ -1166,6 +1166,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         calculateSealers(state);
         calculateShippingWeight(state);
     }
+
+    // Handle other shipping weight
+    output_ship_other_elem.onkeypress = function(e){
+        if (!e) e = window.event;
+        if (e.keyCode == '13'){
+            state.form.shipping.other = parseFloat(output_ship_other_elem.value);
+            calculateShippingWeight(state);
+            return false;
+        }
+    }
+
 
     btn_export_elem.onclick = function() {
         let data;
