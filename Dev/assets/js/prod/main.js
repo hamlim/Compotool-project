@@ -1183,16 +1183,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
         data = (("Compotool Material Calculator Export, " + (new Date().toJSON().slice(0, 10))) + ("  \
 \nUnits, " + (state.form.units)) + ("\
 \nSection, Blockup Weight\
-\nct300 volume, " + (state.form.buw.ct300.volume)) + ("\
-\nct8504 volume, " + (state.form.buw.ct8504.volume)) + ("\
-\nct8502 volume, " + (state.form.buw.ct8502.volume)) + (" \
-\nct300 weight, " + (state.form.buw.ct300.weight)) + (" \
-\nct850 weight, " + (state.form.buw.ct850.weight)) + (" \
-\ntotal weight, " + (state.form.buw.total.weight)) + (" \
+\nCT300 Volume, " + (state.form.buw.ct300.volume)) + ("\
+\nCT8504 Volume, " + (state.form.buw.ct8504.volume)) + ("\
+\nCT8502 Volume, " + (state.form.buw.ct8502.volume)) + (" \
+\nCT300 Weight, " + (state.form.buw.ct300.weight)) + (" \
+\nCT850 weight, " + (state.form.buw.ct850.weight)) + (" \
+\nTotal Weight, " + (state.form.buw.total.weight)) + (" \
 \nSection, Number of Boards \
-\nct300 boards, " + (state.form.nob.ct300.amount)) + (" \
-\nct8504 boards, " + (state.form.nob.ct8504.amount)) + (" \
-\nct8502 boards, " + (state.form.nob.ct8502.amount)) + (" \
+\nCT300 Boards, " + (state.form.nob.ct300.amount)) + (" \
+\nCT8504 Boards, " + (state.form.nob.ct8504.amount)) + (" \
+\nCT8502 Boards, " + (state.form.nob.ct8502.amount)) + (" \
 \nSection, Adhesive \
 \nBonded Surface Area, " + (state.form.adhesive.surfaceArea)) + (" \
 \nVolume of Adhesive, " + (state.form.adhesive.volume)) + (" \
@@ -1201,12 +1201,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 \nStage 1 Sealer Volume, " + (state.form.sealer.stageOne)) + ("\
 \nStage 2 Sealer Volume, " + (state.form.sealer.stageTwo)) + (" \
 \nSection, Shipping Weight \
-\nct300 shipping weight, " + (state.form.shipping.ct300)) + ("\
-\nct850 shipping weight, " + (state.form.shipping.ct850)) + ("\
-\nAdhesive shipping weight, " + (state.form.shipping.adhesive)) + ("\
-\nSealer stage 1 weight, " + (state.form.shipping.sealer.stageOne)) + ("\
-\nSealer stage 2 weight, " + (state.form.shipping.sealer.stageTwo)) + ("\
-\nOther weight, " + (state.form.shipping.other)) + ("\
+\nCT300 Shipping Weight, " + (state.form.shipping.ct300)) + ("\
+\nCT850 Shipping Weight, " + (state.form.shipping.ct850)) + ("\
+\nAdhesive Shipping Weight, " + (state.form.shipping.adhesive)) + ("\
+\nSealer Stage 1 Weight, " + (state.form.shipping.sealer.stageOne)) + ("\
+\nSealer Stage 2 Weight, " + (state.form.shipping.sealer.stageTwo)) + ("\
+\nOther Weight, " + (state.form.shipping.other)) + ("\
 \nTotal Shipping Weight, " + (state.form.shipping.total)) + "");
         download((("Compotool_data (" + (new Date().toJSON().slice(0, 10))) + ").csv"), data);
     }
@@ -1288,14 +1288,111 @@ document.addEventListener("DOMContentLoaded", function(event) {
         var contact = "Name: " + package["contact"]["name"] + "\n" + "Email: " + package["contact"]["email"] + "\n" + "Company Name: " + package["contact"]["company_name"] + "\n" + "Phone Number: " + package["contact"]["phone_number"] + "\n" + "Address: " + package["contact"]["address"] + "\n" + "Notes: " + package["contact"]["notes"];
         var splitter = "\n\n\n ----------- DATA ---------- \n\n\n";
         var inputData = "Units: " + package["input"]["units"] + "\n" + "ct300 blockup volume: " + package["input"]["ct300"]["buv"] + "\n" + "ct8504 blockup volume: " + package["input"]["ct8504"]["buv"] + "\n" + "ct8502 blockup volume: " + package["input"]["ct8502"]["buv"] + "\n" + "ct300 blockup weight: " + package["input"]["ct300"]["buw"] + "\n" + "ct850 blockup weight: " + package["input"]["ct850"]["buw"] + "\n" + "Total blockup weight: " + package["input"]["total"]["buw"] + "\n" + "Number of ct300 Boards: " + package["input"]["ct300"]["nob"] + "\n" + "Number of ct8504 Boards: " + package["input"]["ct8504"]["nob"] + "\n" + "Number of ct8502 Boards: " + package["input"]["ct8504"]["buw"] + "\n" + "Adhesive: " + "\n" + "Bonded Surface Area: " + package["input"]["adhesive"]["surface_area"] + "\n" + "Volume of adheisve: " + package["input"]["adhesive"]["volume"] + "\n" + "Sealer: " + "\n" + "Tool Surface Area: " + package["input"]["sealer"]["surface_area"] + "\n" + "Volume of Stage 1: " + package["input"]["sealer"]["stageOne"] + "\n" + "Volume of Stage 2: " + package["input"]["sealer"]["stageTwo"] + "\n" + "Shipping Weight: " + "\n" + "ct300 Shipping Weight: " + package["input"]["ship"]["ct300"] + "\n" + "ct850 Shipping Weight: " + package["input"]["ship"]["ct850"] + "\n" + "Asdhesive Shipping Weight: " + package["input"]["ship"]["adhesive"] + "\n" + "Sealer stage 1 Shipping Weight: " + package["input"]["ship"]["sealerStageOne"] + "\n" + "Sealer stage 2 Shipping Weight: " + package["input"]["ship"]["sealerStageTwo"] + "\n" + "Other Shipping Weight: " + package["input"]["ship"]["other"] + "\n" + "Total Shipping Weight: " + package["input"]["ship"]["total"] + "\n";
-
+        var csvheader = "\n\n\n ----------- CSV Formatted Data ----------- \n\n\n";
+        var csvbody = (("Compotool Material Calculator Export, " + (new Date().toJSON().slice(0, 10))) + ("  \
+\nUnits, " + (state.form.units)) + ("\
+\nSection, Blockup Weight\
+\nCT300 Volume, " + (state.form.buw.ct300.volume)) + ("\
+\nCT8504 Volume, " + (state.form.buw.ct8504.volume)) + ("\
+\nCT8502 Volume, " + (state.form.buw.ct8502.volume)) + (" \
+\nCT300 Weight, " + (state.form.buw.ct300.weight)) + (" \
+\nCT850 weight, " + (state.form.buw.ct850.weight)) + (" \
+\nTotal Weight, " + (state.form.buw.total.weight)) + (" \
+\nSection, Number of Boards \
+\nCT300 Boards, " + (state.form.nob.ct300.amount)) + (" \
+\nCT8504 Boards, " + (state.form.nob.ct8504.amount)) + (" \
+\nCT8502 Boards, " + (state.form.nob.ct8502.amount)) + (" \
+\nSection, Adhesive \
+\nBonded Surface Area, " + (state.form.adhesive.surfaceArea)) + (" \
+\nVolume of Adhesive, " + (state.form.adhesive.volume)) + (" \
+\nSection, Sealer \
+\nTool Surface Area, " + (state.form.sealer.toolSurface)) + (" \
+\nStage 1 Sealer Volume, " + (state.form.sealer.stageOne)) + ("\
+\nStage 2 Sealer Volume, " + (state.form.sealer.stageTwo)) + (" \
+\nSection, Shipping Weight \
+\nCT300 Shipping Weight, " + (state.form.shipping.ct300)) + ("\
+\nCT850 Shipping Weight, " + (state.form.shipping.ct850)) + ("\
+\nAdhesive Shipping Weight, " + (state.form.shipping.adhesive)) + ("\
+\nSealer Stage 1 Weight, " + (state.form.shipping.sealer.stageOne)) + ("\
+\nSealer Stage 2 Weight, " + (state.form.shipping.sealer.stageTwo)) + ("\
+\nOther Weight, " + (state.form.shipping.other)) + ("\
+\nTotal Shipping Weight, " + (state.form.shipping.total)) + "");
         var foot = "This was sent at: " + new Date().toJSON().slice(0, 10);
-        var message = head + contact + splitter + inputData + foot;
+        var message = head + contact + splitter + inputData + csvheader + csvbody + foot;
+
+        var htmlcontact = (("Name: " + (package.contact.name)) + ("\
+\nEmail Address: " + (package.contact.email)) + ("\
+\nCompany Name: " + (package.contact.company_name)) + ("\
+\nPhone Number: " + (package.contact.phone_number)) + ("\
+\nAddress: " + (package.contact.address)) + ("\
+\nNotes: " + (package.contact.notes)) + "");
+        var htmlsplitter = "\n\n\n ----------- <strong>DATA (csv format)</strong> ---------- \n\n\n";
+        var htmlinputData = (("Compotool Material Calculator Export, " + (new Date().toJSON().slice(0, 10))) + ("  \
+\nUnits, " + (state.form.units)) + ("\
+\nSection, Blockup Weight\
+\nCT300 Volume, " + (state.form.buw.ct300.volume)) + ("\
+\nCT8504 Volume, " + (state.form.buw.ct8504.volume)) + ("\
+\nCT8502 Volume, " + (state.form.buw.ct8502.volume)) + (" \
+\nCT300 Weight, " + (state.form.buw.ct300.weight)) + (" \
+\nCT850 weight, " + (state.form.buw.ct850.weight)) + (" \
+\nTotal Weight, " + (state.form.buw.total.weight)) + (" \
+\nSection, Number of Boards \
+\nCT300 Boards, " + (state.form.nob.ct300.amount)) + (" \
+\nCT8504 Boards, " + (state.form.nob.ct8504.amount)) + (" \
+\nCT8502 Boards, " + (state.form.nob.ct8502.amount)) + (" \
+\nSection, Adhesive \
+\nBonded Surface Area, " + (state.form.adhesive.surfaceArea)) + (" \
+\nVolume of Adhesive, " + (state.form.adhesive.volume)) + (" \
+\nSection, Sealer \
+\nTool Surface Area, " + (state.form.sealer.toolSurface)) + (" \
+\nStage 1 Sealer Volume, " + (state.form.sealer.stageOne)) + ("\
+\nStage 2 Sealer Volume, " + (state.form.sealer.stageTwo)) + (" \
+\nSection, Shipping Weight \
+\nCT300 Shipping Weight, " + (state.form.shipping.ct300)) + ("\
+\nCT850 Shipping Weight, " + (state.form.shipping.ct850)) + ("\
+\nAdhesive Shipping Weight, " + (state.form.shipping.adhesive)) + ("\
+\nSealer Stage 1 Weight, " + (state.form.shipping.sealer.stageOne)) + ("\
+\nSealer Stage 2 Weight, " + (state.form.shipping.sealer.stageTwo)) + ("\
+\nOther Weight, " + (state.form.shipping.other)) + ("\
+\nTotal Shipping Weight, " + (state.form.shipping.total)) + "");
+        var htmltableheader = "\n\n\n ----------- <strong>DATA (table format)</strong> ---------- \n\n\n";
+        var htmltable = (("<table><tr><th>Compotool Material Calculator Export</th><th>" + (new Date().toJSON().slice(0, 10))) + ("</th></tr>  \
+\n<tr><td>Units</td><td>" + (state.form.units)) + ("</td></tr>\
+\n<tr><td>Section</td><td>Blockup Weight</td></tr>\
+\n<tr><td>CT300 Volume</td><td>" + (state.form.buw.ct300.volume)) + ("</td></tr>\
+\n<tr><td>CT8504 Volume</td><td>" + (state.form.buw.ct8504.volume)) + ("</td></tr>\
+\n<tr><td>CT8502 Volume</td><td>" + (state.form.buw.ct8502.volume)) + ("</td></tr>\
+\n<tr><td>CT300 Weight</td><td>" + (state.form.buw.ct300.weight)) + ("</td></tr>\
+\n<tr><td>CT850 weight</td><td>" + (state.form.buw.ct850.weight)) + ("</td></tr>\
+\n<tr><td>Total Weight</td><td>" + (state.form.buw.total.weight)) + ("</td></tr> \
+\n<tr><td>Section</td><td>Number of Boards</td></tr> \
+\n<tr><td>CT300 Boards</td><td>" + (state.form.nob.ct300.amount)) + ("</td></tr> \
+\n<tr><td>CT8504 Boards</td><td>" + (state.form.nob.ct8504.amount)) + ("</td></tr> \
+\n<tr><td>CT8502 Boards</td><td>" + (state.form.nob.ct8502.amount)) + ("</td></tr> \
+\n<tr><td>Section</td><td>Adhesive </td></tr>\
+\n<tr><td>Bonded Surface Area</td><td>" + (state.form.adhesive.surfaceArea)) + ("</td></tr> \
+\n<tr><td>Volume of Adhesive</td><td>" + (state.form.adhesive.volume)) + (" </td></tr>\
+\n<tr><td>Section</td><td>Sealer </td></tr>\
+\n<tr><td>Tool Surface Area</td><td>" + (state.form.sealer.toolSurface)) + (" </td></tr>\
+\n<tr><td>Stage 1 Sealer Volume</td><td>" + (state.form.sealer.stageOne)) + ("</td></tr>\
+\n<tr><td>Stage 2 Sealer Volume</td><td>" + (state.form.sealer.stageTwo)) + (" </td></tr>\
+\n<tr><td>Section</td><td>Shipping Weight </td></tr>\
+\n<tr><td>CT300 Shipping Weight</td><td>" + (state.form.shipping.ct300)) + ("</td></tr>\
+\n<tr><td>CT850 Shipping Weight</td><td>" + (state.form.shipping.ct850)) + ("</td></tr>\
+\n<tr><td>Adhesive Shipping Weight</td><td>" + (state.form.shipping.adhesive)) + ("</td></tr>\
+\n<tr><td>Sealer Stage 1 Weight</td><td>" + (state.form.shipping.sealer.stageOne)) + ("</td></tr>\
+\n<tr><td>Sealer Stage 2 Weight</td><td>" + (state.form.shipping.sealer.stageTwo)) + ("</td></tr>\
+\n<tr><td>Other Weight</td><td>" + (state.form.shipping.other)) + ("</td></tr>\
+\n<tr><td>Total Shipping Weight</td><td>" + (state.form.shipping.total)) + "</td></tr></table>");
+        var htmlfooter = ("This was sent at:  " + (new Date().toJSON().slice(0, 10)));
+
+        var htmlmessage = head + htmlcontact + htmlsplitter + htmlinputData + htmltableheader + htmltable + htmlfooter;
 
         var emailPackage = {};
         emailPackage.message = message;
         emailPackage.toAddress = toAddress;
         emailPackage.subject = subject;
+        emailPackage.htmlBody = htmlmessage;
         console.log(emailPackage);
 
         var url = "./mailer.php";
