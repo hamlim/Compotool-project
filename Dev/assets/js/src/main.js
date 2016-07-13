@@ -1320,10 +1320,79 @@ Total Shipping Weight, ${state.form.shipping.total}`;
         let foot = "This was sent at: " + new Date().toJSON().slice(0, 10);
         let message = head + contact + splitter + inputData + csvheader + csvbody + foot;
 
+        let htmlcontact = `Name: ${package.contact.name}
+Email Address: ${package.contact.email}
+Company Name: ${package.contact.company_name}
+Phone Number: ${package.contact.phone_number}
+Address: ${package.contact.address}
+Notes: ${package.contact.notes}`;
+        let htmlsplitter = "\n\n\n ----------- <strong>DATA (csv format)</strong> ---------- \n\n\n";
+        let htmlinputData = `Compotool Material Calculator Export, ${new Date().toJSON().slice(0, 10)}  
+Units, ${state.form.units}
+Section, Blockup Weight
+CT300 Volume, ${state.form.buw.ct300.volume}
+CT8504 Volume, ${state.form.buw.ct8504.volume}
+CT8502 Volume, ${state.form.buw.ct8502.volume} 
+CT300 Weight, ${state.form.buw.ct300.weight} 
+CT850 weight, ${state.form.buw.ct850.weight} 
+Total Weight, ${state.form.buw.total.weight} 
+Section, Number of Boards 
+CT300 Boards, ${state.form.nob.ct300.amount} 
+CT8504 Boards, ${state.form.nob.ct8504.amount} 
+CT8502 Boards, ${state.form.nob.ct8502.amount} 
+Section, Adhesive 
+Bonded Surface Area, ${state.form.adhesive.surfaceArea} 
+Volume of Adhesive, ${state.form.adhesive.volume} 
+Section, Sealer 
+Tool Surface Area, ${state.form.sealer.toolSurface} 
+Stage 1 Sealer Volume, ${state.form.sealer.stageOne}
+Stage 2 Sealer Volume, ${state.form.sealer.stageTwo} 
+Section, Shipping Weight 
+CT300 Shipping Weight, ${state.form.shipping.ct300}
+CT850 Shipping Weight, ${state.form.shipping.ct850}
+Adhesive Shipping Weight, ${state.form.shipping.adhesive}
+Sealer Stage 1 Weight, ${state.form.shipping.sealer.stageOne}
+Sealer Stage 2 Weight, ${state.form.shipping.sealer.stageTwo}
+Other Weight, ${state.form.shipping.other}
+Total Shipping Weight, ${state.form.shipping.total}`;
+        let htmltableheader = "\n\n\n ----------- <strong>DATA (table format)</strong> ---------- \n\n\n";
+        let htmltable = `<table><tr><th>Compotool Material Calculator Export</th><th>${new Date().toJSON().slice(0, 10)}</th></tr>  
+<tr><td>Units</td><td>${state.form.units}</td></tr>
+<tr><td>Section</td><td>Blockup Weight</td></tr>
+<tr><td>CT300 Volume</td><td>${state.form.buw.ct300.volume}</td></tr>
+<tr><td>CT8504 Volume</td><td>${state.form.buw.ct8504.volume}</td></tr>
+<tr><td>CT8502 Volume</td><td>${state.form.buw.ct8502.volume}</td></tr>
+<tr><td>CT300 Weight</td><td>${state.form.buw.ct300.weight}</td></tr>
+<tr><td>CT850 weight</td><td>${state.form.buw.ct850.weight}</td></tr>
+<tr><td>Total Weight</td><td>${state.form.buw.total.weight}</td></tr> 
+<tr><td>Section</td><td>Number of Boards</td></tr> 
+<tr><td>CT300 Boards</td><td>${state.form.nob.ct300.amount}</td></tr> 
+<tr><td>CT8504 Boards</td><td>${state.form.nob.ct8504.amount}</td></tr> 
+<tr><td>CT8502 Boards</td><td>${state.form.nob.ct8502.amount}</td></tr> 
+<tr><td>Section</td><td>Adhesive </td></tr>
+<tr><td>Bonded Surface Area</td><td>${state.form.adhesive.surfaceArea}</td></tr> 
+<tr><td>Volume of Adhesive</td><td>${state.form.adhesive.volume} </td></tr>
+<tr><td>Section</td><td>Sealer </td></tr>
+<tr><td>Tool Surface Area</td><td>${state.form.sealer.toolSurface} </td></tr>
+<tr><td>Stage 1 Sealer Volume</td><td>${state.form.sealer.stageOne}</td></tr>
+<tr><td>Stage 2 Sealer Volume</td><td>${state.form.sealer.stageTwo} </td></tr>
+<tr><td>Section</td><td>Shipping Weight </td></tr>
+<tr><td>CT300 Shipping Weight</td><td>${state.form.shipping.ct300}</td></tr>
+<tr><td>CT850 Shipping Weight</td><td>${state.form.shipping.ct850}</td></tr>
+<tr><td>Adhesive Shipping Weight</td><td>${state.form.shipping.adhesive}</td></tr>
+<tr><td>Sealer Stage 1 Weight</td><td>${state.form.shipping.sealer.stageOne}</td></tr>
+<tr><td>Sealer Stage 2 Weight</td><td>${state.form.shipping.sealer.stageTwo}</td></tr>
+<tr><td>Other Weight</td><td>${state.form.shipping.other}</td></tr>
+<tr><td>Total Shipping Weight</td><td>${state.form.shipping.total}</td></tr></table>`;
+        let htmlfooter = `This was sent at:  ${new Date().toJSON().slice(0, 10)}`;
+
+        let htmlmessage = head + htmlcontact + htmlsplitter + htmlinputData + htmltableheader + htmltable + htmlfooter;
+
         let emailPackage = {};
         emailPackage.message = message;
         emailPackage.toAddress = toAddress;
         emailPackage.subject = subject;
+        emailPackage.htmlBody = htmlmessage;
         console.log(emailPackage);
 
         let url = "./mailer.php";
