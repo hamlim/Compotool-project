@@ -1279,4 +1279,8 @@ img {
   text-align: right;
 }
 
+.section--text-feature {
+  min-height: 100px;
+}
+
 /*# sourceMappingURL=main.css.map */
