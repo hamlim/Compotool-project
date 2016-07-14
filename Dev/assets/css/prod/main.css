@@ -74,7 +74,6 @@ a:hover {
   height: 14px;
   font-size: 13px;
   font-weight: normal;
-  padding: 10px 15px 14px 18px;
 }
 
 .font--thin {
@@ -850,8 +849,9 @@ a:hover {
   display: inline-block;
 }
 
-.nav--li + .nav--li {
+.nav--li {
   padding-left: 1em;
+  padding-right: 1em;
 }
 
 .nav--image {
@@ -871,6 +871,48 @@ a:hover {
   -webkit-opacity: 0.8;
   width: 960px;
   content: "";
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.hidden--dropdown {
+  display: none;
+  visibility: hidden;
+  background-color: white;
+  color: black;
+  position: absolute;
+  min-width: 100%;
+  margin-left: -1em;
+}
+
+.dropdown:hover {
+  background-color: white;
+}
+.dropdown:hover a {
+  color: black;
+}
+.dropdown:hover a:hover {
+  color: #60D0E4;
+}
+.dropdown:hover .hidden--dropdown {
+  display: inline-block;
+  background-color: white;
+  visibility: visible;
+}
+
+.dropdownlink {
+  font-size: 13px;
+  display: block;
+  text-decoration: none;
+  color: black;
+  padding: 5px 20px 5px 20px;
+  border-top: 1px solid black;
+}
+.dropdownlink:hover {
+  color: #60D0E4;
 }
 
 .main {
