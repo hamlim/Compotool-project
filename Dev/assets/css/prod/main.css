@@ -1096,7 +1096,11 @@ input + label {
 }
 
 .invalid-input {
-  border: 2px solid red;
+  border: 1px solid red;
+}
+
+input:invalid {
+  border: 1px solid red;
 }
 
 .inline--block {
@@ -1273,6 +1277,10 @@ img {
 .modal-footer {
   border-top: #eee solid 1px;
   text-align: right;
+}
+
+.section--text-feature {
+  min-height: 90px;
 }
 
 /*# sourceMappingURL=main.css.map */

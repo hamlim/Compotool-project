@@ -631,35 +631,35 @@ document.addEventListener("DOMContentLoaded", function(event) {
         */
         if (state.form.units === "metric") {
             // output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * constants.metric.shipping.ct300;
-            output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * constants.ct300.shipping.metric;
+            output_ship_ct300_elem.value = Math.ceil(parseFloat(output_nob_ct300_elem.value) * constants.ct300.shipping.metric);
             state.form.shipping.ct300 = parseFloat(output_ship_ct300_elem.value);
-            output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) * constants.ct8502.shipping.metric) + (parseFloat(output_nob_ct8504_elem.value) * constants.ct8504.shipping.metric); // (parseFloat(output_nob_ct8502_elem.value) + parseFloat(output_nob_ct8504_elem.value)) * constants.metric.shipping.ct850;
+            output_ship_ct850_elem.value = Math.ceil((parseFloat(output_nob_ct8502_elem.value) * constants.ct8502.shipping.metric) + (parseFloat(output_nob_ct8504_elem.value) * constants.ct8504.shipping.metric)); 
             state.form.shipping.ct850 = parseFloat(output_ship_ct850_elem.value);
-            output_ship_adhesive_elem.value = (Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / constants.metric.shipping.adhesive.liters)) * constants.metric.shipping.adhesive.weight;
+            output_ship_adhesive_elem.value = Math.ceil((Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / constants.metric.shipping.adhesive.liters)) * constants.metric.shipping.adhesive.weight);
             state.form.shipping.adhesive = parseFloat(output_ship_adhesive_elem.value);
-            output_ship_sealerStage1_elem.value = (Math.ceil(parseFloat(output_sealer_stage1_elem.value) / constants.metric.shipping.sealer.stageOne.liters)) * constants.metric.shipping.sealer.stageOne.weight;
+            output_ship_sealerStage1_elem.value = Math.ceil((Math.ceil(parseFloat(output_sealer_stage1_elem.value) / constants.metric.shipping.sealer.stageOne.liters)) * constants.metric.shipping.sealer.stageOne.weight);
             state.form.shipping.sealer.stageOne = parseFloat(output_ship_sealerStage1_elem.value);
-            output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_sealer_stage2_elem.value) / constants.metric.shipping.sealer.stageTwo.liters)) * constants.metric.shipping.sealer.stageTwo.weight;
+            output_ship_sealerStage2_elem.value = Math.ceil((Math.ceil(parseFloat(output_sealer_stage2_elem.value) / constants.metric.shipping.sealer.stageTwo.liters)) * constants.metric.shipping.sealer.stageTwo.weight);
             state.form.shipping.sealer.stageTwo = parseFloat(output_ship_sealerStage2_elem.value);
-            output_ship_total_elem.value = parseFloat(output_ship_ct300_elem.value) + parseFloat(output_ship_adhesive_elem.value) + parseFloat(output_ship_sealerStage2_elem.value) + parseFloat(output_ship_sealerStage1_elem.value) + parseFloat(output_ship_ct850_elem.value) + parseFloat(output_ship_other_elem.value);
+            output_ship_total_elem.value = Math.ceil(parseFloat(output_ship_ct300_elem.value) + parseFloat(output_ship_adhesive_elem.value) + parseFloat(output_ship_sealerStage2_elem.value) + parseFloat(output_ship_sealerStage1_elem.value) + parseFloat(output_ship_ct850_elem.value) + parseFloat(output_ship_other_elem.value));
             state.form.shipping.total = parseFloat(output_ship_total_elem.value);
-            output_ship_other_elem.value = 0;
+            output_ship_other_elem.value = Math.ceil(parseFloat(output_ship_other_elem.value));
             state.form.shipping.other = parseFloat(output_ship_other_elem.value);
         } else {
             // output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * constants.imperial.shipping.ct300;
-            output_ship_ct300_elem.value = parseFloat(output_nob_ct300_elem.value) * constants.ct300.shipping.imperial;
+            output_ship_ct300_elem.value = Math.ceil(parseFloat(output_nob_ct300_elem.value) * constants.ct300.shipping.imperial);
             state.form.shipping.ct300 = parseFloat(output_ship_ct300_elem.value);
-            output_ship_ct850_elem.value = (parseFloat(output_nob_ct8502_elem.value) * constants.ct8502.shipping.imperial) + (parseFloat(output_nob_ct8504_elem.value) * constants.ct8504.shipping.imperial); // (parseFloat(output_nob_ct8502_elem.value) * constants.imperial.shipping.ct8502) + (parseFloat(output_nob_ct8504_elem.value) * constants.imperial.shipping.ct8504);
+            output_ship_ct850_elem.value = Math.ceil((parseFloat(output_nob_ct8502_elem.value) * constants.ct8502.shipping.imperial) + (parseFloat(output_nob_ct8504_elem.value) * constants.ct8504.shipping.imperial));
             state.form.shipping.ct850 = parseFloat(output_ship_ct850_elem.value);
-            output_ship_adhesive_elem.value = (Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / constants.imperial.shipping.adhesive.liters)) * constants.imperial.shipping.adhesive.weight;
+            output_ship_adhesive_elem.value = Math.ceil((Math.ceil(parseFloat(output_adhesive_volumeAdhesive_elem.value) / constants.imperial.shipping.adhesive.liters)) * constants.imperial.shipping.adhesive.weight);
             state.form.shipping.adhesive = parseFloat(output_ship_adhesive_elem.value);
-            output_ship_sealerStage1_elem.value = (Math.ceil(parseFloat(output_sealer_stage1_elem.value) / constants.imperial.shipping.sealer.stageOne.liters)) * constants.imperial.shipping.sealer.stageOne.weight;
+            output_ship_sealerStage1_elem.value = Math.ceil((Math.ceil(parseFloat(output_sealer_stage1_elem.value) / constants.imperial.shipping.sealer.stageOne.liters)) * constants.imperial.shipping.sealer.stageOne.weight);
             state.form.shipping.sealer.stageOne = parseFloat(output_ship_sealerStage1_elem.value);
-            output_ship_sealerStage2_elem.value = (Math.ceil(parseFloat(output_sealer_stage2_elem.value) / constants.imperial.shipping.sealer.stageTwo.liters)) * constants.imperial.shipping.sealer.stageTwo.weight;
+            output_ship_sealerStage2_elem.value = Math.ceil((Math.ceil(parseFloat(output_sealer_stage2_elem.value) / constants.imperial.shipping.sealer.stageTwo.liters)) * constants.imperial.shipping.sealer.stageTwo.weight);
             state.form.shipping.sealer.stageTwo = parseFloat(output_ship_sealerStage2_elem.value);
-            output_ship_total_elem.value = parseFloat(output_ship_ct300_elem.value) + parseFloat(output_ship_adhesive_elem.value) + parseFloat(output_ship_sealerStage2_elem.value) + parseFloat(output_ship_sealerStage1_elem.value) + parseFloat(output_ship_ct850_elem.value) + parseFloat(output_ship_other_elem.value);
+            output_ship_total_elem.value = Math.ceil(parseFloat(output_ship_ct300_elem.value) + parseFloat(output_ship_adhesive_elem.value) + parseFloat(output_ship_sealerStage2_elem.value) + parseFloat(output_ship_sealerStage1_elem.value) + parseFloat(output_ship_ct850_elem.value) + parseFloat(output_ship_other_elem.value));
             state.form.shipping.total = parseFloat(output_ship_total_elem.value);
-            output_ship_other_elem.value = 0;
+            output_ship_other_elem.value = Math.ceil(parseFloat(output_ship_other_elem.value));
             state.form.shipping.other = parseFloat(output_ship_other_elem.value);
         }
         updateTimestamp(state);
@@ -1077,7 +1077,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
             buw_ct300_volume_elem
             buw_ct8502_volume_elem
             buw_ct8504_volume_elem
+            output_nob_ct300_elem
+            output_nob_ct8504_elem
+            output_nob_ct8502_elem
         */
+
+
         if(parseFloat(buw_ct300_volume_elem.value) != state.form.buw.ct300.volume || state.form.oldunits != state.form.units){
             changeA(state, parseFloat(buw_ct300_volume_elem.value));
         }
@@ -1107,6 +1112,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
             buw_ct8502_volume_elem
             buw_ct8504_volume_elem
         */
+        // Validation
+        if(isNaN(parseFloat(buw_ct300_volume_elem.value))) {
+            buw_ct300_volume_elem.className += " invalid-input";
+            return;
+        }
+        if(isNaN(parseFloat(buw_ct8502_volume_elem.value))){
+            buw_ct8502_volume_elem.className += " invalid-input";
+            return;
+        }
+        if(isNaN(parseFloat(buw_ct8504_volume_elem.value))){
+            buw_ct8504_volume_elem.className += " invalid-input";
+            return;
+        }
         if(parseFloat(buw_ct300_volume_elem.value) != state.form.buw.ct300.volume){
             changeA(state, parseFloat(buw_ct300_volume_elem.value));
         }
@@ -1133,29 +1151,48 @@ document.addEventListener("DOMContentLoaded", function(event) {
             adhesive_bondedSurface_elem.value
             output_adhesive_volumeAdhesive_elem.value
         */
+        if(isNaN(parseFloat(adhesive_bondedSurface_elem.value))) {
+            adhesive_bondedSurface_elem.className += " invalid-input";
+            return;
+        }
         calculateAdhesive(state);
         calculateShippingWeight(state);
     }
     btn_sealer_elem.onclick = function() {
+        if(isNaN(parseFloat(sealer_toolSurface_elem.value))) {
+            sealer_toolSurface_elem.className += " invalid-input";
+            return;
+        }
         calculateSealers(state);
         calculateShippingWeight(state);
     }
+
+    // Handle other shipping weight
+    output_ship_other_elem.onkeypress = function(e){
+        if (!e) e = window.event;
+        if (e.keyCode == '13'){
+            state.form.shipping.other = parseFloat(output_ship_other_elem.value);
+            calculateShippingWeight(state);
+            return false;
+        }
+    }
+
 
     btn_export_elem.onclick = function() {
         let data;
         data = `Compotool Material Calculator Export, ${new Date().toJSON().slice(0, 10)}  
 Units, ${state.form.units}
 Section, Blockup Weight
-ct300 volume, ${state.form.buw.ct300.volume}
-ct8504 volume, ${state.form.buw.ct8504.volume}
-ct8502 volume, ${state.form.buw.ct8502.volume} 
-ct300 weight, ${state.form.buw.ct300.weight} 
-ct850 weight, ${state.form.buw.ct850.weight} 
-total weight, ${state.form.buw.total.weight} 
+CT300 Volume, ${state.form.buw.ct300.volume}
+CT8504 Volume, ${state.form.buw.ct8504.volume}
+CT8502 Volume, ${state.form.buw.ct8502.volume} 
+CT300 Weight, ${state.form.buw.ct300.weight} 
+CT850 weight, ${state.form.buw.ct850.weight} 
+Total Weight, ${state.form.buw.total.weight} 
 Section, Number of Boards 
-ct300 boards, ${state.form.nob.ct300.amount} 
-ct8504 boards, ${state.form.nob.ct8504.amount} 
-ct8502 boards, ${state.form.nob.ct8502.amount} 
+CT300 Boards, ${state.form.nob.ct300.amount} 
+CT8504 Boards, ${state.form.nob.ct8504.amount} 
+CT8502 Boards, ${state.form.nob.ct8502.amount} 
 Section, Adhesive 
 Bonded Surface Area, ${state.form.adhesive.surfaceArea} 
 Volume of Adhesive, ${state.form.adhesive.volume} 
@@ -1164,12 +1201,12 @@ Tool Surface Area, ${state.form.sealer.toolSurface}
 Stage 1 Sealer Volume, ${state.form.sealer.stageOne}
 Stage 2 Sealer Volume, ${state.form.sealer.stageTwo} 
 Section, Shipping Weight 
-ct300 shipping weight, ${state.form.shipping.ct300}
-ct850 shipping weight, ${state.form.shipping.ct850}
-Adhesive shipping weight, ${state.form.shipping.adhesive}
-Sealer stage 1 weight, ${state.form.shipping.sealer.stageOne}
-Sealer stage 2 weight, ${state.form.shipping.sealer.stageTwo}
-Other weight, ${state.form.shipping.other}
+CT300 Shipping Weight, ${state.form.shipping.ct300}
+CT850 Shipping Weight, ${state.form.shipping.ct850}
+Adhesive Shipping Weight, ${state.form.shipping.adhesive}
+Sealer Stage 1 Weight, ${state.form.shipping.sealer.stageOne}
+Sealer Stage 2 Weight, ${state.form.shipping.sealer.stageTwo}
+Other Weight, ${state.form.shipping.other}
 Total Shipping Weight, ${state.form.shipping.total}`;
         download(`Compotool_data (${new Date().toJSON().slice(0, 10)}).csv`, data);
     }
@@ -1205,7 +1242,6 @@ Total Shipping Weight, ${state.form.shipping.total}`;
             caddress.className += ' invalid-input';
             return;
         }
-
         let package = {};
         package.contact = {};
         package.input = {};
@@ -1252,14 +1288,111 @@ Total Shipping Weight, ${state.form.shipping.total}`;
         let contact = "Name: " + package["contact"]["name"] + "\n" + "Email: " + package["contact"]["email"] + "\n" + "Company Name: " + package["contact"]["company_name"] + "\n" + "Phone Number: " + package["contact"]["phone_number"] + "\n" + "Address: " + package["contact"]["address"] + "\n" + "Notes: " + package["contact"]["notes"];
         let splitter = "\n\n\n ----------- DATA ---------- \n\n\n";
         let inputData = "Units: " + package["input"]["units"] + "\n" + "ct300 blockup volume: " + package["input"]["ct300"]["buv"] + "\n" + "ct8504 blockup volume: " + package["input"]["ct8504"]["buv"] + "\n" + "ct8502 blockup volume: " + package["input"]["ct8502"]["buv"] + "\n" + "ct300 blockup weight: " + package["input"]["ct300"]["buw"] + "\n" + "ct850 blockup weight: " + package["input"]["ct850"]["buw"] + "\n" + "Total blockup weight: " + package["input"]["total"]["buw"] + "\n" + "Number of ct300 Boards: " + package["input"]["ct300"]["nob"] + "\n" + "Number of ct8504 Boards: " + package["input"]["ct8504"]["nob"] + "\n" + "Number of ct8502 Boards: " + package["input"]["ct8504"]["buw"] + "\n" + "Adhesive: " + "\n" + "Bonded Surface Area: " + package["input"]["adhesive"]["surface_area"] + "\n" + "Volume of adheisve: " + package["input"]["adhesive"]["volume"] + "\n" + "Sealer: " + "\n" + "Tool Surface Area: " + package["input"]["sealer"]["surface_area"] + "\n" + "Volume of Stage 1: " + package["input"]["sealer"]["stageOne"] + "\n" + "Volume of Stage 2: " + package["input"]["sealer"]["stageTwo"] + "\n" + "Shipping Weight: " + "\n" + "ct300 Shipping Weight: " + package["input"]["ship"]["ct300"] + "\n" + "ct850 Shipping Weight: " + package["input"]["ship"]["ct850"] + "\n" + "Asdhesive Shipping Weight: " + package["input"]["ship"]["adhesive"] + "\n" + "Sealer stage 1 Shipping Weight: " + package["input"]["ship"]["sealerStageOne"] + "\n" + "Sealer stage 2 Shipping Weight: " + package["input"]["ship"]["sealerStageTwo"] + "\n" + "Other Shipping Weight: " + package["input"]["ship"]["other"] + "\n" + "Total Shipping Weight: " + package["input"]["ship"]["total"] + "\n";
-
+        let csvheader = "\n\n\n ----------- CSV Formatted Data ----------- \n\n\n";
+        let csvbody = `Compotool Material Calculator Export, ${new Date().toJSON().slice(0, 10)}  
+Units, ${state.form.units}
+Section, Blockup Weight
+CT300 Volume, ${state.form.buw.ct300.volume}
+CT8504 Volume, ${state.form.buw.ct8504.volume}
+CT8502 Volume, ${state.form.buw.ct8502.volume} 
+CT300 Weight, ${state.form.buw.ct300.weight} 
+CT850 weight, ${state.form.buw.ct850.weight} 
+Total Weight, ${state.form.buw.total.weight} 
+Section, Number of Boards 
+CT300 Boards, ${state.form.nob.ct300.amount} 
+CT8504 Boards, ${state.form.nob.ct8504.amount} 
+CT8502 Boards, ${state.form.nob.ct8502.amount} 
+Section, Adhesive 
+Bonded Surface Area, ${state.form.adhesive.surfaceArea} 
+Volume of Adhesive, ${state.form.adhesive.volume} 
+Section, Sealer 
+Tool Surface Area, ${state.form.sealer.toolSurface} 
+Stage 1 Sealer Volume, ${state.form.sealer.stageOne}
+Stage 2 Sealer Volume, ${state.form.sealer.stageTwo} 
+Section, Shipping Weight 
+CT300 Shipping Weight, ${state.form.shipping.ct300}
+CT850 Shipping Weight, ${state.form.shipping.ct850}
+Adhesive Shipping Weight, ${state.form.shipping.adhesive}
+Sealer Stage 1 Weight, ${state.form.shipping.sealer.stageOne}
+Sealer Stage 2 Weight, ${state.form.shipping.sealer.stageTwo}
+Other Weight, ${state.form.shipping.other}
+Total Shipping Weight, ${state.form.shipping.total}`;
         let foot = "This was sent at: " + new Date().toJSON().slice(0, 10);
-        let message = head + contact + splitter + inputData + foot;
+        let message = head + contact + splitter + inputData + csvheader + csvbody + foot;
+
+        let htmlcontact = `Name: ${package.contact.name}
+Email Address: ${package.contact.email}
+Company Name: ${package.contact.company_name}
+Phone Number: ${package.contact.phone_number}
+Address: ${package.contact.address}
+Notes: ${package.contact.notes}`;
+        let htmlsplitter = "\n\n\n ----------- <strong>DATA (csv format)</strong> ---------- \n\n\n";
+        let htmlinputData = `Compotool Material Calculator Export, ${new Date().toJSON().slice(0, 10)}  
+Units, ${state.form.units}
+Section, Blockup Weight
+CT300 Volume, ${state.form.buw.ct300.volume}
+CT8504 Volume, ${state.form.buw.ct8504.volume}
+CT8502 Volume, ${state.form.buw.ct8502.volume} 
+CT300 Weight, ${state.form.buw.ct300.weight} 
+CT850 weight, ${state.form.buw.ct850.weight} 
+Total Weight, ${state.form.buw.total.weight} 
+Section, Number of Boards 
+CT300 Boards, ${state.form.nob.ct300.amount} 
+CT8504 Boards, ${state.form.nob.ct8504.amount} 
+CT8502 Boards, ${state.form.nob.ct8502.amount} 
+Section, Adhesive 
+Bonded Surface Area, ${state.form.adhesive.surfaceArea} 
+Volume of Adhesive, ${state.form.adhesive.volume} 
+Section, Sealer 
+Tool Surface Area, ${state.form.sealer.toolSurface} 
+Stage 1 Sealer Volume, ${state.form.sealer.stageOne}
+Stage 2 Sealer Volume, ${state.form.sealer.stageTwo} 
+Section, Shipping Weight 
+CT300 Shipping Weight, ${state.form.shipping.ct300}
+CT850 Shipping Weight, ${state.form.shipping.ct850}
+Adhesive Shipping Weight, ${state.form.shipping.adhesive}
+Sealer Stage 1 Weight, ${state.form.shipping.sealer.stageOne}
+Sealer Stage 2 Weight, ${state.form.shipping.sealer.stageTwo}
+Other Weight, ${state.form.shipping.other}
+Total Shipping Weight, ${state.form.shipping.total}`;
+        let htmltableheader = "\n\n\n ----------- <strong>DATA (table format)</strong> ---------- \n\n\n";
+        let htmltable = `<table><tr><th>Compotool Material Calculator Export</th><th>${new Date().toJSON().slice(0, 10)}</th></tr>  
+<tr><td>Units</td><td>${state.form.units}</td></tr>
+<tr><td>Section</td><td>Blockup Weight</td></tr>
+<tr><td>CT300 Volume</td><td>${state.form.buw.ct300.volume}</td></tr>
+<tr><td>CT8504 Volume</td><td>${state.form.buw.ct8504.volume}</td></tr>
+<tr><td>CT8502 Volume</td><td>${state.form.buw.ct8502.volume}</td></tr>
+<tr><td>CT300 Weight</td><td>${state.form.buw.ct300.weight}</td></tr>
+<tr><td>CT850 weight</td><td>${state.form.buw.ct850.weight}</td></tr>
+<tr><td>Total Weight</td><td>${state.form.buw.total.weight}</td></tr> 
+<tr><td>Section</td><td>Number of Boards</td></tr> 
+<tr><td>CT300 Boards</td><td>${state.form.nob.ct300.amount}</td></tr> 
+<tr><td>CT8504 Boards</td><td>${state.form.nob.ct8504.amount}</td></tr> 
+<tr><td>CT8502 Boards</td><td>${state.form.nob.ct8502.amount}</td></tr> 
+<tr><td>Section</td><td>Adhesive </td></tr>
+<tr><td>Bonded Surface Area</td><td>${state.form.adhesive.surfaceArea}</td></tr> 
+<tr><td>Volume of Adhesive</td><td>${state.form.adhesive.volume} </td></tr>
+<tr><td>Section</td><td>Sealer </td></tr>
+<tr><td>Tool Surface Area</td><td>${state.form.sealer.toolSurface} </td></tr>
+<tr><td>Stage 1 Sealer Volume</td><td>${state.form.sealer.stageOne}</td></tr>
+<tr><td>Stage 2 Sealer Volume</td><td>${state.form.sealer.stageTwo} </td></tr>
+<tr><td>Section</td><td>Shipping Weight </td></tr>
+<tr><td>CT300 Shipping Weight</td><td>${state.form.shipping.ct300}</td></tr>
+<tr><td>CT850 Shipping Weight</td><td>${state.form.shipping.ct850}</td></tr>
+<tr><td>Adhesive Shipping Weight</td><td>${state.form.shipping.adhesive}</td></tr>
+<tr><td>Sealer Stage 1 Weight</td><td>${state.form.shipping.sealer.stageOne}</td></tr>
+<tr><td>Sealer Stage 2 Weight</td><td>${state.form.shipping.sealer.stageTwo}</td></tr>
+<tr><td>Other Weight</td><td>${state.form.shipping.other}</td></tr>
+<tr><td>Total Shipping Weight</td><td>${state.form.shipping.total}</td></tr></table>`;
+        let htmlfooter = `This was sent at:  ${new Date().toJSON().slice(0, 10)}`;
+
+        let htmlmessage = head + htmlcontact + htmlsplitter + htmlinputData + htmltableheader + htmltable + htmlfooter;
 
         let emailPackage = {};
         emailPackage.message = message;
         emailPackage.toAddress = toAddress;
         emailPackage.subject = subject;
+        emailPackage.htmlBody = htmlmessage;
         console.log(emailPackage);
 
         let url = "./mailer.php";
