@@ -22,6 +22,20 @@ module.exports = function(grunt) {
                 }
             }
         },
+        postcss: {
+            options: {
+                map: true, // inline sourcemaps
+                processors: [
+                    // require('pixrem')(), // add fallbacks for rem units
+                    require('autoprefixer')({browsers: 'ie >= 8, last 3 versions,> 2%'}) // add vendor prefixes
+                    // require('cssnano')() // minify the result
+                ]
+            },
+            dist: {
+                src: 'assets/css/prod/*.css',
+                dist: 'assets/css/prod/*.css'
+            }
+        },
         watch: {
             src: {
                 files: ['assets/js/src/*.js', 'assets/css/src/*.scss'],
@@ -43,12 +57,13 @@ module.exports = function(grunt) {
     // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-postcss');
     // grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-es6-transpiler');
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
     // Default task(s).
-    grunt.registerTask('default', ['es6transpiler', 'sass', 'uglify']);
+    grunt.registerTask('default', ['es6transpiler', 'sass', 'postcss']);
     grunt.registerTask('es6', 'es6transpiler');
     grunt.registerTask('jshint', 'jshint');
 

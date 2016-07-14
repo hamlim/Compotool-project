@@ -40,7 +40,7 @@ You will need to edit the following things:
 * filename of `index.html`
 * Line 1271 in `./assets/js/prod/main.js` `window.location.href = "./index.html#thanks-modal";` change the 'index.html' part of the string with the new filename for the HTML document
 * Add in the links to the other website pages to the `<nav></nav>` elements on `index.html` (Lines 22-67 in index.html)
-* Change the `toAddress` to whatever static email address you want the emails sent to (found on line 1249 in ./assets/js/prod/main.js)
+
 
 ### Notes on HTML
 
